@@ -203,12 +203,12 @@
  */
 package org.jooby.internal.spec;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class StaticValueCollector extends VoidVisitorAdapter<Context> {
 

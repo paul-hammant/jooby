@@ -203,23 +203,21 @@
  */
 package org.jooby.internal.hbm;
 
+import com.google.common.reflect.Reflection;
+import javaslang.concurrent.Promise;
+import org.jooby.Registry;
+
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.InjectionTarget;
-
-import org.jooby.Registry;
-
-import com.google.common.reflect.Reflection;
-
-import javaslang.concurrent.Promise;
 
 /**
  * Hack hibernate and allow guice to create entity listeners.
  */
 public class GuiceBeanManager {
 
-  @SuppressWarnings({"unchecked", "rawtypes" })
+  @SuppressWarnings({"unchecked", "rawtypes"})
   public static BeanManager beanManager(final Promise<Registry> injector) {
     return Reflection.newProxy(BeanManager.class, (proxy, method, args) -> {
       final String name = method.getName();

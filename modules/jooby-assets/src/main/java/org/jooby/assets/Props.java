@@ -203,16 +203,15 @@
  */
 package org.jooby.assets;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import com.typesafe.config.Config;
 import org.jooby.Env;
 import org.jooby.Env.Resolver;
 import org.jooby.MediaType;
 
-import com.typesafe.config.Config;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <h1>props</h1>

@@ -203,7 +203,14 @@
  */
 package org.jooby;
 
-import static java.util.Objects.requireNonNull;
+import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableList;
+import com.google.inject.Key;
+import com.google.inject.name.Names;
+import com.typesafe.config.Config;
+import javaslang.API;
+import javaslang.control.Option;
+import javaslang.control.Try.CheckedConsumer;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -221,15 +228,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import com.google.common.base.Splitter;
-import com.google.common.collect.ImmutableList;
-import com.google.inject.Key;
-import com.google.inject.name.Names;
-import com.typesafe.config.Config;
-
-import javaslang.API;
-import javaslang.control.Option;
-import javaslang.control.Try.CheckedConsumer;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Allows to optimize, customize or apply defaults values for application services.
@@ -254,7 +253,7 @@ import javaslang.control.Try.CheckedConsumer;
 public interface Env extends LifeCycle {
 
   /**
-   * Property source for {@link Resolver}
+   * Property get for {@link Resolver}
    *
    * @author edgar
    * @since 1.1.0
@@ -336,7 +335,7 @@ public interface Env extends LifeCycle {
     private boolean ignoreMissing;
 
     /**
-     * Set property source.
+     * Set property get.
      *
      * @param source Source.
      * @return This resolver.
@@ -346,7 +345,7 @@ public interface Env extends LifeCycle {
     }
 
     /**
-     * Set property source.
+     * Set property get.
      *
      * @param source Source.
      * @return This resolver.
@@ -357,7 +356,7 @@ public interface Env extends LifeCycle {
     }
 
     /**
-     * Set property source.
+     * Set property get.
      *
      * @param source Source.
      * @return This resolver.
@@ -392,7 +391,7 @@ public interface Env extends LifeCycle {
     /**
      * Returns a string with all substitutions (the <code>${foo.bar}</code> syntax,
      * see <a href="https://github.com/typesafehub/config/blob/master/HOCON.md">the
-     * spec</a>) resolved. Substitutions are looked up using the <code>source</code> param as the
+     * spec</a>) resolved. Substitutions are looked up using the <code>get</code> param as the
      * root object, that is, a substitution <code>${foo.bar}</code> will be replaced with
      * the result of <code>getValue("foo.bar")</code>.
      *

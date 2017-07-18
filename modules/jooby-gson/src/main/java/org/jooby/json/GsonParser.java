@@ -203,13 +203,12 @@
  */
 package org.jooby.json;
 
-import static java.util.Objects.requireNonNull;
-
+import com.google.gson.Gson;
+import com.google.inject.TypeLiteral;
 import org.jooby.MediaType;
 import org.jooby.Parser;
 
-import com.google.gson.Gson;
-import com.google.inject.TypeLiteral;
+import static java.util.Objects.requireNonNull;
 
 class GsonParser implements Parser {
 

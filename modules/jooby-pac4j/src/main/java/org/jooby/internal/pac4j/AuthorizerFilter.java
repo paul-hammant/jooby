@@ -203,11 +203,6 @@
  */
 package org.jooby.internal.pac4j;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.Arrays;
-import java.util.Map;
-
 import org.jooby.Err;
 import org.jooby.Request;
 import org.jooby.Response;
@@ -220,6 +215,11 @@ import org.pac4j.core.context.WebContext;
 import org.pac4j.core.profile.CommonProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Arrays;
+import java.util.Map;
+
+import static java.util.Objects.requireNonNull;
 
 public class AuthorizerFilter implements Route.Handler {
 
@@ -241,7 +241,8 @@ public class AuthorizerFilter implements Route.Handler {
     AuthorizationChecker authorizationChecker = req.require(AuthorizationChecker.class);
     Map<String, Authorizer> authorizers = config.getAuthorizers();
     log.debug("checking access for: {}", user);
-    if (!authorizationChecker.isAuthorized(ctx, Arrays.asList(user), this.authorizer, authorizers)) {
+    if (!authorizationChecker
+        .isAuthorized(ctx, Arrays.asList(user), this.authorizer, authorizers)) {
       log.debug("forbidden: {}", user);
       throw new Err(Status.FORBIDDEN);
     }

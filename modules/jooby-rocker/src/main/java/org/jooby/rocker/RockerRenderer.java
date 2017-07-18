@@ -203,17 +203,16 @@
  */
 package org.jooby.rocker;
 
-import java.nio.channels.Channels;
-import java.util.Map;
-
+import com.fizzed.rocker.Rocker;
+import com.fizzed.rocker.RockerModel;
+import com.fizzed.rocker.runtime.ArrayOfByteArraysOutput;
 import org.jooby.MediaType;
 import org.jooby.Renderer;
 import org.jooby.Route;
 import org.jooby.View;
 
-import com.fizzed.rocker.Rocker;
-import com.fizzed.rocker.RockerModel;
-import com.fizzed.rocker.runtime.ArrayOfByteArraysOutput;
+import java.nio.channels.Channels;
+import java.util.Map;
 
 class RockerRenderer implements Renderer {
 
@@ -226,7 +225,7 @@ class RockerRenderer implements Renderer {
     this.suffix = suffix;
   }
 
-  @SuppressWarnings({"rawtypes", "unchecked" })
+  @SuppressWarnings({"rawtypes", "unchecked"})
   @Override
   public void render(final Object value, final Context ctx) throws Exception {
     Object model = value;

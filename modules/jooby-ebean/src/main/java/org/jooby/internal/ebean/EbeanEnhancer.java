@@ -228,7 +228,7 @@ public class EbeanEnhancer {
 
   public static EbeanEnhancer newEnhancer(final String transformerClass,
       final String agentLoaderClass) {
-    String[] names = {transformerClass, agentLoaderClass };
+    String[] names = {transformerClass, agentLoaderClass};
     for (String name : names) {
       URL resource = EbeanEnhancer.class.getResource(name);
       if (resource == null) {

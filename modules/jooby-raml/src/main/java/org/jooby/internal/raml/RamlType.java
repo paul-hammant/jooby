@@ -203,6 +203,8 @@
  */
 package org.jooby.internal.raml;
 
+import com.google.common.collect.ImmutableList;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
@@ -218,8 +220,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-
-import com.google.common.collect.ImmutableList;
 
 public class RamlType {
 
@@ -253,7 +253,9 @@ public class RamlType {
     return properties;
   }
 
-  public String pattern(){ return pattern; }
+  public String pattern() {
+    return pattern;
+  }
 
   @Override
   public boolean equals(final Object obj) {
@@ -343,7 +345,7 @@ public class RamlType {
         Field[] fields = rawType.getDeclaredFields();
         Map<String, RamlType> props = new LinkedHashMap<>();
         for (Field field : fields) {
-          if(!field.getName().startsWith("_")) { // only not hidden properties
+          if (!field.getName().startsWith("_")) { // only not hidden properties
             RamlType ftype = parse(field.getGenericType(), ctx);
             if (field.getType().isArray()) {
               String ctype = ramlTypeName(field.getType());
@@ -481,8 +483,8 @@ public class RamlType {
 
   public boolean isCustom() {
     return properties != null ||
-            values != null ||
-            pattern != null;
+        values != null ||
+        pattern != null;
   }
 
   public boolean isObject() {

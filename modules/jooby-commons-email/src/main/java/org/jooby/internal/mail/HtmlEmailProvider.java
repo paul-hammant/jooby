@@ -203,11 +203,10 @@
  */
 package org.jooby.internal.mail;
 
-import javax.inject.Provider;
-
+import com.typesafe.config.Config;
 import org.apache.commons.mail.HtmlEmail;
 
-import com.typesafe.config.Config;
+import javax.inject.Provider;
 
 public class HtmlEmailProvider implements Provider<HtmlEmail> {
 

@@ -203,13 +203,13 @@
  */
 package org.jooby.mvc;
 
+import org.jooby.FlashScope;
+import org.jooby.Request;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
-import org.jooby.FlashScope;
-import org.jooby.Request;
 
 /**
  * <p>
@@ -254,6 +254,6 @@ import org.jooby.Request;
  * @see FlashScope
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.PARAMETER })
+@Target({ElementType.PARAMETER})
 public @interface Flash {
 }

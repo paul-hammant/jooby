@@ -203,14 +203,13 @@
  */
 package org.jooby.rocker;
 
+import com.google.inject.Binder;
+import com.google.inject.multibindings.Multibinder;
+import com.typesafe.config.Config;
 import org.jooby.Env;
 import org.jooby.Jooby.Module;
 import org.jooby.Renderer;
 import org.jooby.View;
-
-import com.google.inject.Binder;
-import com.google.inject.multibindings.Multibinder;
-import com.typesafe.config.Config;
 
 /**
  * <h1>rocker</h1>
@@ -286,7 +285,7 @@ import com.typesafe.config.Config;
  * <p>
  * We do provide code generation via Maven profile. All you have to do is to write a
  * <code>rocker.activator</code> file inside the <code>src/etc</code> folder. File presence triggers
- * generation of source code.
+ * generation of get code.
  * </p>
  *
  * <h3>gradle</h3>

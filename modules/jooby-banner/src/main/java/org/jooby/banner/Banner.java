@@ -203,25 +203,22 @@
  */
 package org.jooby.banner;
 
-import static com.github.lalyos.jfiglet.FigletFont.convertOneLine;
-import static java.util.Objects.requireNonNull;
-
-import java.util.Optional;
-
-import javax.inject.Provider;
-
-import org.jooby.Env;
-import org.jooby.Jooby.Module;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.common.base.CharMatcher;
 import com.google.inject.Binder;
 import com.google.inject.Key;
 import com.google.inject.name.Names;
 import com.typesafe.config.Config;
-
 import javaslang.control.Try;
+import org.jooby.Env;
+import org.jooby.Jooby.Module;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.inject.Provider;
+import java.util.Optional;
+
+import static com.github.lalyos.jfiglet.FigletFont.convertOneLine;
+import static java.util.Objects.requireNonNull;
 
 /**
  * <h1>banner</h1>

@@ -203,31 +203,9 @@
  */
 package org.jooby.internal.netty;
 
-import static javaslang.API.Case;
-import static javaslang.API.Match;
-import static javaslang.Predicates.is;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Optional;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ThreadFactory;
-import java.util.function.BiConsumer;
-
-import javax.inject.Inject;
-
-import org.jooby.spi.HttpHandler;
-import org.jooby.spi.Server;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 import com.typesafe.config.Config;
-
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelOption;
@@ -246,6 +224,25 @@ import io.netty.util.ResourceLeakDetector.Level;
 import io.netty.util.concurrent.DefaultEventExecutorGroup;
 import io.netty.util.concurrent.DefaultThreadFactory;
 import io.netty.util.concurrent.EventExecutorGroup;
+import org.jooby.spi.HttpHandler;
+import org.jooby.spi.Server;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.inject.Inject;
+import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ThreadFactory;
+import java.util.function.BiConsumer;
+
+import static javaslang.API.Case;
+import static javaslang.API.Match;
+import static javaslang.Predicates.is;
 
 public class NettyServer implements Server {
 
@@ -335,7 +332,7 @@ public class NettyServer implements Server {
     return Optional.ofNullable(executor);
   }
 
-  @SuppressWarnings({"rawtypes", "unchecked" })
+  @SuppressWarnings({"rawtypes", "unchecked"})
   private void configure(final Config config, final String path,
       final BiConsumer<ChannelOption<Object>, Object> setter) {
     config.entrySet().forEach(entry -> {

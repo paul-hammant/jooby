@@ -211,11 +211,25 @@
  *
  * http://www.apache.org/licenses/
  *
- * A copy is also included in the downloadable source code package
+ * A copy is also included in the downloadable get code package
  * containing Woodstox, in file "ASL2.0", under the same directory
  * as this file.
  */
 package org.jooby.internal.spec;
+
+import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.VariableDeclarator;
+import com.github.javaparser.ast.expr.ClassExpr;
+import com.github.javaparser.ast.expr.Expression;
+import com.github.javaparser.ast.expr.LambdaExpr;
+import com.github.javaparser.ast.expr.MethodCallExpr;
+import com.github.javaparser.ast.expr.ObjectCreationExpr;
+import com.github.javaparser.ast.type.ClassOrInterfaceType;
+import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
+import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import com.google.common.collect.Maps;
+import org.jooby.Route;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -230,21 +244,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
-
-import org.jooby.Route;
-
-import com.github.javaparser.ast.Node;
-import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.body.VariableDeclarator;
-import com.github.javaparser.ast.expr.ClassExpr;
-import com.github.javaparser.ast.expr.Expression;
-import com.github.javaparser.ast.expr.LambdaExpr;
-import com.github.javaparser.ast.expr.MethodCallExpr;
-import com.github.javaparser.ast.expr.ObjectCreationExpr;
-import com.github.javaparser.ast.type.ClassOrInterfaceType;
-import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
-import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
-import com.google.common.collect.Maps;
 
 public class RouteCollector extends VoidVisitorAdapter<Context> {
 

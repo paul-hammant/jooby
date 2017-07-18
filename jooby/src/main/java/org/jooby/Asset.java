@@ -203,13 +203,13 @@
  */
 package org.jooby;
 
-import static java.util.Objects.requireNonNull;
+import com.google.common.io.BaseEncoding;
+import com.google.common.primitives.Longs;
 
 import java.io.InputStream;
 import java.net.URL;
 
-import com.google.common.io.BaseEncoding;
-import com.google.common.primitives.Longs;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Usually a public file/resource like javascript, css, images files, etc...

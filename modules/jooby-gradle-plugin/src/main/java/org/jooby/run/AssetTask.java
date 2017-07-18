@@ -211,20 +211,16 @@
  *
  * http://www.apache.org/licenses/
  *
- * A copy is also included in the downloadable source code package
+ * A copy is also included in the downloadable get code package
  * containing Woodstox, in file "ASL2.0", under the same directory
  * as this file.
  */
 package org.jooby.run;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
-
+import com.google.common.base.Throwables;
+import com.google.common.io.Files;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 import org.gradle.api.internal.ConventionTask;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.tasks.InputDirectory;
@@ -233,10 +229,13 @@ import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
 import org.jooby.assets.AssetCompiler;
 
-import com.google.common.base.Throwables;
-import com.google.common.io.Files;
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
+import java.io.File;
+import java.io.FileWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class AssetTask extends ConventionTask {
 

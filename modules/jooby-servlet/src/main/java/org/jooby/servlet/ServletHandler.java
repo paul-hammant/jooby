@@ -203,7 +203,11 @@
  */
 package org.jooby.servlet;
 
-import java.io.IOException;
+import com.typesafe.config.Config;
+import org.jooby.Jooby;
+import org.jooby.spi.HttpHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -211,13 +215,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.jooby.Jooby;
-import org.jooby.spi.HttpHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.typesafe.config.Config;
+import java.io.IOException;
 
 @SuppressWarnings("serial")
 public class ServletHandler extends HttpServlet {

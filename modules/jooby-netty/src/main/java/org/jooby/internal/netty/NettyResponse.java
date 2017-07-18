@@ -203,20 +203,8 @@
  */
 package org.jooby.internal.netty;
 
-import static io.netty.channel.ChannelFutureListener.CLOSE;
-
-import java.io.InputStream;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
-import org.jooby.spi.NativeResponse;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.io.ByteStreams;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
@@ -240,6 +228,16 @@ import io.netty.handler.stream.ChunkedNioFile;
 import io.netty.handler.stream.ChunkedStream;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.util.Attribute;
+import org.jooby.spi.NativeResponse;
+
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import static io.netty.channel.ChannelFutureListener.CLOSE;
 
 public class NettyResponse implements NativeResponse {
 

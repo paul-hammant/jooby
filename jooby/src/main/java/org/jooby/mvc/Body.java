@@ -225,6 +225,6 @@ import java.lang.annotation.Target;
  * @since 0.6.0
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.PARAMETER })
+@Target({ElementType.PARAMETER})
 public @interface Body {
 }

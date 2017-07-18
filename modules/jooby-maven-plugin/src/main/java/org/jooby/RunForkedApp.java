@@ -203,6 +203,9 @@
  */
 package org.jooby;
 
+import org.apache.maven.plugin.MojoFailureException;
+import org.jooby.run.Main;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -212,9 +215,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import org.apache.maven.plugin.MojoFailureException;
-import org.jooby.run.Main;
 
 public class RunForkedApp implements Command {
 
@@ -315,7 +315,7 @@ public class RunForkedApp implements Command {
     }
     // logback
     File[] logbackFiles = {localFile("conf", "logback-test.xml"),
-        localFile("conf", "logback.xml") };
+        localFile("conf", "logback.xml")};
     for (File logback : logbackFiles) {
       if (logback.exists()) {
         results.add("-Dlogback.configurationFile=" + logback.getAbsolutePath());

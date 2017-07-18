@@ -203,13 +203,7 @@
  */
 package org.jooby.internal.netty;
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import org.jooby.spi.HttpHandler;
-
 import com.typesafe.config.Config;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -236,6 +230,10 @@ import io.netty.handler.ssl.SslContext;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.AsciiString;
 import io.netty.util.concurrent.EventExecutorGroup;
+import org.jooby.spi.HttpHandler;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class NettyPipeline extends ChannelInitializer<SocketChannel> {
 

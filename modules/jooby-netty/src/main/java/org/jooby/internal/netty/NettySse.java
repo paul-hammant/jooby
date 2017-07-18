@@ -203,13 +203,7 @@
  */
 package org.jooby.internal.netty;
 
-import java.util.Optional;
-import java.util.function.Consumer;
-
-import org.jooby.Sse;
-
 import com.google.common.util.concurrent.MoreExecutors;
-
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -220,6 +214,10 @@ import io.netty.handler.codec.http.HttpHeaderNames;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpVersion;
 import javaslang.concurrent.Promise;
+import org.jooby.Sse;
+
+import java.util.Optional;
+import java.util.function.Consumer;
 
 public class NettySse extends Sse {
 

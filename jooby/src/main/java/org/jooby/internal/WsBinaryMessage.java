@@ -203,6 +203,14 @@
  */
 package org.jooby.internal;
 
+import com.google.common.base.Charsets;
+import com.google.common.collect.ImmutableMap;
+import com.google.inject.TypeLiteral;
+import org.jooby.Err;
+import org.jooby.MediaType;
+import org.jooby.Mutant;
+import org.jooby.Status;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -213,15 +221,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.SortedSet;
-
-import org.jooby.Err;
-import org.jooby.MediaType;
-import org.jooby.Mutant;
-import org.jooby.Status;
-
-import com.google.common.base.Charsets;
-import com.google.common.collect.ImmutableMap;
-import com.google.inject.TypeLiteral;
 
 public class WsBinaryMessage implements Mutant {
 

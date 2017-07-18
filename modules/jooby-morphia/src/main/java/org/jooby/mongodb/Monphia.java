@@ -203,11 +203,8 @@
  */
 package org.jooby.mongodb;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
+import com.google.inject.Binder;
+import com.typesafe.config.Config;
 import org.jooby.Env;
 import org.jooby.Env.ServiceKey;
 import org.jooby.internal.mongodb.AutoIncID;
@@ -218,8 +215,10 @@ import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.annotations.PrePersist;
 import org.mongodb.morphia.mapping.Mapper;
 
-import com.google.inject.Binder;
-import com.typesafe.config.Config;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Extends {@link Mongodb} with object-document mapping via {@link Morphia}.

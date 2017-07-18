@@ -203,15 +203,14 @@
  */
 package org.jooby.internal.pac4j;
 
+import com.google.common.io.BaseEncoding;
+import com.google.common.primitives.Primitives;
+import javaslang.control.Try;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
-import com.google.common.io.BaseEncoding;
-import com.google.common.primitives.Primitives;
-
-import javaslang.control.Try;
 
 public final class AuthSerializer {
 

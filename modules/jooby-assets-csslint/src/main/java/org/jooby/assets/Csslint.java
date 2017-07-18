@@ -203,9 +203,9 @@
  */
 package org.jooby.assets;
 
+import com.typesafe.config.Config;
 import org.jooby.MediaType;
 
-import com.typesafe.config.Config;
 /**
  * <h1>csslint</h1>
  * <p>

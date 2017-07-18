@@ -203,14 +203,12 @@
  */
 package org.jooby.sitemap;
 
-import java.util.List;
-
-import org.jooby.Route;
-
 import com.google.common.collect.ImmutableList;
-
 import cz.jiripinkas.jsitemapgenerator.ChangeFreq;
 import cz.jiripinkas.jsitemapgenerator.WebPage;
+import org.jooby.Route;
+
+import java.util.List;
 
 public interface WebPageProvider {
 
@@ -219,7 +217,7 @@ public interface WebPageProvider {
     page.setName(route.pattern());
     ChangeFreq freq = route.attr("changefreq");
     if (freq != null) {
-        page.setChangeFreq(freq);
+      page.setChangeFreq(freq);
     }
     Double priority = route.attr("priority");
     if (priority != null) {

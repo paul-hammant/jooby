@@ -203,9 +203,9 @@
  */
 package org.jooby.internal;
 
-import java.util.Optional;
-
 import org.jooby.Route;
+
+import java.util.Optional;
 
 public class RouteSourceImpl implements Route.Source {
 

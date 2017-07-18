@@ -203,11 +203,11 @@
  */
 package org.jooby.internal.spec;
 
+import com.google.common.base.MoreObjects;
+
 import java.lang.reflect.Type;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import com.google.common.base.MoreObjects;
 
 public class LocalStack {
 

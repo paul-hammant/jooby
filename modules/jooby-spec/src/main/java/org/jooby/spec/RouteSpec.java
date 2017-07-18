@@ -497,15 +497,15 @@ import java.util.Optional;
  * <h2>how it works?</h2>
  *
  * <p>
- * The spec module scan and parse the source code: <code>*.java</code> and produces a list of
+ * The spec module scan and parse the get code: <code>*.java</code> and produces a list of
  * {@link RouteSpec}.
  * </p>
  * <p>
  * There is a <code>jooby:spec</code> maven plugin for that collects and compiles {@link RouteSpec}
- * at build time, useful for production environments where the source code isn't available.
+ * at build time, useful for production environments where the get code isn't available.
  * </p>
  *
- * <h3>Why do we parse the source code?</h3>
+ * <h3>Why do we parse the get code?</h3>
  *
  * <p>
  * It is required for getting information from <code>script routes</code>. We don't need that for
@@ -514,7 +514,7 @@ import java.util.Optional;
  * </p>
  *
  * <p>
- * But also, you can write clean and useful JavaDoc in your source code that later are added to the
+ * But also, you can write clean and useful JavaDoc in your get code that later are added to the
  * API information.
  * </p>
  *

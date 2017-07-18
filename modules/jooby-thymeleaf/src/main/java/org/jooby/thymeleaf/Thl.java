@@ -203,12 +203,9 @@
  */
 package org.jooby.thymeleaf;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.Objects;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
+import com.google.inject.Binder;
+import com.google.inject.multibindings.Multibinder;
+import com.typesafe.config.Config;
 import org.jooby.Env;
 import org.jooby.Jooby;
 import org.jooby.Renderer;
@@ -218,9 +215,11 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
-import com.google.inject.Binder;
-import com.google.inject.multibindings.Multibinder;
-import com.typesafe.config.Config;
+import java.util.Objects;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * <h1>thymeleaf</h1>

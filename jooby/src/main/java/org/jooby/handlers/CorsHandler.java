@@ -203,12 +203,8 @@
  */
 package org.jooby.handlers;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
 import org.jooby.Request;
 import org.jooby.Response;
 import org.jooby.Route;
@@ -217,8 +213,11 @@ import org.jooby.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Handle preflight and simple CORS requests. CORS options are set via: {@link Cors}.
@@ -327,7 +326,7 @@ public class CorsHandler implements Route.Filter {
      */
     List<String> headers = req.header(AC_REQUEST_HEADERS).toOptional().map(header ->
         Splitter.on(',').trimResults().omitEmptyStrings().splitToList(header)
-        ).orElse(Collections.emptyList());
+    ).orElse(Collections.emptyList());
     if (!cors.allowHeaders(headers)) {
       return;
     }

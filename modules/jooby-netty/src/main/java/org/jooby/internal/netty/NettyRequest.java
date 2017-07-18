@@ -203,30 +203,9 @@
  */
 package org.jooby.internal.netty;
 
-import static io.netty.channel.ChannelFutureListener.FIRE_EXCEPTION_ON_FAILURE;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.InetSocketAddress;
-import java.net.URLDecoder;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.Executor;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import org.jooby.MediaType;
-import org.jooby.Sse;
-import org.jooby.spi.NativePushPromise;
-import org.jooby.spi.NativeRequest;
-import org.jooby.spi.NativeUpload;
-import org.jooby.spi.NativeWebSocket;
-
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Multimap;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufHolder;
 import io.netty.buffer.ByteBufInputStream;
@@ -250,6 +229,25 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
 import io.netty.handler.codec.http2.HttpConversionUtil;
 import io.netty.util.AttributeKey;
 import io.netty.util.ReferenceCounted;
+import org.jooby.MediaType;
+import org.jooby.Sse;
+import org.jooby.spi.NativePushPromise;
+import org.jooby.spi.NativeRequest;
+import org.jooby.spi.NativeUpload;
+import org.jooby.spi.NativeWebSocket;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.InetSocketAddress;
+import java.net.URLDecoder;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.Executor;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static io.netty.channel.ChannelFutureListener.FIRE_EXCEPTION_ON_FAILURE;
 
 public class NettyRequest implements NativeRequest {
 
@@ -263,7 +261,8 @@ public class NettyRequest implements NativeRequest {
       .newInstance(NettyRequest.class.getName() + ".async");
 
   public static final AttributeKey<Boolean> SECURE = AttributeKey
-      .newInstance(NettyRequest.class.getName() + ".secure");;
+      .newInstance(NettyRequest.class.getName() + ".secure");
+  ;
 
   private HttpRequest req;
 

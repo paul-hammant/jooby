@@ -203,16 +203,15 @@
  */
 package org.jooby.sitemap;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
-
-import org.jooby.Route;
-import org.jooby.internal.sitemap.JSitemap;
-
 import cz.jiripinkas.jsitemapgenerator.WebPage;
 import cz.jiripinkas.jsitemapgenerator.generator.SitemapGenerator;
 import javaslang.Function1;
+import org.jooby.Route;
+import org.jooby.internal.sitemap.JSitemap;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * <h1>sitemap</h1>

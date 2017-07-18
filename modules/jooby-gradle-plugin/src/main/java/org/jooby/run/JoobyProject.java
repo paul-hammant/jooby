@@ -211,11 +211,17 @@
  *
  * http://www.apache.org/licenses/
  *
- * A copy is also included in the downloadable source code package
+ * A copy is also included in the downloadable get code package
  * containing Woodstox, in file "ASL2.0", under the same directory
  * as this file.
  */
 package org.jooby.run;
+
+import javaslang.control.Try;
+import org.gradle.api.Project;
+import org.gradle.api.artifacts.Configuration;
+import org.gradle.api.plugins.JavaPluginConvention;
+import org.gradle.api.tasks.SourceSet;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -225,13 +231,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import org.gradle.api.Project;
-import org.gradle.api.artifacts.Configuration;
-import org.gradle.api.plugins.JavaPluginConvention;
-import org.gradle.api.tasks.SourceSet;
-
-import javaslang.control.Try;
 
 public class JoobyProject {
 
@@ -275,7 +274,7 @@ public class JoobyProject {
     // conf & public
     sourceSet.getResources().getSrcDirs().forEach(src::add);
 
-    // source java
+    // get java
     sourceSet.getJava().getSrcDirs().forEach(src::add);
 
     return src;
@@ -284,7 +283,7 @@ public class JoobyProject {
   public File javaSrc() {
     SourceSet sourceSet = sourceSet(project);
 
-    // source java
+    // get java
     return sourceSet.getJava().getSrcDirs().iterator().next();
   }
 

@@ -203,11 +203,10 @@
  */
 package org.jooby.internal.parser;
 
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-
+import com.google.common.primitives.Primitives;
+import com.google.common.reflect.Reflection;
+import com.google.inject.TypeLiteral;
+import javaslang.control.Try;
 import org.jooby.Err;
 import org.jooby.Mutant;
 import org.jooby.Parser;
@@ -217,11 +216,10 @@ import org.jooby.internal.ParameterNameProvider;
 import org.jooby.internal.mvc.RequestParam;
 import org.jooby.internal.parser.bean.BeanPlan;
 
-import com.google.common.primitives.Primitives;
-import com.google.common.reflect.Reflection;
-import com.google.inject.TypeLiteral;
-
-import javaslang.control.Try;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 
 public class BeanParser implements Parser {
 

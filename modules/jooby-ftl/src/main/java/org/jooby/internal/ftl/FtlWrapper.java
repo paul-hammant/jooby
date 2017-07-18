@@ -203,19 +203,17 @@
  */
 package org.jooby.internal.ftl;
 
-import java.util.Map;
-
-import org.jooby.Request;
-import org.jooby.Session;
-
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigObject;
-
 import freemarker.template.DefaultMapAdapter;
 import freemarker.template.ObjectWrapper;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 import freemarker.template.utility.ObjectWrapperWithAPISupport;
+import org.jooby.Request;
+import org.jooby.Session;
+
+import java.util.Map;
 
 public class FtlWrapper implements ObjectWrapper {
 

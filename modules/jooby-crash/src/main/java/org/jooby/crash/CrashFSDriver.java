@@ -203,6 +203,14 @@
  */
 package org.jooby.crash;
 
+import com.google.common.collect.ImmutableList;
+import javaslang.Predicates;
+import javaslang.Tuple2;
+import javaslang.control.Try;
+import org.crsh.vfs.spi.AbstractFSDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -220,16 +228,6 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import org.crsh.vfs.spi.AbstractFSDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.collect.ImmutableList;
-
-import javaslang.Predicates;
-import javaslang.Tuple2;
-import javaslang.control.Try;
 
 class CrashFSDriver extends AbstractFSDriver<Path> implements AutoCloseable {
 
@@ -366,7 +364,7 @@ class CrashFSDriver extends AbstractFSDriver<Path> implements AutoCloseable {
     return result;
   }
 
-  @SuppressWarnings({"rawtypes", "unchecked" })
+  @SuppressWarnings({"rawtypes", "unchecked"})
   public static Predicate<Path> noneOf(final String... names) {
     Predicate[] predicates = new Predicate[names.length];
     for (int i = 0; i < predicates.length; i++) {

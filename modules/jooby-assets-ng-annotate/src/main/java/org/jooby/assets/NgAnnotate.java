@@ -203,9 +203,8 @@
  */
 package org.jooby.assets;
 
-import org.jooby.MediaType;
-
 import com.typesafe.config.Config;
+import org.jooby.MediaType;
 
 /**
  * <h1>ng-annotate</h1>

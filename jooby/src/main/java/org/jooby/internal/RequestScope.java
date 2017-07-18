@@ -203,13 +203,13 @@
  */
 package org.jooby.internal;
 
-import java.util.Map;
-
 import com.google.inject.Key;
 import com.google.inject.OutOfScopeException;
 import com.google.inject.Provider;
 import com.google.inject.Scope;
 import com.google.inject.Scopes;
+
+import java.util.Map;
 
 public class RequestScope implements Scope {
 
@@ -223,7 +223,7 @@ public class RequestScope implements Scope {
     scope.remove();
   }
 
-  @SuppressWarnings({"unchecked", "rawtypes" })
+  @SuppressWarnings({"unchecked", "rawtypes"})
   @Override
   public <T> Provider<T> scope(final Key<T> key, final Provider<T> unscoped) {
     return () -> {

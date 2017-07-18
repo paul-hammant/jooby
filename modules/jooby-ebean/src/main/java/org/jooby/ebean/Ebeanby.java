@@ -203,29 +203,27 @@
  */
 package org.jooby.ebean;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Consumer;
-
+import com.google.common.collect.ImmutableList;
+import com.google.inject.Binder;
+import com.google.inject.Key;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
+import io.ebean.EbeanServer;
+import io.ebean.config.ContainerConfig;
+import io.ebean.config.ServerConfig;
+import javaslang.control.Try.CheckedRunnable;
 import org.jooby.Env;
 import org.jooby.Env.ServiceKey;
 import org.jooby.internal.ebean.EbeanEnhancer;
 import org.jooby.internal.ebean.EbeanManaged;
 import org.jooby.jdbc.Jdbc;
 
-import com.google.common.collect.ImmutableList;
-import com.google.inject.Binder;
-import com.google.inject.Key;
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
-
-import io.ebean.EbeanServer;
-import io.ebean.config.ContainerConfig;
-import io.ebean.config.ServerConfig;
-import javaslang.control.Try.CheckedRunnable;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Properties;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 
 /**
  * <h1>ebean module</h1>

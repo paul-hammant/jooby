@@ -203,11 +203,11 @@
  */
 package org.jooby.internal.hbm;
 
-import javax.inject.Provider;
-
 import org.hibernate.SessionFactory;
 import org.hibernate.context.internal.ManagedSessionContext;
 import org.jooby.hbm.UnitOfWork;
+
+import javax.inject.Provider;
 
 public class UnitOfWorkProvider implements Provider<UnitOfWork> {
 

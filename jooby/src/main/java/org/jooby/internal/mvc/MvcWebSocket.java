@@ -203,21 +203,20 @@
  */
 package org.jooby.internal.mvc;
 
-import static javaslang.Predicates.instanceOf;
-
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.Arrays;
-
+import com.google.inject.Injector;
+import com.google.inject.TypeLiteral;
 import org.jooby.Mutant;
 import org.jooby.Request;
 import org.jooby.WebSocket;
 import org.jooby.WebSocket.CloseStatus;
 
-import com.google.inject.Injector;
-import com.google.inject.TypeLiteral;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.Arrays;
 
-@SuppressWarnings({"rawtypes", "unchecked" })
+import static javaslang.Predicates.instanceOf;
+
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class MvcWebSocket implements WebSocket.Handler<Mutant> {
 
   private Object handler;

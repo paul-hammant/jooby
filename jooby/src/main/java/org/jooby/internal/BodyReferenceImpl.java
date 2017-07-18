@@ -203,6 +203,9 @@
  */
 package org.jooby.internal;
 
+import com.google.common.io.ByteStreams;
+import org.jooby.Parser;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -211,10 +214,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-
-import org.jooby.Parser;
-
-import com.google.common.io.ByteStreams;
 
 public class BodyReferenceImpl implements Parser.BodyReference {
 

@@ -203,15 +203,11 @@
  */
 package org.jooby.internal.mvc;
 
-import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.Parameter;
-import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import javax.inject.Named;
-
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
+import com.google.inject.TypeLiteral;
+import com.google.inject.util.Types;
 import org.jooby.Cookie;
 import org.jooby.Err;
 import org.jooby.Mutant;
@@ -225,13 +221,15 @@ import org.jooby.mvc.Flash;
 import org.jooby.mvc.Header;
 import org.jooby.mvc.Local;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableMap.Builder;
-import com.google.inject.TypeLiteral;
-import com.google.inject.util.Types;
+import javax.inject.Named;
+import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
-@SuppressWarnings({"rawtypes", "unchecked" })
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class RequestParam {
 
   private interface GetValue {
@@ -251,7 +249,7 @@ public class RequestParam {
   private static final Map<Object, GetValue> injector;
 
   static {
-    Builder<Object, GetValue> builder = ImmutableMap.<Object, GetValue> builder();
+    Builder<Object, GetValue> builder = ImmutableMap.<Object, GetValue>builder();
     /**
      * Body
      */

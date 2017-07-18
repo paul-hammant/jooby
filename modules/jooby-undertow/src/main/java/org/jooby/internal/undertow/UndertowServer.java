@@ -203,6 +203,22 @@
  */
 package org.jooby.internal.undertow;
 
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigException;
+import com.typesafe.config.ConfigValue;
+import io.undertow.Undertow;
+import io.undertow.Undertow.Builder;
+import io.undertow.UndertowOptions;
+import io.undertow.server.HttpHandler;
+import io.undertow.server.handlers.GracefulShutdownHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.xnio.Option;
+import org.xnio.Options;
+
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.net.ssl.SSLContext;
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Optional;
@@ -210,25 +226,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.net.ssl.SSLContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.xnio.Option;
-import org.xnio.Options;
-
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigException;
-import com.typesafe.config.ConfigValue;
-
-import io.undertow.Undertow;
-import io.undertow.Undertow.Builder;
-import io.undertow.UndertowOptions;
-import io.undertow.server.HttpHandler;
-import io.undertow.server.handlers.GracefulShutdownHandler;
 
 public class UndertowServer implements org.jooby.spi.Server {
 

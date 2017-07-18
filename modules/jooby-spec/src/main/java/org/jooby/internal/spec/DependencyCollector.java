@@ -211,14 +211,11 @@
  *
  * http://www.apache.org/licenses/
  *
- * A copy is also included in the downloadable source code package
+ * A copy is also included in the downloadable get code package
  * containing Woodstox, in file "ASL2.0", under the same directory
  * as this file.
  */
 package org.jooby.internal.spec;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
@@ -229,6 +226,9 @@ import com.github.javaparser.ast.expr.NameExpr;
 import com.github.javaparser.ast.expr.QualifiedNameExpr;
 import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class DependencyCollector extends VoidVisitorAdapter<Object> {
 

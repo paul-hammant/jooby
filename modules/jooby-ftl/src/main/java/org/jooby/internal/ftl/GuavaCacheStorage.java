@@ -203,11 +203,10 @@
  */
 package org.jooby.internal.ftl;
 
-import static java.util.Objects.requireNonNull;
-
 import com.google.common.cache.Cache;
-
 import freemarker.cache.CacheStorage;
+
+import static java.util.Objects.requireNonNull;
 
 public class GuavaCacheStorage implements CacheStorage {
 

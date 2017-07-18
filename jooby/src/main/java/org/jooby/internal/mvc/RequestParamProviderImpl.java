@@ -203,15 +203,15 @@
  */
 package org.jooby.internal.mvc;
 
-import static java.util.Objects.requireNonNull;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList.Builder;
 
 import java.lang.reflect.Executable;
 import java.lang.reflect.Parameter;
 import java.util.Collections;
 import java.util.List;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableList.Builder;
+import static java.util.Objects.requireNonNull;
 
 public class RequestParamProviderImpl implements RequestParamProvider {
 

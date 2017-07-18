@@ -203,15 +203,15 @@
  */
 package org.jooby.internal.ebean;
 
+import org.avaje.agentloader.AgentLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.net.URI;
 import java.net.URL;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import org.avaje.agentloader.AgentLoader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class EbeanAgentEnhancer extends EbeanEnhancer {
 

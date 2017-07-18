@@ -203,8 +203,7 @@
  */
 package org.jooby.internal.mongodb;
 
-import java.lang.reflect.Field;
-
+import com.mongodb.DBObject;
 import org.jooby.mongodb.GeneratedValue;
 import org.jooby.mongodb.IdGen;
 import org.mongodb.morphia.AbstractEntityInterceptor;
@@ -214,7 +213,7 @@ import org.mongodb.morphia.mapping.Mapper;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 
-import com.mongodb.DBObject;
+import java.lang.reflect.Field;
 
 public class AutoIncID extends AbstractEntityInterceptor {
 

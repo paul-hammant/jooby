@@ -203,14 +203,13 @@
  */
 package org.jooby.internal;
 
+import com.google.inject.Binder;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 import org.jooby.Env;
 import org.jooby.Jooby;
 import org.jooby.Jooby.Module;
 import org.jooby.spi.Server;
-
-import com.google.inject.Binder;
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
 
 public class ServerLookup implements Module {
 

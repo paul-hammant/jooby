@@ -203,20 +203,10 @@
  */
 package org.jooby.hbm;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.inject.Provider;
-import javax.inject.Singleton;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
+import com.google.inject.Binder;
+import com.google.inject.Key;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 import org.hibernate.Session;
 import org.hibernate.jpa.AvailableSettings;
 import org.hibernate.jpa.HibernateEntityManagerFactory;
@@ -229,10 +219,18 @@ import org.jooby.jdbc.Jdbc;
 import org.jooby.scope.Providers;
 import org.jooby.scope.RequestScoped;
 
-import com.google.inject.Binder;
-import com.google.inject.Key;
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
+import javax.inject.Provider;
+import javax.inject.Singleton;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>

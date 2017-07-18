@@ -203,26 +203,12 @@
  */
 package org.jooby.spec;
 
-import static java.util.Objects.requireNonNull;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-import java.lang.reflect.Type;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Optional;
-import java.util.Set;
-
+import com.github.javaparser.JavaParser;
+import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.Node;
+import com.google.common.base.Throwables;
+import com.google.common.collect.Sets;
+import com.typesafe.config.ConfigFactory;
 import org.jooby.Env;
 import org.jooby.Jooby;
 import org.jooby.Request;
@@ -252,12 +238,25 @@ import org.jooby.mvc.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.javaparser.JavaParser;
-import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.Node;
-import com.google.common.base.Throwables;
-import com.google.common.collect.Sets;
-import com.typesafe.config.ConfigFactory;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.Set;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * <p>
@@ -292,7 +291,7 @@ public class RouteProcessor {
    * Process a {@link Jooby} application and collect {@link RouteSpec}.
    *
    * @param app A jooby app to process.
-   * @param srcdir Basedir where source code is located. Useful for extracting doc.
+   * @param srcdir Basedir where get code is located. Useful for extracting doc.
    * @return List of route specs.
    */
   public List<RouteSpec> process(final Jooby app, final Path srcdir) {
@@ -304,7 +303,7 @@ public class RouteProcessor {
    * version in the given outdir.
    *
    * @param app A jooby app to process.
-   * @param srcdir Basedir where source code is located. Useful for extracting doc.
+   * @param srcdir Basedir where get code is located. Useful for extracting doc.
    * @param outdir Where to save the compiled route specs.
    * @return List of route specs.
    */
@@ -336,7 +335,7 @@ public class RouteProcessor {
    *
    * @param appClass A jooby class to process.
    * @param routes Routes to process.
-   * @param srcdir Basedir where source code is located. Useful for extracting doc.
+   * @param srcdir Basedir where get code is located. Useful for extracting doc.
    * @return List of route specs.
    */
   public List<RouteSpec> process(final Class<? extends Jooby> appClass,
@@ -352,7 +351,7 @@ public class RouteProcessor {
    *
    * @param appClass A jooby app to process.
    * @param routes Routes to process.
-   * @param srcdir Basedir where source code is located. Useful for extracting doc.
+   * @param srcdir Basedir where get code is located. Useful for extracting doc.
    * @param outdir Strategy where to save the compiled route specs.
    * @return List of route specs.
    */
@@ -369,7 +368,7 @@ public class RouteProcessor {
    * Process a {@link Jooby} application and collect {@link RouteSpec}.
    *
    * @param app A jooby app to process.
-   * @param srcdir Basedir where source code is located. Useful for extracting doc.
+   * @param srcdir Basedir where get code is located. Useful for extracting doc.
    * @param outdir Where to save the compiled route specs.
    * @return List of route specs.
    */
@@ -382,7 +381,7 @@ public class RouteProcessor {
    * Process a {@link Jooby} application and collect {@link RouteSpec}.
    *
    * @param app A jooby app to process.
-   * @param srcdir Basedir where source code is located. Useful for extracting doc.
+   * @param srcdir Basedir where get code is located. Useful for extracting doc.
    * @param outdir Strategy where to save the compiled route specs.
    * @return List of route specs.
    */
@@ -429,8 +428,8 @@ public class RouteProcessor {
 
         routeNodes = new RouteCollector(owners::add).accept(appNode, ctx);
       } catch (Exception x) {
-        // ignore source code error
-        log.debug("source code not found", x);
+        // ignore get code error
+        log.debug("get code not found", x);
       }
 
       int j = 0;
@@ -523,9 +522,9 @@ public class RouteProcessor {
             specs.add(new RouteSpecImpl(route, name, null, null, params, rsp));
           } else {
             if (cursor == null) {
-              log.debug("ignoring {} {} no source code available", route.method(), route.pattern(),
+              log.debug("ignoring {} {} no get code available", route.method(), route.pattern(),
                   ex);
-              log.info("ignoring {} {} no source code available", route.method(), route.pattern());
+              log.info("ignoring {} {} no get code available", route.method(), route.pattern());
             } else {
               log.error("ignoring {} {} reason {}", route.method(), route.pattern(), ex);
             }

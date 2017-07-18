@@ -203,14 +203,13 @@
  */
 package org.jooby.rx;
 
-import javax.sql.DataSource;
-
-import org.jooby.Env;
-import org.jooby.jdbc.Jdbc;
-
 import com.github.davidmoten.rx.jdbc.Database;
 import com.google.inject.Binder;
 import com.typesafe.config.Config;
+import org.jooby.Env;
+import org.jooby.jdbc.Jdbc;
+
+import javax.sql.DataSource;
 
 /**
  * <h1>rxjdbc</h1>

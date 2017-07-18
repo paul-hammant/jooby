@@ -203,9 +203,7 @@
  */
 package org.jooby.metrics;
 
-import java.io.ByteArrayOutputStream;
-import java.lang.management.ManagementFactory;
-
+import com.codahale.metrics.jvm.ThreadDump;
 import org.jooby.MediaType;
 import org.jooby.Request;
 import org.jooby.Response;
@@ -214,7 +212,8 @@ import org.jooby.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.codahale.metrics.jvm.ThreadDump;
+import java.io.ByteArrayOutputStream;
+import java.lang.management.ManagementFactory;
 
 /**
  * Prints thread states (a.k.a thread dump).

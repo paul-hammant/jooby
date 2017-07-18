@@ -203,7 +203,20 @@
  */
 package org.jooby.metrics;
 
-import static java.util.Objects.requireNonNull;
+import com.codahale.metrics.Metric;
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.Reporter;
+import com.codahale.metrics.health.HealthCheck;
+import com.codahale.metrics.health.HealthCheckRegistry;
+import com.google.inject.Binder;
+import com.google.inject.multibindings.MapBinder;
+import com.google.inject.multibindings.Multibinder;
+import com.typesafe.config.Config;
+import org.jooby.Env;
+import org.jooby.Jooby;
+import org.jooby.Router;
+import org.jooby.internal.metrics.HealthCheckRegistryInitializer;
+import org.jooby.internal.metrics.MetricRegistryInitializer;
 
 import java.io.Closeable;
 import java.util.ArrayList;
@@ -214,21 +227,7 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import org.jooby.Env;
-import org.jooby.Jooby;
-import org.jooby.Router;
-import org.jooby.internal.metrics.HealthCheckRegistryInitializer;
-import org.jooby.internal.metrics.MetricRegistryInitializer;
-
-import com.codahale.metrics.Metric;
-import com.codahale.metrics.MetricRegistry;
-import com.codahale.metrics.Reporter;
-import com.codahale.metrics.health.HealthCheck;
-import com.codahale.metrics.health.HealthCheckRegistry;
-import com.google.inject.Binder;
-import com.google.inject.multibindings.MapBinder;
-import com.google.inject.multibindings.Multibinder;
-import com.typesafe.config.Config;
+import static java.util.Objects.requireNonNull;
 
 /**
  * <h1>metrics</h1>
@@ -356,9 +355,10 @@ public class Metrics implements Jooby.Module {
    * @param pattern A root pattern where to publish all the services. Default is: <code>/sys</code>.
    */
   public Metrics(final MetricRegistry metricRegistry,
-    final HealthCheckRegistry healthCheckRegistry, final String pattern) {
+      final HealthCheckRegistry healthCheckRegistry, final String pattern) {
     this.metricRegistry = requireNonNull(metricRegistry, "Metric registry is required.");
-    this.healthCheckRegistry = requireNonNull(healthCheckRegistry, "Health check registry is required.");
+    this.healthCheckRegistry = requireNonNull(healthCheckRegistry,
+        "Health check registry is required.");
     this.pattern = requireNonNull(pattern, "A pattern is required.");
   }
 

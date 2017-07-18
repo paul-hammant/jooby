@@ -203,17 +203,11 @@
  */
 package org.jooby.internal;
 
-import static java.util.Objects.requireNonNull;
-
-import java.nio.channels.ClosedChannelException;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
+import com.google.common.collect.ImmutableList;
+import com.google.inject.Injector;
+import com.google.inject.Key;
+import javaslang.control.Try;
+import javaslang.control.Try.CheckedRunnable;
 import org.jooby.Err;
 import org.jooby.MediaType;
 import org.jooby.Mutant;
@@ -225,17 +219,21 @@ import org.jooby.spi.NativeWebSocket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.ImmutableList;
-import com.google.inject.Injector;
-import com.google.inject.Key;
+import java.nio.channels.ClosedChannelException;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
-import javaslang.control.Try;
-import javaslang.control.Try.CheckedRunnable;
+import static java.util.Objects.requireNonNull;
 
 @SuppressWarnings("unchecked")
 public class WebSocketImpl implements WebSocket {
 
-  @SuppressWarnings({"rawtypes" })
+  @SuppressWarnings({"rawtypes"})
   private static final OnMessage NOOP = arg -> {
   };
 

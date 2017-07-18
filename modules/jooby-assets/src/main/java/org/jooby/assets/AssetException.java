@@ -203,13 +203,13 @@
  */
 package org.jooby.assets;
 
-import static java.util.Objects.requireNonNull;
+import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import com.google.common.collect.ImmutableList;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Carry information about a asset processor failure. It might have multiple {@link AssetProblem}

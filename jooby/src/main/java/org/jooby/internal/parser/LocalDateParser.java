@@ -203,8 +203,10 @@
  */
 package org.jooby.internal.parser;
 
-import static java.util.Objects.requireNonNull;
+import com.google.inject.TypeLiteral;
+import org.jooby.Parser;
 
+import javax.inject.Inject;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -212,11 +214,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
-import javax.inject.Inject;
-
-import org.jooby.Parser;
-
-import com.google.inject.TypeLiteral;
+import static java.util.Objects.requireNonNull;
 
 public class LocalDateParser implements Parser {
 
@@ -249,7 +247,7 @@ public class LocalDateParser implements Parser {
       ZonedDateTime zonedDate = epoch.atZone(
           Optional.ofNullable(formatter.getZone())
               .orElse(ZoneId.systemDefault())
-          );
+      );
       return zonedDate.toLocalDate();
     } catch (NumberFormatException ex) {
       return LocalDate.parse(value, formatter);

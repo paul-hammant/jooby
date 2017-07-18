@@ -203,10 +203,10 @@
  */
 package org.jooby.internal.mapper;
 
-import java.util.concurrent.Callable;
-
 import org.jooby.Deferred;
 import org.jooby.Route;
+
+import java.util.concurrent.Callable;
 
 @SuppressWarnings("rawtypes")
 public class CallableMapper implements Route.Mapper<Callable> {

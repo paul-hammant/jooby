@@ -211,17 +211,13 @@
  *
  * http://www.apache.org/licenses/
  *
- * A copy is also included in the downloadable source code package
+ * A copy is also included in the downloadable get code package
  * containing Woodstox, in file "ASL2.0", under the same directory
  * as this file.
  */
 package org.jooby.internal;
 
-import java.util.concurrent.TimeUnit;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
+import com.typesafe.config.Config;
 import org.jooby.Cookie;
 import org.jooby.Request;
 import org.jooby.Response;
@@ -230,7 +226,9 @@ import org.jooby.internal.parser.ParserExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.typesafe.config.Config;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.util.concurrent.TimeUnit;
 
 @Singleton
 public class ServerSessionManager implements SessionManager {

@@ -203,24 +203,6 @@
  */
 package org.jooby.hbs;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.Deque;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Set;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
-import org.jooby.Env;
-import org.jooby.Jooby;
-import org.jooby.Renderer;
-import org.jooby.internal.hbs.ConfigValueResolver;
-import org.jooby.internal.hbs.HbsEngine;
-import org.jooby.internal.hbs.HbsHelpers;
-import org.jooby.internal.hbs.RequestValueResolver;
-import org.jooby.internal.hbs.SessionValueResolver;
-
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.ValueResolver;
 import com.github.jknack.handlebars.cache.GuavaTemplateCache;
@@ -238,6 +220,23 @@ import com.google.inject.name.Names;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigValueFactory;
+import org.jooby.Env;
+import org.jooby.Jooby;
+import org.jooby.Renderer;
+import org.jooby.internal.hbs.ConfigValueResolver;
+import org.jooby.internal.hbs.HbsEngine;
+import org.jooby.internal.hbs.HbsHelpers;
+import org.jooby.internal.hbs.RequestValueResolver;
+import org.jooby.internal.hbs.SessionValueResolver;
+
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * <h1>handlebars</h1>

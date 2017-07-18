@@ -203,6 +203,14 @@
  */
 package org.jooby.internal.ssl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.crypto.NoSuchPaddingException;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLEngine;
+import javax.net.ssl.SSLSessionContext;
 import java.io.File;
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -236,15 +244,6 @@ import java.util.Set;
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-
-import javax.crypto.NoSuchPaddingException;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLEngine;
-import javax.net.ssl.SSLSessionContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * An {@link SslContext} which uses JDK's SSL/TLS implementation.
@@ -371,9 +370,9 @@ public abstract class JdkSslContext extends SslContext {
    */
   protected static KeyManagerFactory buildKeyManagerFactory(final File certChainFile,
       final File keyFile, final String keyPassword)
-          throws UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException,
-          NoSuchPaddingException, InvalidKeySpecException, InvalidAlgorithmParameterException,
-          CertificateException, KeyException, IOException {
+      throws UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException,
+      NoSuchPaddingException, InvalidKeySpecException, InvalidAlgorithmParameterException,
+      CertificateException, KeyException, IOException {
     String algorithm = Security.getProperty("ssl.KeyManagerFactory.algorithm");
     if (algorithm == null) {
       algorithm = "SunX509";
@@ -397,9 +396,9 @@ public abstract class JdkSslContext extends SslContext {
    */
   protected static KeyManagerFactory buildKeyManagerFactory(final File certChainFile,
       final String keyAlgorithm, final File keyFile, final String keyPassword)
-          throws KeyStoreException, NoSuchAlgorithmException, NoSuchPaddingException,
-          InvalidKeySpecException, InvalidAlgorithmParameterException, IOException,
-          CertificateException, KeyException, UnrecoverableKeyException {
+      throws KeyStoreException, NoSuchAlgorithmException, NoSuchPaddingException,
+      InvalidKeySpecException, InvalidAlgorithmParameterException, IOException,
+      CertificateException, KeyException, UnrecoverableKeyException {
     char[] keyPasswordChars = keyPassword == null ? EMPTY_CHARS : keyPassword.toCharArray();
     KeyStore ks = buildKeyStore(certChainFile, keyFile, keyPasswordChars);
     KeyManagerFactory kmf = KeyManagerFactory.getInstance(keyAlgorithm);

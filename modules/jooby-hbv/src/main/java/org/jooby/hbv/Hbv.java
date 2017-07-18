@@ -203,18 +203,12 @@
  */
 package org.jooby.hbv;
 
-import static java.util.Objects.requireNonNull;
-import static javax.validation.Validation.byProvider;
-
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-
-import javax.validation.ConstraintValidatorFactory;
-import javax.validation.ConstraintViolationException;
-import javax.validation.ValidationException;
-import javax.validation.Validator;
-
+import com.google.inject.Binder;
+import com.google.inject.TypeLiteral;
+import com.google.inject.multibindings.Multibinder;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
+import com.typesafe.config.ConfigValueFactory;
 import org.hibernate.validator.HibernateValidator;
 import org.hibernate.validator.HibernateValidatorConfiguration;
 import org.jooby.Env;
@@ -222,12 +216,16 @@ import org.jooby.Jooby;
 import org.jooby.Parser;
 import org.jooby.Request;
 
-import com.google.inject.Binder;
-import com.google.inject.TypeLiteral;
-import com.google.inject.multibindings.Multibinder;
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
-import com.typesafe.config.ConfigValueFactory;
+import javax.validation.ConstraintValidatorFactory;
+import javax.validation.ConstraintViolationException;
+import javax.validation.ValidationException;
+import javax.validation.Validator;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
+import static java.util.Objects.requireNonNull;
+import static javax.validation.Validation.byProvider;
 
 /**
  * Bean validation via Hibernate Validator.

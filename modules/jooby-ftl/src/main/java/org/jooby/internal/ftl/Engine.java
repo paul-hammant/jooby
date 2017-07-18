@@ -203,7 +203,14 @@
  */
 package org.jooby.internal.ftl;
 
-import static java.util.Objects.requireNonNull;
+import freemarker.template.Configuration;
+import freemarker.template.SimpleHash;
+import freemarker.template.Template;
+import freemarker.template.TemplateModel;
+import freemarker.template.TemplateNotFoundException;
+import org.jooby.MediaType;
+import org.jooby.Renderer;
+import org.jooby.View;
 
 import java.io.FileNotFoundException;
 import java.io.StringWriter;
@@ -212,15 +219,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import org.jooby.MediaType;
-import org.jooby.Renderer;
-import org.jooby.View;
-
-import freemarker.template.Configuration;
-import freemarker.template.SimpleHash;
-import freemarker.template.Template;
-import freemarker.template.TemplateModel;
-import freemarker.template.TemplateNotFoundException;
+import static java.util.Objects.requireNonNull;
 
 public class Engine implements View.Engine {
 

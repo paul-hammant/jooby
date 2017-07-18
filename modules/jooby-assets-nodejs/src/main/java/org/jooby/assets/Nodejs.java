@@ -203,7 +203,16 @@
  */
 package org.jooby.assets;
 
-import static java.util.Objects.requireNonNull;
+import com.eclipsesource.v8.NodeJS;
+import com.eclipsesource.v8.V8;
+import com.eclipsesource.v8.utils.MemoryManager;
+import com.google.common.base.Throwables;
+import com.google.common.collect.Maps;
+import javaslang.control.Try;
+import javaslang.control.Try.CheckedConsumer;
+import org.jooby.Route;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
 import java.io.File;
@@ -225,18 +234,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import org.jooby.Route;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.eclipsesource.v8.NodeJS;
-import com.eclipsesource.v8.V8;
-import com.eclipsesource.v8.utils.MemoryManager;
-import com.google.common.base.Throwables;
-import com.google.common.collect.Maps;
-
-import javaslang.control.Try;
-import javaslang.control.Try.CheckedConsumer;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Helper class that allows you extract and unpack a nodejs library from classpath.

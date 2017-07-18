@@ -203,22 +203,21 @@
  */
 package org.jooby.internal.spec;
 
+import com.github.javaparser.JavaParser;
+import com.github.javaparser.ParseException;
+import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.Node;
+import com.google.common.base.Throwables;
+import org.jooby.spec.RouteSpec;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
-
-import org.jooby.spec.RouteSpec;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.github.javaparser.JavaParser;
-import com.github.javaparser.ParseException;
-import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.Node;
-import com.google.common.base.Throwables;
 
 public class ContextImpl implements Context {
 

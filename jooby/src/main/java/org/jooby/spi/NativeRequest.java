@@ -203,6 +203,8 @@
  */
 package org.jooby.spi;
 
+import org.jooby.Cookie;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
@@ -210,8 +212,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.Executor;
-
-import org.jooby.Cookie;
 
 /**
  * Minimal/basic implementation of HTTP request. A server implementor must provide an implementation

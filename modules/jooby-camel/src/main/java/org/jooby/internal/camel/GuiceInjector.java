@@ -203,11 +203,11 @@
  */
 package org.jooby.internal.camel;
 
-import static java.util.Objects.requireNonNull;
+import org.apache.camel.spi.Injector;
 
 import javax.inject.Inject;
 
-import org.apache.camel.spi.Injector;
+import static java.util.Objects.requireNonNull;
 
 public class GuiceInjector implements Injector {
 

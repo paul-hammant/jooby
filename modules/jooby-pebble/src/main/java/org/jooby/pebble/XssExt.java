@@ -203,14 +203,13 @@
  */
 package org.jooby.pebble;
 
-import java.util.List;
-import java.util.Map;
-
-import org.jooby.Env;
-
 import com.google.common.collect.ImmutableMap;
 import com.mitchellbosecke.pebble.extension.AbstractExtension;
 import com.mitchellbosecke.pebble.extension.Function;
+import org.jooby.Env;
+
+import java.util.List;
+import java.util.Map;
 
 public class XssExt extends AbstractExtension {
 

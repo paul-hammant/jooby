@@ -212,8 +212,7 @@ import java.util.concurrent.Executor;
 
 import static java.util.Objects.requireNonNull;
 
-public class ServerExecutorProvider implements Provider<Executor>
-{
+public class ServerExecutorProvider implements Provider<Executor> {
 
   private Executor executor;
 
@@ -222,8 +221,8 @@ public class ServerExecutorProvider implements Provider<Executor>
     requireNonNull(serverHolder, "Server holder is required.");
 
     executor = (serverHolder.server != null) ?
-               serverHolder.server.executor().orElse(MoreExecutors.directExecutor()) :
-               MoreExecutors.directExecutor();
+        serverHolder.server.executor().orElse(MoreExecutors.directExecutor()) :
+        MoreExecutors.directExecutor();
   }
 
   @Override

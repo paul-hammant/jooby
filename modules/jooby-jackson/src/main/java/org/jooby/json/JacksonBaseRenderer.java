@@ -203,10 +203,9 @@
  */
 package org.jooby.json;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jooby.MediaType;
 import org.jooby.Renderer;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 abstract class JacksonBaseRenderer implements Renderer {
 

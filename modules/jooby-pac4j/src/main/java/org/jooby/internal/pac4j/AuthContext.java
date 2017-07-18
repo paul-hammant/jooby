@@ -205,7 +205,11 @@ package org.jooby.internal.pac4j;
 
 import com.google.common.collect.ImmutableMap;
 import org.jooby.Cookie.Definition;
-import org.jooby.*;
+import org.jooby.Err;
+import org.jooby.Request;
+import org.jooby.Response;
+import org.jooby.Session;
+import org.jooby.Status;
 import org.pac4j.core.context.Cookie;
 import org.pac4j.core.context.WebContext;
 import org.slf4j.Logger;

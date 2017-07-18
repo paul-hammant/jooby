@@ -203,6 +203,9 @@
  */
 package org.jooby.internal.ssl;
 
+import com.google.common.io.BaseEncoding;
+import com.google.common.io.Files;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -214,9 +217,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.google.common.io.BaseEncoding;
-import com.google.common.io.Files;
 
 /**
  * Reads a PEM file and converts it into a list of DERs so that they are imported into a

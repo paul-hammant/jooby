@@ -203,13 +203,13 @@
  */
 package org.jooby.quartz;
 
+import org.quartz.Trigger;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
-import org.quartz.Trigger;
 
 /**
  * <p>
@@ -265,7 +265,7 @@ import org.quartz.Trigger;
  * @author edgar
  * @since 0.5.0
  */
-@Target({ElementType.METHOD, ElementType.ANNOTATION_TYPE })
+@Target({ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Scheduled {

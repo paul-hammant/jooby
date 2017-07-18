@@ -203,16 +203,15 @@
  */
 package org.jooby.guava;
 
-import static java.util.Objects.requireNonNull;
+import com.google.common.cache.Cache;
+import org.jooby.Session;
+import org.jooby.Session.Builder;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import org.jooby.Session;
-import org.jooby.Session.Builder;
-
-import com.google.common.cache.Cache;
+import static java.util.Objects.requireNonNull;
 
 /**
  * <h1>session store</h1>

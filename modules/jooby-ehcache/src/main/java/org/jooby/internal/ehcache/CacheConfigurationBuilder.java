@@ -203,6 +203,7 @@
  */
 package org.jooby.internal.ehcache;
 
+import com.typesafe.config.Config;
 import net.sf.ehcache.config.CacheConfiguration;
 import net.sf.ehcache.config.CacheConfiguration.BootstrapCacheLoaderFactoryConfiguration;
 import net.sf.ehcache.config.CacheConfiguration.CacheDecoratorFactoryConfiguration;
@@ -217,8 +218,6 @@ import net.sf.ehcache.config.PinningConfiguration;
 import net.sf.ehcache.config.TerracottaConfiguration;
 import net.sf.ehcache.config.TerracottaConfiguration.Consistency;
 import net.sf.ehcache.config.TimeoutBehaviorConfiguration;
-
-import com.typesafe.config.Config;
 
 public class CacheConfigurationBuilder extends EhCacheBuilder {
 
@@ -324,7 +323,7 @@ public class CacheConfigurationBuilder extends EhCacheBuilder {
         cache.addCacheLoaderFactory(
             newFactory(path + ".cacheLoaderFactory." + name, c,
                 CacheLoaderFactoryConfiguration::new)
-            );
+        );
       });
     }
   }
@@ -342,7 +341,7 @@ public class CacheConfigurationBuilder extends EhCacheBuilder {
     cache.addBootstrapCacheLoaderFactory(
         newFactory(path + ".bootstrapCacheLoaderFactory", conf,
             BootstrapCacheLoaderFactoryConfiguration::new)
-        );
+    );
   }
 
   private void cacheDecoratorFactory(final Config conf) {
@@ -350,13 +349,13 @@ public class CacheConfigurationBuilder extends EhCacheBuilder {
       cache.addCacheDecoratorFactory(
           newFactory(path + ".cacheDecoratorFactory", conf,
               CacheDecoratorFactoryConfiguration::new)
-          );
+      );
     } else {
       each(conf, (name, decoconf) -> {
         cache.addCacheDecoratorFactory(
             newFactory(path + ".cacheDecoratorFactory." + name, decoconf,
                 CacheDecoratorFactoryConfiguration::new)
-            );
+        );
       });
     }
   }
@@ -374,7 +373,7 @@ public class CacheConfigurationBuilder extends EhCacheBuilder {
         cache.addCacheExtensionFactory(
             newFactory(path + ".cacheExtensionFactory." + name, decoconf,
                 CacheExtensionFactoryConfiguration::new)
-            );
+        );
       });
     }
   }
@@ -387,7 +386,7 @@ public class CacheConfigurationBuilder extends EhCacheBuilder {
       each(conf, (name, c) ->
           cache.addCacheEventListenerFactory(
               newCacheEventListenerFactory(path + ".cacheEventListenerFactory" + name, c)
-              ));
+          ));
     }
   }
 
@@ -395,7 +394,7 @@ public class CacheConfigurationBuilder extends EhCacheBuilder {
     cache.addCacheExceptionHandlerFactory(
         newFactory(path + ".cacheExceptionHandlerFactory", conf,
             CacheExceptionHandlerFactoryConfiguration::new)
-        );
+    );
   }
 
   private void cacheWriter(final Config conf) {

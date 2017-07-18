@@ -203,21 +203,19 @@
  */
 package org.jooby.internal.quartz;
 
-import static java.util.Objects.requireNonNull;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Arrays;
-
-import javax.inject.Inject;
-
+import com.google.inject.Injector;
 import org.quartz.Job;
 import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.JobKey;
 
-import com.google.inject.Injector;
+import javax.inject.Inject;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+
+import static java.util.Objects.requireNonNull;
 
 public class ReflectiveJob implements Job {
 
@@ -239,9 +237,9 @@ public class ReflectiveJob implements Job {
       String methodname = names[1];
       Object job = this.injector.getInstance(loadedClass);
       Method method = Arrays.stream(loadedClass.getDeclaredMethods())
-        .filter(m-> m.getName().equals(methodname))
-        .findFirst()
-        .get();
+          .filter(m -> m.getName().equals(methodname))
+          .findFirst()
+          .get();
       final Object result;
       if (method.getParameterCount() == 1) {
         result = method.invoke(job, context);

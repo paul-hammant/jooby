@@ -203,13 +203,13 @@
  */
 package org.jooby.internal.assets;
 
-import static java.util.Objects.requireNonNull;
-
 import org.jooby.Asset;
 import org.jooby.Request;
 import org.jooby.Response;
 import org.jooby.assets.AssetCompiler;
 import org.jooby.handlers.AssetHandler;
+
+import static java.util.Objects.requireNonNull;
 
 public class AssetHandlerWithCompiler extends AssetHandler {
 

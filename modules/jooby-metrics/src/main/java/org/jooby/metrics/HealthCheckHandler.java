@@ -203,16 +203,15 @@
  */
 package org.jooby.metrics;
 
-import java.util.SortedMap;
-
+import com.codahale.metrics.health.HealthCheck.Result;
+import com.codahale.metrics.health.HealthCheckRegistry;
+import com.google.common.collect.ImmutableSortedMap;
 import org.jooby.Request;
 import org.jooby.Response;
 import org.jooby.Route.Handler;
 import org.jooby.Status;
 
-import com.codahale.metrics.health.HealthCheck.Result;
-import com.codahale.metrics.health.HealthCheckRegistry;
-import com.google.common.collect.ImmutableSortedMap;
+import java.util.SortedMap;
 
 /**
  * Produces a:

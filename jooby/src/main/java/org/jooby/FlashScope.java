@@ -203,17 +203,16 @@
  */
 package org.jooby;
 
-import static java.util.Objects.requireNonNull;
+import com.google.inject.Binder;
+import com.typesafe.config.Config;
+import org.jooby.internal.handlers.FlashScopeHandler;
+import org.jooby.mvc.Flash;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
-import org.jooby.internal.handlers.FlashScopeHandler;
-import org.jooby.mvc.Flash;
-
-import com.google.inject.Binder;
-import com.typesafe.config.Config;
+import static java.util.Objects.requireNonNull;
 
 /**
  * <h1>flash scope</h1>

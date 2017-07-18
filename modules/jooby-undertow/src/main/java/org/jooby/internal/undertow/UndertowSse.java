@@ -203,20 +203,18 @@
  */
 package org.jooby.internal.undertow;
 
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.util.Optional;
-import java.util.function.Consumer;
-
-import org.jooby.Sse;
-
 import com.google.common.util.concurrent.MoreExecutors;
-
 import io.undertow.io.IoCallback;
 import io.undertow.io.Sender;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Headers;
 import javaslang.concurrent.Promise;
+import org.jooby.Sse;
+
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 public class UndertowSse extends Sse {
 

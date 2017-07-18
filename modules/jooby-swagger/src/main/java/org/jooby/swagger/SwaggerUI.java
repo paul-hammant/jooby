@@ -203,16 +203,12 @@
  */
 package org.jooby.swagger;
 
-import static java.util.Objects.requireNonNull;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Iterator;
-import java.util.Properties;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.regex.Pattern;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.google.common.base.Splitter;
+import io.swagger.models.Swagger;
+import io.swagger.util.Json;
+import io.swagger.util.Yaml;
 import org.jooby.Jooby;
 import org.jooby.MediaType;
 import org.jooby.Results;
@@ -222,13 +218,15 @@ import org.jooby.internal.swagger.SwaggerModule;
 import org.jooby.internal.swagger.SwaggerYml;
 import org.jooby.spec.RouteSpec;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.google.common.base.Splitter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Iterator;
+import java.util.Properties;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
-import io.swagger.models.Swagger;
-import io.swagger.util.Json;
-import io.swagger.util.Yaml;
+import static java.util.Objects.requireNonNull;
 
 /**
  * <h1>swagger module</h1>

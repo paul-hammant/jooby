@@ -203,7 +203,15 @@
  */
 package org.jooby.jade;
 
-import static java.util.Objects.requireNonNull;
+import com.google.inject.Binder;
+import com.google.inject.multibindings.Multibinder;
+import com.typesafe.config.Config;
+import de.neuland.jade4j.JadeConfiguration;
+import de.neuland.jade4j.template.ClasspathTemplateLoader;
+import de.neuland.jade4j.template.TemplateLoader;
+import org.jooby.Env;
+import org.jooby.Jooby;
+import org.jooby.Renderer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -213,17 +221,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import org.jooby.Env;
-import org.jooby.Jooby;
-import org.jooby.Renderer;
-
-import com.google.inject.Binder;
-import com.google.inject.multibindings.Multibinder;
-import com.typesafe.config.Config;
-
-import de.neuland.jade4j.JadeConfiguration;
-import de.neuland.jade4j.template.ClasspathTemplateLoader;
-import de.neuland.jade4j.template.TemplateLoader;
+import static java.util.Objects.requireNonNull;
 
 /**
  * <h1>jade</h1>

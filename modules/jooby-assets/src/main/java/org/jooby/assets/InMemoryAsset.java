@@ -203,10 +203,10 @@
  */
 package org.jooby.assets;
 
+import org.jooby.Asset;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-
-import org.jooby.Asset;
 
 public class InMemoryAsset extends Asset.Forwarding {
 

@@ -203,19 +203,18 @@
  */
 package org.jooby.internal.sitemap;
 
-import java.util.List;
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
+import cz.jiripinkas.jsitemapgenerator.WebPage;
+import javaslang.Function1;
 import org.jooby.MediaType;
 import org.jooby.Request;
 import org.jooby.Results;
 import org.jooby.Route;
 import org.jooby.sitemap.WebPageProvider;
 
-import cz.jiripinkas.jsitemapgenerator.WebPage;
-import javaslang.Function1;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 class SitemapHandler implements Route.OneArgHandler {
 

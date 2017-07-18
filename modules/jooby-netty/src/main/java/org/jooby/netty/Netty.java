@@ -203,15 +203,14 @@
  */
 package org.jooby.netty;
 
-import javax.inject.Singleton;
-
+import com.google.inject.Binder;
+import com.typesafe.config.Config;
 import org.jooby.Env;
 import org.jooby.Jooby;
 import org.jooby.internal.netty.NettyServer;
 import org.jooby.spi.Server;
 
-import com.google.inject.Binder;
-import com.typesafe.config.Config;
+import javax.inject.Singleton;
 
 public class Netty implements Jooby.Module {
 

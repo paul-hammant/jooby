@@ -203,15 +203,13 @@
  */
 package org.jooby.internal.couchbase;
 
-import java.lang.reflect.Field;
-
+import com.couchbase.client.java.repository.AsyncRepository;
+import javaslang.CheckedFunction1;
+import javaslang.control.Try;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.couchbase.client.java.repository.AsyncRepository;
-
-import javaslang.CheckedFunction1;
-import javaslang.control.Try;
+import java.lang.reflect.Field;
 
 public final class SetConverterHack {
 
@@ -219,7 +217,7 @@ public final class SetConverterHack {
   private static final Logger log = LoggerFactory.getLogger(SetConverterHack.class);
 
   private static final CheckedFunction1<Class<?>, Field> FIELD = CheckedFunction1
-      .<Class<?>, Field> of(c -> {
+      .<Class<?>, Field>of(c -> {
         Field fld = c.getDeclaredField("converter");
         fld.setAccessible(true);
         return fld;

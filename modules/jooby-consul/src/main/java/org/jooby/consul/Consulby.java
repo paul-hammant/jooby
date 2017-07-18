@@ -203,15 +203,6 @@
  */
 package org.jooby.consul;
 
-import java.text.MessageFormat;
-import java.util.Objects;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
-
-import org.jooby.Env;
-import org.jooby.Jooby;
-
 import com.google.inject.Binder;
 import com.orbitz.consul.AgentClient;
 import com.orbitz.consul.Consul;
@@ -219,6 +210,14 @@ import com.orbitz.consul.model.agent.ImmutableRegistration;
 import com.orbitz.consul.model.agent.Registration;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import org.jooby.Env;
+import org.jooby.Jooby;
+
+import java.text.MessageFormat;
+import java.util.Objects;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 /**
  * <p>

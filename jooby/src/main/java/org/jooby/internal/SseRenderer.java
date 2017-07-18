@@ -203,22 +203,24 @@
  */
 package org.jooby.internal;
 
+import com.google.common.io.ByteSource;
+import javaslang.Function1;
+import javaslang.Tuple;
+import javaslang.Tuple2;
+import org.jooby.MediaType;
+import org.jooby.Renderer;
+import org.jooby.Sse;
+
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
-
-import org.jooby.MediaType;
-import org.jooby.Renderer;
-import org.jooby.Sse;
-
-import com.google.common.io.ByteSource;
-
-import javaslang.Function1;
-import javaslang.Tuple;
-import javaslang.Tuple2;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
 
 public class SseRenderer extends AbstractRendererContext {
 

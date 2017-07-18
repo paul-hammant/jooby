@@ -203,13 +203,6 @@
  */
 package org.jooby.internal.netty;
 
-import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
-
-import org.jooby.internal.ConnectionResetByPeer;
-import org.jooby.spi.HttpHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
@@ -224,6 +217,12 @@ import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.AsciiString;
 import io.netty.util.Attribute;
 import io.netty.util.AttributeKey;
+import org.jooby.internal.ConnectionResetByPeer;
+import org.jooby.spi.HttpHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 public class NettyHandler extends SimpleChannelInboundHandler<Object> {
 

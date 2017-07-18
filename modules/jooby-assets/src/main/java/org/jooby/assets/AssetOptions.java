@@ -203,18 +203,17 @@
  */
 package org.jooby.assets;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.List;
-import java.util.Map;
-
-import org.jooby.Route;
-import org.jooby.internal.RoutePattern;
-
 import com.google.common.collect.ImmutableList;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigValueFactory;
+import org.jooby.Route;
+import org.jooby.internal.RoutePattern;
+
+import java.util.List;
+import java.util.Map;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Base class for {@link AssetProcessor} and {@link AssetAggregator}.

@@ -203,20 +203,6 @@
  */
 package org.jooby.caffeine;
 
-import static java.util.Objects.requireNonNull;
-
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.function.BiFunction;
-import java.util.stream.Collectors;
-
-import org.jooby.Env;
-import org.jooby.Jooby;
-import org.jooby.Session;
-
 import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -230,6 +216,19 @@ import com.google.inject.util.Types;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigValueFactory;
+import org.jooby.Env;
+import org.jooby.Jooby;
+import org.jooby.Session;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.stream.Collectors;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * <h1>caffeine</h1>
@@ -424,7 +423,7 @@ public abstract class CaffeineCache<K, V> implements Jooby.Module {
     return this;
   }
 
-  @SuppressWarnings({"unchecked", "rawtypes" })
+  @SuppressWarnings({"unchecked", "rawtypes"})
   @Override
   public void configure(final Env env, final Config conf, final Binder binder) {
     Config gconf = conf.hasPath(name) ? conf : ConfigFactory.empty();
@@ -461,11 +460,11 @@ public abstract class CaffeineCache<K, V> implements Jooby.Module {
       final Type superclass) {
     Class[] ctypes;
     if (cache instanceof AsyncLoadingCache) {
-      ctypes = new Class[]{AsyncLoadingCache.class };
+      ctypes = new Class[]{AsyncLoadingCache.class};
     } else if (cache instanceof LoadingCache) {
-      ctypes = new Class[]{LoadingCache.class, Cache.class };
+      ctypes = new Class[]{LoadingCache.class, Cache.class};
     } else {
-      ctypes = new Class[]{Cache.class };
+      ctypes = new Class[]{Cache.class};
     }
     List<TypeLiteral> result = new ArrayList<>(ctypes.length);
     for (Class ctype : ctypes) {
@@ -499,7 +498,7 @@ public abstract class CaffeineCache<K, V> implements Jooby.Module {
       key = args[0];
       value = args[1];
     }
-    return new Type[]{key, value };
+    return new Type[]{key, value};
   }
 
 }

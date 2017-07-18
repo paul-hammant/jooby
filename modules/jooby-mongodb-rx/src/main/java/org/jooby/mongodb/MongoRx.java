@@ -203,29 +203,6 @@
  */
 package org.jooby.mongodb;
 
-import static java.util.Objects.requireNonNull;
-import static javaslang.API.$;
-import static javaslang.API.Case;
-import static javaslang.API.Match;
-import static javaslang.Predicates.instanceOf;
-
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-
-import org.bson.Document;
-import org.bson.codecs.configuration.CodecRegistry;
-import org.jooby.Env;
-import org.jooby.Jooby.Module;
-import org.jooby.Route;
-import org.jooby.rx.Rx;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.inject.Binder;
 import com.google.inject.Key;
 import com.google.inject.name.Names;
@@ -255,10 +232,31 @@ import com.mongodb.rx.client.ObservableAdapter;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigValueFactory;
-
 import javaslang.Function3;
 import javaslang.control.Try;
+import org.bson.Document;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.jooby.Env;
+import org.jooby.Jooby.Module;
+import org.jooby.Route;
+import org.jooby.rx.Rx;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import rx.Observable;
+
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+import static java.util.Objects.requireNonNull;
+import static javaslang.API.$;
+import static javaslang.API.Case;
+import static javaslang.API.Match;
+import static javaslang.Predicates.instanceOf;
 
 /**
  * <h1>mongodb-rx</h1>
@@ -576,7 +574,7 @@ public class MongoRx implements Module {
         .withValue("db", ConfigValueFactory.fromAnyRef("mongodb://localhost"));
   }
 
-  @SuppressWarnings({"rawtypes", "unchecked" })
+  @SuppressWarnings({"rawtypes", "unchecked"})
   @Override
   public void configure(final Env env, final Config conf, final Binder binder) {
     /** connection string */

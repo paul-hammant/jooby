@@ -203,14 +203,14 @@
  */
 package org.jooby.internal;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 import org.jooby.MediaType;
 import org.jooby.Request;
 import org.jooby.Response;
 import org.jooby.Route;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 public class FallbackRoute implements RouteWithFilter {
 

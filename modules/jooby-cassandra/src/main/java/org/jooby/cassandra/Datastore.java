@@ -203,8 +203,6 @@
  */
 package org.jooby.cassandra;
 
-import java.util.Map;
-
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.ResultSetFuture;
 import com.datastax.driver.core.Session;
@@ -216,6 +214,8 @@ import com.datastax.driver.mapping.Result;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 
+import java.util.Map;
+
 /**
  * <h1>datastore</h1>
  * <p>
@@ -226,7 +226,7 @@ import com.google.common.util.concurrent.ListenableFuture;
  * @author edgar
  * @since 1.0.0.CR7
  */
-@SuppressWarnings({"rawtypes", "unchecked" })
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class Datastore {
   private MappingManager manager;
 

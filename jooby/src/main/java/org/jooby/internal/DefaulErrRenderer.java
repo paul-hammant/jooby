@@ -203,13 +203,13 @@
  */
 package org.jooby.internal;
 
-import java.util.Arrays;
-import java.util.Map;
-
 import org.jooby.Err;
 import org.jooby.MediaType;
 import org.jooby.Renderer;
 import org.jooby.View;
+
+import java.util.Arrays;
+import java.util.Map;
 
 public class DefaulErrRenderer implements Renderer {
 

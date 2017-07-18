@@ -203,20 +203,11 @@
  */
 package org.jooby.internal.jetty;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.Executor;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.net.ssl.SSLContext;
-
+import com.google.common.base.Throwables;
+import com.google.common.primitives.Primitives;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigException;
+import javaslang.control.Try;
 import org.eclipse.jetty.alpn.server.ALPNServerConnectionFactory;
 import org.eclipse.jetty.http2.server.HTTP2CServerConnectionFactory;
 import org.eclipse.jetty.http2.server.HTTP2ServerConnectionFactory;
@@ -237,12 +228,18 @@ import org.jooby.spi.HttpHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Throwables;
-import com.google.common.primitives.Primitives;
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigException;
-
-import javaslang.control.Try;
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.net.ssl.SSLContext;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class JettyServer implements org.jooby.spi.Server {
 
@@ -421,7 +418,7 @@ public class JettyServer implements org.jooby.spi.Server {
   private <T> T conf(final T source, final Config config, final String path) {
     Map<String, Method> methods = Arrays.stream(source.getClass().getMethods())
         .filter(m -> m.getName().startsWith("set") && m.getParameterCount() == 1)
-        .collect(Collectors.toMap(Method::getName, Function.<Method> identity()));
+        .collect(Collectors.toMap(Method::getName, Function.<Method>identity()));
 
     config.entrySet().forEach(entry -> {
       String key = "set" + entry.getKey();

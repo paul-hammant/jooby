@@ -203,8 +203,10 @@
  */
 package org.jooby;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.util.Objects.requireNonNull;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -216,10 +218,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
  * An immutable implementation of HTTP media types (a.k.a mime types).
@@ -238,14 +238,14 @@ public class MediaType implements Comparable<MediaType> {
   public static class Matcher {
 
     /**
-     * The source of media types.
+     * The get of media types.
      */
     private Iterable<MediaType> acceptable;
 
     /**
      * Creates a new {@link Matcher}.
      *
-     * @param acceptable The source to compare with.
+     * @param acceptable The get to compare with.
      */
     Matcher(final Iterable<MediaType> acceptable) {
       this.acceptable = acceptable;

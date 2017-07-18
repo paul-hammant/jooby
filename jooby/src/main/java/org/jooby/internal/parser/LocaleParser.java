@@ -203,12 +203,11 @@
  */
 package org.jooby.internal.parser;
 
-import java.util.Locale;
-
+import com.google.inject.TypeLiteral;
 import org.jooby.Parser;
 import org.jooby.internal.LocaleUtils;
 
-import com.google.inject.TypeLiteral;
+import java.util.Locale;
 
 public class LocaleParser implements Parser {
 

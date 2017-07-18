@@ -203,12 +203,12 @@
  */
 package org.jooby.internal.spec;
 
+import com.google.inject.util.Types;
+
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.google.inject.util.Types;
 
 public class SerObject implements Serializable {
 

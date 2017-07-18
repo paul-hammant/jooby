@@ -203,13 +203,7 @@
  */
 package org.jooby.handlers;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.Set;
-import java.util.UUID;
-import java.util.function.Function;
-import java.util.function.Predicate;
-
+import com.google.common.collect.ImmutableSet;
 import org.jooby.Err;
 import org.jooby.Request;
 import org.jooby.Response;
@@ -217,7 +211,12 @@ import org.jooby.Route;
 import org.jooby.Session;
 import org.jooby.Status;
 
-import com.google.common.collect.ImmutableSet;
+import java.util.Set;
+import java.util.UUID;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * <h1>Cross Site Request Forgery handler</h1>

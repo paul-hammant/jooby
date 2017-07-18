@@ -203,13 +203,12 @@
  */
 package org.jooby.internal.hbs;
 
+import com.github.jknack.handlebars.ValueResolver;
+import org.jooby.Request;
+
 import java.util.Collections;
 import java.util.Map.Entry;
 import java.util.Set;
-
-import org.jooby.Request;
-
-import com.github.jknack.handlebars.ValueResolver;
 
 /**
  * Handlebars value resolver for accessing to {@link Request}, like request and session objects.

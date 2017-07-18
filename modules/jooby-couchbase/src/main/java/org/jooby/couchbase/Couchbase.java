@@ -203,27 +203,6 @@
  */
 package org.jooby.couchbase;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Function;
-
-import org.jooby.Env;
-import org.jooby.Env.ServiceKey;
-import org.jooby.Jooby.Module;
-import org.jooby.Session;
-import org.jooby.internal.couchbase.AsyncDatastoreImpl;
-import org.jooby.internal.couchbase.DatastoreImpl;
-import org.jooby.internal.couchbase.IdGenerator;
-import org.jooby.internal.couchbase.JacksonMapper;
-import org.jooby.internal.couchbase.SetConverterHack;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.couchbase.client.deps.io.netty.util.internal.MessagePassingQueue.Supplier;
 import com.couchbase.client.java.AsyncBucket;
 import com.couchbase.client.java.Bucket;
@@ -243,10 +222,29 @@ import com.google.common.collect.Sets;
 import com.google.inject.Binder;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
-
 import javaslang.Function3;
 import javaslang.control.Try;
+import org.jooby.Env;
+import org.jooby.Env.ServiceKey;
+import org.jooby.Jooby.Module;
+import org.jooby.Session;
+import org.jooby.internal.couchbase.AsyncDatastoreImpl;
+import org.jooby.internal.couchbase.DatastoreImpl;
+import org.jooby.internal.couchbase.IdGenerator;
+import org.jooby.internal.couchbase.JacksonMapper;
+import org.jooby.internal.couchbase.SetConverterHack;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import rx.Observable;
+
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Function;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * <h1>couchbase</h1>
@@ -668,7 +666,7 @@ public class Couchbase implements Module {
     return this;
   }
 
-  @SuppressWarnings({"unchecked", "rawtypes" })
+  @SuppressWarnings({"unchecked", "rawtypes"})
   @Override
   public void configure(final Env env, final Config conf, final Binder binder) {
     String cstr = db.startsWith(ConnectionString.DEFAULT_SCHEME) ? db : conf.getString(db);

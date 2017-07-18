@@ -203,17 +203,6 @@
  */
 package org.jooby.querydsl;
 
-import static java.util.Objects.requireNonNull;
-import static javaslang.API.Case;
-import static javaslang.API.Match;
-
-import java.util.function.BiConsumer;
-import java.util.function.Function;
-
-import org.jooby.Env;
-import org.jooby.Env.ServiceKey;
-import org.jooby.jdbc.Jdbc;
-
 import com.google.inject.Binder;
 import com.querydsl.sql.Configuration;
 import com.querydsl.sql.DB2Templates;
@@ -227,6 +216,16 @@ import com.querydsl.sql.SQLQueryFactory;
 import com.querydsl.sql.SQLTemplates;
 import com.querydsl.sql.SQLiteTemplates;
 import com.typesafe.config.Config;
+import org.jooby.Env;
+import org.jooby.Env.ServiceKey;
+import org.jooby.jdbc.Jdbc;
+
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+
+import static java.util.Objects.requireNonNull;
+import static javaslang.API.Case;
+import static javaslang.API.Match;
 
 /**
  * <h1>queryDSL</h1>

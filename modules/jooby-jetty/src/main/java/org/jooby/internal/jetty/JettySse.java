@@ -203,11 +203,9 @@
  */
 package org.jooby.internal.jetty;
 
-import java.util.Optional;
-import java.util.concurrent.Executor;
-
-import javax.servlet.http.HttpServletResponse;
-
+import com.google.common.util.concurrent.MoreExecutors;
+import javaslang.concurrent.Promise;
+import javaslang.control.Try;
 import org.eclipse.jetty.io.EofException;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.HttpChannel;
@@ -216,10 +214,9 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Response;
 import org.jooby.Sse;
 
-import com.google.common.util.concurrent.MoreExecutors;
-
-import javaslang.concurrent.Promise;
-import javaslang.control.Try;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
+import java.util.concurrent.Executor;
 
 public class JettySse extends Sse {
 

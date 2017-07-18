@@ -203,11 +203,11 @@
  */
 package org.jooby.internal;
 
-import static javaslang.Predicates.instanceOf;
-
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
+
+import static javaslang.Predicates.instanceOf;
 
 public class ConnectionResetByPeer {
 

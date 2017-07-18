@@ -203,13 +203,13 @@
  */
 package org.jooby.internal;
 
-import static java.util.Objects.requireNonNull;
+import org.jooby.Asset;
+import org.jooby.MediaType;
 
 import java.io.InputStream;
 import java.net.URL;
 
-import org.jooby.Asset;
-import org.jooby.MediaType;
+import static java.util.Objects.requireNonNull;
 
 public class InputStreamAsset implements Asset {
 

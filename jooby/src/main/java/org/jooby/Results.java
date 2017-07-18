@@ -203,9 +203,9 @@
  */
 package org.jooby;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.function.Supplier;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * A {@link Result} builder with some utility static methods.

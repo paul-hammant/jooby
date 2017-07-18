@@ -203,13 +203,12 @@
  */
 package org.jooby.assets;
 
-import java.io.StringReader;
-import java.io.StringWriter;
-
-import org.jooby.MediaType;
-
 import com.typesafe.config.Config;
 import com.yahoo.platform.yui.compressor.CssCompressor;
+import org.jooby.MediaType;
+
+import java.io.StringReader;
+import java.io.StringWriter;
 
 /**
  * <h1>yui-css</h1>

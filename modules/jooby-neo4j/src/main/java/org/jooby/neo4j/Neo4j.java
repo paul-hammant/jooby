@@ -203,9 +203,32 @@
  */
 package org.jooby.neo4j;
 
-import static iot.jcypher.database.DBProperties.DATABASE_DIR;
-import static iot.jcypher.database.DBProperties.SERVER_ROOT_URI;
-import static java.util.Objects.requireNonNull;
+import com.google.inject.Binder;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigException;
+import com.typesafe.config.ConfigFactory;
+import com.typesafe.config.ConfigValue;
+import com.typesafe.config.ConfigValueFactory;
+import com.typesafe.config.ConfigValueType;
+import iot.jcypher.database.DBProperties;
+import iot.jcypher.database.IDBAccess;
+import iot.jcypher.database.embedded.AbstractEmbeddedDBAccess;
+import iot.jcypher.database.embedded.EmbeddedDBAccess;
+import iot.jcypher.database.remote.BoltDBAccess;
+import org.jooby.Env;
+import org.jooby.Env.ServiceKey;
+import org.jooby.Jooby.Module;
+import org.neo4j.driver.v1.AuthTokens;
+import org.neo4j.driver.v1.Driver;
+import org.neo4j.driver.v1.GraphDatabase;
+import org.neo4j.driver.v1.Session;
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.factory.GraphDatabaseBuilder;
+import org.neo4j.graphdb.factory.GraphDatabaseFactory;
+import org.neo4j.logging.slf4j.Slf4jLogProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -222,34 +245,9 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.jooby.Env;
-import org.jooby.Env.ServiceKey;
-import org.jooby.Jooby.Module;
-import org.neo4j.driver.v1.AuthTokens;
-import org.neo4j.driver.v1.Driver;
-import org.neo4j.driver.v1.GraphDatabase;
-import org.neo4j.driver.v1.Session;
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.factory.GraphDatabaseBuilder;
-import org.neo4j.graphdb.factory.GraphDatabaseFactory;
-import org.neo4j.logging.slf4j.Slf4jLogProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.bridge.SLF4JBridgeHandler;
-
-import com.google.inject.Binder;
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigException;
-import com.typesafe.config.ConfigFactory;
-import com.typesafe.config.ConfigValue;
-import com.typesafe.config.ConfigValueFactory;
-import com.typesafe.config.ConfigValueType;
-
-import iot.jcypher.database.DBProperties;
-import iot.jcypher.database.IDBAccess;
-import iot.jcypher.database.embedded.AbstractEmbeddedDBAccess;
-import iot.jcypher.database.embedded.EmbeddedDBAccess;
-import iot.jcypher.database.remote.BoltDBAccess;
+import static iot.jcypher.database.DBProperties.DATABASE_DIR;
+import static iot.jcypher.database.DBProperties.SERVER_ROOT_URI;
+import static java.util.Objects.requireNonNull;
 
 /**
  * <h1>neo4j</h1>
@@ -483,7 +481,7 @@ public class Neo4j implements Module {
     this("db");
   }
 
-  @SuppressWarnings({"unchecked", "rawtypes" })
+  @SuppressWarnings({"unchecked", "rawtypes"})
   @Override
   public void configure(final Env env, final Config conf, final Binder binder) throws Throwable {
     String db = database(conf, this.db);
@@ -515,7 +513,7 @@ public class Neo4j implements Module {
     Config result = conf.hasPath("com.graphaware")
         ? ConfigFactory.empty().withValue("com.graphaware", conf.getConfig("com.graphaware").root())
         : ConfigFactory.empty();
-    String[] paths = {"neo4j", db, "neo4j." + db };
+    String[] paths = {"neo4j", db, "neo4j." + db};
     for (String path : paths) {
       try {
         if (conf.hasPath(path)) {
@@ -571,7 +569,7 @@ public class Neo4j implements Module {
   }
 
   private String database(final Config conf, final String db) {
-    String[] paths = {db + ".url", db };
+    String[] paths = {db + ".url", db};
     for (String path : paths) {
       if (conf.hasPath(path)) {
         return conf.getString(path);

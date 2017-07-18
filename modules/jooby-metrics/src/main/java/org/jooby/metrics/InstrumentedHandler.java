@@ -203,16 +203,15 @@
  */
 package org.jooby.metrics;
 
+import com.codahale.metrics.Counter;
+import com.codahale.metrics.Meter;
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.Timer;
 import org.jooby.Request;
 import org.jooby.Response;
 import org.jooby.Route;
 import org.jooby.Route.Chain;
 import org.jooby.Status;
-
-import com.codahale.metrics.Counter;
-import com.codahale.metrics.Meter;
-import com.codahale.metrics.MetricRegistry;
-import com.codahale.metrics.Timer;
 
 /**
  * Track request information like: active requests, request time and responses.

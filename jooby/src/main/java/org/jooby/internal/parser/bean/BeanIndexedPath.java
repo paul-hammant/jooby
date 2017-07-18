@@ -203,16 +203,15 @@
  */
 package org.jooby.internal.parser.bean;
 
+import com.google.inject.TypeLiteral;
+
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.inject.TypeLiteral;
-
-@SuppressWarnings("rawtypes")
-class BeanIndexedPath implements BeanPath {
+@SuppressWarnings("rawtypes") class BeanIndexedPath implements BeanPath {
   private int index;
 
   private BeanPath path;

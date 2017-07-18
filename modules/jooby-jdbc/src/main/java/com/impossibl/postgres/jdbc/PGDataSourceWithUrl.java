@@ -203,9 +203,9 @@
  */
 package com.impossibl.postgres.jdbc;
 
-import java.net.InetSocketAddress;
-
 import com.impossibl.postgres.jdbc.ConnectionUtil.ConnectionSpecifier;
+
+import java.net.InetSocketAddress;
 
 // Hack documented here: https://github.com/impossibl/pgjdbc-ng/issues/323
 public class PGDataSourceWithUrl extends PGDataSource {

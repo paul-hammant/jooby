@@ -203,19 +203,6 @@
  */
 package org.jooby.guava;
 
-import static java.util.Objects.requireNonNull;
-
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.jooby.Env;
-import org.jooby.Jooby;
-import org.jooby.Session;
-
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheBuilderSpec;
@@ -228,6 +215,18 @@ import com.google.inject.util.Types;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigValueFactory;
+import org.jooby.Env;
+import org.jooby.Jooby;
+import org.jooby.Session;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * <h1>guava-cache</h1>
@@ -404,7 +403,7 @@ public abstract class GuavaCache<K, V> implements Jooby.Module {
     return this;
   }
 
-  @SuppressWarnings({"unchecked", "rawtypes" })
+  @SuppressWarnings({"unchecked", "rawtypes"})
   @Override
   public void configure(final Env env, final Config conf, final Binder binder) {
     Config gconf = conf.hasPath(name) ? conf : ConfigFactory.empty();
@@ -439,8 +438,8 @@ public abstract class GuavaCache<K, V> implements Jooby.Module {
   @SuppressWarnings("rawtypes")
   private static List<TypeLiteral> cacheType(final String name, final Cache cache,
       final Type superclass) {
-    Class[] ctypes = cache instanceof LoadingCache ? new Class[]{LoadingCache.class, Cache.class }
-        : new Class[]{Cache.class };
+    Class[] ctypes = cache instanceof LoadingCache ? new Class[]{LoadingCache.class, Cache.class}
+        : new Class[]{Cache.class};
     List<TypeLiteral> result = new ArrayList<>(ctypes.length);
     for (Class ctype : ctypes) {
       if (name.equals("session")) {
@@ -473,7 +472,7 @@ public abstract class GuavaCache<K, V> implements Jooby.Module {
       key = args[0];
       value = args[1];
     }
-    return new Type[]{key, value };
+    return new Type[]{key, value};
   }
 
 }

@@ -203,19 +203,17 @@
  */
 package org.jooby.ehcache;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.HashMap;
-import java.util.Map;
+import net.sf.ehcache.Ehcache;
+import net.sf.ehcache.Element;
+import org.jooby.Session;
+import org.jooby.Session.Builder;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.HashMap;
+import java.util.Map;
 
-import net.sf.ehcache.Ehcache;
-import net.sf.ehcache.Element;
-
-import org.jooby.Session;
-import org.jooby.Session.Builder;
+import static java.util.Objects.requireNonNull;
 
 /**
  * {@link Session.Store} powered by an {@link Ehcache}. In order to use this store a

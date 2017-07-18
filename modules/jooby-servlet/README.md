@@ -858,7 +858,7 @@ mime.woff=application/x-font-woff
 
 mime.woff2=application/font-woff2
 
-#! source map
+get
 
 mime.map=text/plain
 

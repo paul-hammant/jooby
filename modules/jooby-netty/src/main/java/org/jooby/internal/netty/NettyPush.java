@@ -203,10 +203,6 @@
  */
 package org.jooby.internal.netty;
 
-import java.util.Map;
-
-import org.jooby.spi.NativePushPromise;
-
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.DefaultFullHttpRequest;
@@ -221,6 +217,9 @@ import io.netty.handler.codec.http2.Http2Headers;
 import io.netty.handler.codec.http2.HttpConversionUtil;
 import io.netty.handler.codec.http2.HttpToHttp2ConnectionHandler;
 import io.netty.util.AsciiString;
+import org.jooby.spi.NativePushPromise;
+
+import java.util.Map;
 
 public class NettyPush implements NativePushPromise {
 

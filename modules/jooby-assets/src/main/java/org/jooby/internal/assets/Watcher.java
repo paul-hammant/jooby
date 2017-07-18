@@ -203,11 +203,9 @@
  */
 package org.jooby.internal.assets;
 
-import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
-import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
-import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
-import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
-import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
+import com.sun.nio.file.SensitivityWatchEventModifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -226,10 +224,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.sun.nio.file.SensitivityWatchEventModifier;
+import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
+import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
 class Watcher {
 
@@ -257,7 +256,7 @@ class Watcher {
    * Register the given directory with the WatchService
    */
   private void register(final Path dir) throws IOException {
-    WatchKey key = dir.register(watcher, new Kind[]{ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY },
+    WatchKey key = dir.register(watcher, new Kind[]{ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY},
         SensitivityWatchEventModifier.HIGH);
     keys.put(key, dir);
   }
@@ -291,9 +290,9 @@ class Watcher {
       boolean process = true;
       listener.accept(ENTRY_MODIFY, dirs[0]);
       try {
-      while (process) {
-        process = processEvents();
-      }
+        while (process) {
+          process = processEvents();
+        }
       } catch (ClosedWatchServiceException ex) {
         log.trace("watch service closed", ex);
       }

@@ -203,14 +203,13 @@
  */
 package org.jooby.internal.hbs;
 
+import com.github.jknack.handlebars.ValueResolver;
+import org.jooby.Session;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
-import org.jooby.Session;
-
-import com.github.jknack.handlebars.ValueResolver;
 
 /**
  * Handlebars value resolver for accessing to {@link Session}, like request and session objects.
@@ -236,7 +235,7 @@ public class SessionValueResolver implements ValueResolver {
     return UNRESOLVED;
   }
 
-  @SuppressWarnings({"unchecked", "rawtypes" })
+  @SuppressWarnings({"unchecked", "rawtypes"})
   @Override
   public Set<Entry<String, Object>> propertySet(final Object context) {
     if (context instanceof Session) {

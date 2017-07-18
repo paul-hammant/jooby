@@ -203,15 +203,10 @@
  */
 package org.jooby.internal;
 
-import static javaslang.API.$;
-import static javaslang.API.Case;
-import static javaslang.API.Match;
-import static javaslang.Predicates.instanceOf;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
-
+import com.google.common.collect.ImmutableMap;
+import com.google.inject.TypeLiteral;
+import javaslang.Tuple;
+import javaslang.Tuple3;
 import org.jooby.Err;
 import org.jooby.MediaType;
 import org.jooby.Mutant;
@@ -219,11 +214,14 @@ import org.jooby.Parser;
 import org.jooby.Status;
 import org.jooby.internal.parser.ParserExecutor;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.inject.TypeLiteral;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
-import javaslang.Tuple;
-import javaslang.Tuple3;
+import static javaslang.API.$;
+import static javaslang.API.Case;
+import static javaslang.API.Match;
+import static javaslang.Predicates.instanceOf;
 
 /**
  * Default mutant implementation.

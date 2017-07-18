@@ -203,14 +203,14 @@
  */
 package org.jooby.internal.handlers;
 
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
-
 import org.jooby.MediaType;
 import org.jooby.Mutant;
 import org.jooby.Request;
 import org.jooby.Response;
 import org.jooby.Route;
+
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 public class TraceHandler implements Route.Handler {
 

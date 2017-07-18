@@ -203,17 +203,16 @@
  */
 package org.skife.jdbi.v2;
 
-import java.lang.reflect.Array;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.List;
-
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import org.jooby.jdbi.Jdbi;
 import org.skife.jdbi.v2.tweak.Argument;
 import org.skife.jdbi.v2.tweak.ArgumentFactory;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
+import java.lang.reflect.Array;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
 
 public class IterableArgument implements Argument {
 
@@ -221,7 +220,7 @@ public class IterableArgument implements Argument {
 
   private Foreman foreman;
 
-  @SuppressWarnings({"unchecked", "rawtypes" })
+  @SuppressWarnings({"unchecked", "rawtypes"})
   public IterableArgument(final Object value, final StatementContext ctx) {
     if (value.getClass().isArray()) {
       ImmutableList.Builder<Object> builder = ImmutableList.builder();

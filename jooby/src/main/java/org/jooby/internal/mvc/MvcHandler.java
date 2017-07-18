@@ -203,18 +203,17 @@
  */
 package org.jooby.internal.mvc;
 
-import static java.util.Objects.requireNonNull;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.List;
-
+import com.google.common.base.Throwables;
 import org.jooby.Request;
 import org.jooby.Response;
 import org.jooby.Route;
 import org.jooby.Status;
 
-import com.google.common.base.Throwables;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
 
 public class MvcHandler implements Route.MethodHandler {
 

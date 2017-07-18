@@ -203,9 +203,9 @@
  */
 package org.jooby.internal;
 
-import java.util.List;
-
 import org.jooby.Upload;
+
+import java.util.List;
 
 public class UploadParamReferenceImpl extends ParamReferenceImpl<Upload> {
 

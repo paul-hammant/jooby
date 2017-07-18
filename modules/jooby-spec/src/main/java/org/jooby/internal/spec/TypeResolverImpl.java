@@ -203,15 +203,15 @@
  */
 package org.jooby.internal.spec;
 
+import com.github.javaparser.ast.Node;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
-
-import com.github.javaparser.ast.Node;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 
 public class TypeResolverImpl implements TypeResolver {
 

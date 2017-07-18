@@ -203,11 +203,11 @@
  */
 package org.jooby.internal.jetty;
 
-import java.util.Map;
-
 import org.eclipse.jetty.server.PushBuilder;
 import org.eclipse.jetty.server.Request;
 import org.jooby.spi.NativePushPromise;
+
+import java.util.Map;
 
 public class JettyPush implements NativePushPromise {
 

@@ -203,6 +203,11 @@
  */
 package org.jooby.assets;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
+import org.jooby.Route;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -217,12 +222,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiFunction;
-
-import org.jooby.Route;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
 
 /**
  * <h1>react</h1>

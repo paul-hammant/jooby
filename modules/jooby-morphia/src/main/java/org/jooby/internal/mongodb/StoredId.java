@@ -206,11 +206,10 @@ package org.jooby.internal.mongodb;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
-@Entity(value= "idgen", noClassnameStored = true)
+@Entity(value = "idgen", noClassnameStored = true)
 public class StoredId {
 
-  @Id
-  final String className;
+  @Id final String className;
 
   final Long value = 1L;
 

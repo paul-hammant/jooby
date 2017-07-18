@@ -203,23 +203,21 @@
  */
 package org.jooby.hazelcast;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.jooby.Session;
-import org.jooby.Session.Builder;
-
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigValueFactory;
+import org.jooby.Session;
+import org.jooby.Session.Builder;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * A {@link Session.Store} powered by <a href="http://hazelcast.org">Hazelcast</a>.

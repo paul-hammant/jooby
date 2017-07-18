@@ -203,12 +203,11 @@
  */
 package org.jooby.hbm;
 
-import javax.persistence.EntityManager;
-
-import org.hibernate.Session;
-
 import javaslang.control.Try.CheckedConsumer;
 import javaslang.control.Try.CheckedFunction;
+import org.hibernate.Session;
+
+import javax.persistence.EntityManager;
 
 /**
  * <h2>unit of work</h2>

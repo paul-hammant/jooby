@@ -203,18 +203,17 @@
  */
 package org.jooby.assets;
 
-import java.io.StringReader;
-import java.io.StringWriter;
-
+import com.google.common.collect.ImmutableList;
+import com.typesafe.config.Config;
+import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
 import org.jooby.MediaType;
 import org.mozilla.javascript.ErrorReporter;
 import org.mozilla.javascript.EvaluatorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.ImmutableList;
-import com.typesafe.config.Config;
-import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
+import java.io.StringReader;
+import java.io.StringWriter;
 
 /**
  * <h1>yui-js</h1>
@@ -281,7 +280,8 @@ public class YuiJs extends AssetProcessor {
     return out.toString();
   }
 
-  private static ErrorReporter reporter(final Logger log, final String filename, final String name) {
+  private static ErrorReporter reporter(final Logger log, final String filename,
+      final String name) {
     return new ErrorReporter() {
 
       @Override

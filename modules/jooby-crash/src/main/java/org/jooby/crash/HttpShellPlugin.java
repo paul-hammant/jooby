@@ -203,6 +203,7 @@
  */
 package org.jooby.crash;
 
+import com.typesafe.config.Config;
 import org.crsh.plugin.CRaSHPlugin;
 import org.crsh.plugin.PluginContext;
 import org.crsh.shell.Shell;
@@ -212,8 +213,6 @@ import org.crsh.shell.ShellProcessContext;
 import org.jooby.Env;
 import org.jooby.MediaType;
 import org.jooby.Router;
-
-import com.typesafe.config.Config;
 
 public class HttpShellPlugin extends CRaSHPlugin<HttpShellPlugin> {
 

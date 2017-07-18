@@ -203,12 +203,11 @@
  */
 package org.jooby.internal;
 
-import org.jooby.internal.parser.StaticMethodParser;
-
 import com.google.common.primitives.Primitives;
 import com.google.inject.TypeLiteral;
 import com.google.inject.matcher.AbstractMatcher;
 import com.google.inject.spi.TypeConverter;
+import org.jooby.internal.parser.StaticMethodParser;
 
 class StaticMethodTypeConverter<T> extends AbstractMatcher<TypeLiteral<T>>
     implements TypeConverter {

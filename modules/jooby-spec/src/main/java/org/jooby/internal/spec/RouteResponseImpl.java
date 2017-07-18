@@ -203,14 +203,13 @@
  */
 package org.jooby.internal.spec;
 
+import com.google.common.base.MoreObjects;
+import org.jooby.spec.RouteResponse;
+
 import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
-
-import org.jooby.spec.RouteResponse;
-
-import com.google.common.base.MoreObjects;
 
 public class RouteResponseImpl extends SerObject implements RouteResponse {
 

@@ -203,19 +203,7 @@
  */
 package org.skife.jdbi.v2;
 
-import static org.skife.jdbi.rewriter.colon.ColonStatementLexer.DOUBLE_QUOTED_TEXT;
-import static org.skife.jdbi.rewriter.colon.ColonStatementLexer.ESCAPED_TEXT;
-import static org.skife.jdbi.rewriter.colon.ColonStatementLexer.LITERAL;
-import static org.skife.jdbi.rewriter.colon.ColonStatementLexer.NAMED_PARAM;
-import static org.skife.jdbi.rewriter.colon.ColonStatementLexer.POSITIONAL_PARAM;
-import static org.skife.jdbi.rewriter.colon.ColonStatementLexer.QUOTED_TEXT;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
+import com.google.common.base.Strings;
 import org.skife.jdbi.org.antlr.runtime.ANTLRStringStream;
 import org.skife.jdbi.org.antlr.runtime.Token;
 import org.skife.jdbi.rewriter.colon.ColonStatementLexer;
@@ -225,7 +213,18 @@ import org.skife.jdbi.v2.tweak.Argument;
 import org.skife.jdbi.v2.tweak.RewrittenStatement;
 import org.skife.jdbi.v2.tweak.StatementRewriter;
 
-import com.google.common.base.Strings;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static org.skife.jdbi.rewriter.colon.ColonStatementLexer.DOUBLE_QUOTED_TEXT;
+import static org.skife.jdbi.rewriter.colon.ColonStatementLexer.ESCAPED_TEXT;
+import static org.skife.jdbi.rewriter.colon.ColonStatementLexer.LITERAL;
+import static org.skife.jdbi.rewriter.colon.ColonStatementLexer.NAMED_PARAM;
+import static org.skife.jdbi.rewriter.colon.ColonStatementLexer.POSITIONAL_PARAM;
+import static org.skife.jdbi.rewriter.colon.ColonStatementLexer.QUOTED_TEXT;
 
 /**
  * <p>
@@ -239,8 +238,7 @@ import com.google.common.base.Strings;
  * TODO: find sometime and send a pull request to include these changes. Here we are accessing to
  * some packages protected classes, which isn't good.
  */
-public class ExpandedStmtRewriter implements StatementRewriter
-{
+public class ExpandedStmtRewriter implements StatementRewriter {
   /**
    * Munge up the SQL as desired. Responsible for figuring out ow to bind any
    * arguments in to the resultant prepared statement.
@@ -253,8 +251,7 @@ public class ExpandedStmtRewriter implements StatementRewriter
    */
   @Override
   public RewrittenStatement rewrite(final String sql, final Binding params,
-      final StatementContext ctx)
-  {
+      final StatementContext ctx) {
     final ParsedStatement stmt = new ParsedStatement();
     try {
       final String parsedSql = parseString(sql, stmt, params);
@@ -321,23 +318,20 @@ public class ExpandedStmtRewriter implements StatementRewriter
     return b.toString();
   }
 
-  private static class MyRewrittenStatement implements RewrittenStatement
-  {
+  private static class MyRewrittenStatement implements RewrittenStatement {
     private final String sql;
     private final ParsedStatement stmt;
     private final StatementContext context;
 
     public MyRewrittenStatement(final String sql, final ParsedStatement stmt,
-        final StatementContext ctx)
-    {
+        final StatementContext ctx) {
       this.context = ctx;
       this.sql = sql;
       this.stmt = stmt;
     }
 
     @Override
-    public void bind(final Binding params, final PreparedStatement statement) throws SQLException
-    {
+    public void bind(final Binding params, final PreparedStatement statement) throws SQLException {
       if (stmt.positionalOnly) {
         // no named params, is easy
         boolean finished = false;
@@ -358,13 +352,11 @@ public class ExpandedStmtRewriter implements StatementRewriter
                       "Exception while binding positional param at (0 based) position %d",
                       i), e, context);
             }
-          }
-          else {
+          } else {
             finished = true;
           }
         }
-      }
-      else {
+      } else {
         // List<String> named_params = stmt.params;
         int i = 0;
         for (String named_param : stmt.params) {
@@ -378,8 +370,8 @@ public class ExpandedStmtRewriter implements StatementRewriter
 
           if (a == null) {
             String msg = String.format("Unable to execute, no named parameter matches " +
-                "\"%s\" and no positional param for place %d (which is %d in " +
-                "the JDBC 'start at 1' scheme) has been set.",
+                    "\"%s\" and no positional param for place %d (which is %d in " +
+                    "the JDBC 'start at 1' scheme) has been set.",
                 named_param, i, i + 1);
             throw new UnableToExecuteStatementException(msg, context);
           }
@@ -399,25 +391,21 @@ public class ExpandedStmtRewriter implements StatementRewriter
     }
 
     @Override
-    public String getSql()
-    {
+    public String getSql() {
       return sql;
     }
   }
 
-  static class ParsedStatement
-  {
+  static class ParsedStatement {
     private boolean positionalOnly = true;
     private List<String> params = new ArrayList<String>();
 
-    public void addNamedParamAt(final String name)
-    {
+    public void addNamedParamAt(final String name) {
       positionalOnly = false;
       params.add(name);
     }
 
-    public void addPositionalParamAt()
-    {
+    public void addPositionalParamAt() {
       params.add("*");
     }
   }

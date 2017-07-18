@@ -203,6 +203,13 @@
  */
 package org.jooby.internal;
 
+import com.google.common.collect.ImmutableList;
+import org.jooby.MediaType;
+import org.jooby.Renderer;
+import org.jooby.WebSocket.OnError;
+import org.jooby.WebSocket.SuccessCallback;
+import org.jooby.spi.NativeWebSocket;
+
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -210,14 +217,6 @@ import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-
-import org.jooby.MediaType;
-import org.jooby.Renderer;
-import org.jooby.WebSocket.OnError;
-import org.jooby.WebSocket.SuccessCallback;
-import org.jooby.spi.NativeWebSocket;
-
-import com.google.common.collect.ImmutableList;
 
 public class WebSocketRendererContext extends AbstractRendererContext {
 

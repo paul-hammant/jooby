@@ -203,10 +203,6 @@
  */
 package org.jooby.internal.spec;
 
-import java.lang.reflect.Type;
-import java.util.LinkedList;
-import java.util.stream.Collectors;
-
 import com.github.javaparser.ast.expr.BooleanLiteralExpr;
 import com.github.javaparser.ast.expr.CharLiteralExpr;
 import com.github.javaparser.ast.expr.ClassExpr;
@@ -220,6 +216,10 @@ import com.github.javaparser.ast.expr.LongLiteralMinValueExpr;
 import com.github.javaparser.ast.expr.StringLiteralExpr;
 import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
 
+import java.lang.reflect.Type;
+import java.util.LinkedList;
+import java.util.stream.Collectors;
+
 public class LiteralCollector extends GenericVisitorAdapter<Object, Context> {
 
   @Override
@@ -227,7 +227,7 @@ public class LiteralCollector extends GenericVisitorAdapter<Object, Context> {
     return n.accept(new TypeCollector(), ctx);
   }
 
-  @SuppressWarnings({"rawtypes", "unchecked" })
+  @SuppressWarnings({"rawtypes", "unchecked"})
   @Override
   public Object visit(final FieldAccessExpr n, final Context ctx) {
     String name = name(n);

@@ -203,9 +203,8 @@
  */
 package org.jooby.json;
 
-import org.jooby.MediaType;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.jooby.MediaType;
 
 class JacksonRawRenderer extends JacksonRenderer {
 

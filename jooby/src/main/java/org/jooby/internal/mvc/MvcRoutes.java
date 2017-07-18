@@ -203,22 +203,9 @@
  */
 package org.jooby.internal.mvc;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
-
+import com.google.common.base.CaseFormat;
+import com.google.common.collect.ImmutableSet;
+import javaslang.control.Try;
 import org.jooby.Env;
 import org.jooby.MediaType;
 import org.jooby.Route;
@@ -237,10 +224,21 @@ import org.jooby.mvc.Path;
 import org.jooby.mvc.Produces;
 import org.jooby.mvc.TRACE;
 
-import com.google.common.base.CaseFormat;
-import com.google.common.collect.ImmutableSet;
-
-import javaslang.control.Try;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class MvcRoutes {
 
@@ -252,7 +250,7 @@ public class MvcRoutes {
       CONNECT.class);
 
   private static final Set<Class<? extends Annotation>> IGNORE = ImmutableSet
-      .<Class<? extends Annotation>> builder()
+      .<Class<? extends Annotation>>builder()
       .addAll(VERBS)
       .add(Path.class)
       .add(Produces.class)
@@ -315,12 +313,12 @@ public class MvcRoutes {
 
               Definition definition = new Route.Definition(
                   verb.getSimpleName(), rpath + "/" + path, new MvcHandler(method, paramProvider))
-                      .produces(produces)
-                      .consumes(consumes)
-                      .excludes(excludes)
-                      .declaringClass(method.getDeclaringClass().getName())
-                      .line(classInfo.startAt(method) - 1)
-                      .name(name);
+                  .produces(produces)
+                  .consumes(consumes)
+                  .excludes(excludes)
+                  .declaringClass(method.getDeclaringClass().getName())
+                  .line(classInfo.startAt(method) - 1)
+                  .name(name);
 
               localAttrs.forEach((n, v) -> definition.attr(n, v));
               definitions.add(definition);
@@ -338,7 +336,7 @@ public class MvcRoutes {
     }
   }
 
-  @SuppressWarnings({"rawtypes", "unchecked" })
+  @SuppressWarnings({"rawtypes", "unchecked"})
   private static void routes(final Method[] methods,
       final BiConsumer<Method, List<Class<?>>> consumer) {
     for (Method method : methods) {

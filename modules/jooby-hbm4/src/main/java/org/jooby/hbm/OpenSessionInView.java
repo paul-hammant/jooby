@@ -203,10 +203,7 @@
  */
 package org.jooby.hbm;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
+import com.google.inject.Key;
 import org.hibernate.FlushMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -220,7 +217,8 @@ import org.jooby.internal.hbm.TrxResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Key;
+import javax.persistence.EntityManager;
+import java.util.List;
 
 public class OpenSessionInView implements Route.Filter {
 

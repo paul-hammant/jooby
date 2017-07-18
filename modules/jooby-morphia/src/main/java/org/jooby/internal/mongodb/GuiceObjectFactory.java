@@ -203,15 +203,7 @@
  */
 package org.jooby.internal.mongodb;
 
-import static java.util.Objects.requireNonNull;
-
-import java.lang.reflect.Constructor;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.inject.Inject;
-
+import com.mongodb.DBObject;
 import org.jooby.Registry;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.ObjectFactory;
@@ -219,7 +211,13 @@ import org.mongodb.morphia.mapping.MappedField;
 import org.mongodb.morphia.mapping.Mapper;
 import org.mongodb.morphia.mapping.MapperOptions;
 
-import com.mongodb.DBObject;
+import javax.inject.Inject;
+import java.lang.reflect.Constructor;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static java.util.Objects.requireNonNull;
 
 public class GuiceObjectFactory implements ObjectFactory {
 
@@ -275,7 +273,7 @@ public class GuiceObjectFactory implements ObjectFactory {
   }
 
   private boolean shouldInject(final Class<?> clazz) {
-    for(Constructor<?> constructor : clazz.getDeclaredConstructors()) {
+    for (Constructor<?> constructor : clazz.getDeclaredConstructors()) {
       if (constructor.getAnnotation(Inject.class) != null) {
         return true;
       }

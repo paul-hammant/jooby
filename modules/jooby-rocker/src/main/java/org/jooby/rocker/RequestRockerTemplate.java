@@ -203,13 +203,13 @@
  */
 package org.jooby.rocker;
 
-import static com.fizzed.rocker.RockerUtils.requireTemplateClass;
-
-import java.util.Map;
-
 import com.fizzed.rocker.RockerModel;
 import com.fizzed.rocker.RockerTemplate;
 import com.fizzed.rocker.runtime.DefaultRockerTemplate;
+
+import java.util.Map;
+
+import static com.fizzed.rocker.RockerUtils.requireTemplateClass;
 
 public abstract class RequestRockerTemplate extends DefaultRockerTemplate {
 

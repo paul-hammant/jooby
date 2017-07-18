@@ -203,13 +203,12 @@
  */
 package org.jooby.internal.ehcache;
 
+import com.typesafe.config.Config;
 import net.sf.ehcache.config.Configuration;
 import net.sf.ehcache.config.DiskStoreConfiguration;
 import net.sf.ehcache.config.FactoryConfiguration;
 import net.sf.ehcache.config.SizeOfPolicyConfiguration;
 import net.sf.ehcache.config.TerracottaClientConfiguration;
-
-import com.typesafe.config.Config;
 
 public class ConfigurationBuilder extends EhCacheBuilder {
 
@@ -264,20 +263,20 @@ public class ConfigurationBuilder extends EhCacheBuilder {
   private void cacheManagerEventListenerFactory(final Config conf) {
     eh.addCacheManagerEventListenerFactory(
         newFactory("ehcache.cacheManagerEventListenerFactory", conf, FactoryConfiguration::new)
-        );
+    );
   }
 
   private void cacheManagerPeerListenerFactory(final Config conf) {
     if (conf.hasPath("class")) {
       eh.addCacheManagerPeerListenerFactory(
           newFactory("ehcache.cacheManagerPeerListenerFactory", conf, FactoryConfiguration::new)
-          );
+      );
     } else {
       each(conf, (name, c) -> {
         eh.addCacheManagerPeerListenerFactory(
             newFactory("ehcache.cacheManagerPeerListenerFactory." + name, c,
                 FactoryConfiguration::new)
-            );
+        );
       });
     }
   }
@@ -286,13 +285,13 @@ public class ConfigurationBuilder extends EhCacheBuilder {
     if (conf.hasPath("class")) {
       eh.addCacheManagerPeerProviderFactory(
           newFactory("ehcache.cacheManagerPeerProviderFactory", conf, FactoryConfiguration::new)
-          );
+      );
     } else {
       each(conf, (name, c) -> {
         eh.addCacheManagerPeerProviderFactory(
             newFactory("ehcache.cacheManagerPeerProviderFactory." + name, c,
                 FactoryConfiguration::new)
-            );
+        );
       });
     }
   }
@@ -321,7 +320,7 @@ public class ConfigurationBuilder extends EhCacheBuilder {
   private void transactionManagerLookup(final Config conf) {
     eh.addTransactionManagerLookup(
         newFactory("ehcache.transactionManagerLookup", conf, FactoryConfiguration::new)
-        );
+    );
   }
 
 }

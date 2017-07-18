@@ -203,17 +203,16 @@
  */
 package org.jooby.internal.mongodb;
 
-import static java.util.Objects.requireNonNull;
-
-import javax.inject.Inject;
-import javax.inject.Provider;
-
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import org.jongo.Jongo;
 import org.jongo.Mapper;
 import org.jooby.mongodb.JongoFactory;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
+import javax.inject.Inject;
+import javax.inject.Provider;
+
+import static java.util.Objects.requireNonNull;
 
 public class JongoFactoryImpl implements JongoFactory, Provider<Jongo> {
 

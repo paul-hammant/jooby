@@ -203,10 +203,9 @@
  */
 package org.jooby.assets;
 
-import org.jooby.MediaType;
-
 import com.google.common.base.CaseFormat;
 import com.typesafe.config.Config;
+import org.jooby.MediaType;
 
 /**
  * <h2>asset processor</h2>

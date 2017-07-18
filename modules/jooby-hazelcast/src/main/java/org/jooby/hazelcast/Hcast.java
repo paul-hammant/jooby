@@ -203,20 +203,19 @@
  */
 package org.jooby.hazelcast;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.Properties;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
-import org.jooby.Env;
-import org.jooby.Jooby.Module;
-
 import com.google.inject.Binder;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import org.jooby.Env;
+import org.jooby.Jooby.Module;
+
+import java.util.Properties;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * <h1>hazelcast module</h1>

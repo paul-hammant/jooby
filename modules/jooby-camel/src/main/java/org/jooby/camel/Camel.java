@@ -203,18 +203,14 @@
  */
 package org.jooby.camel;
 
-import static java.util.Objects.requireNonNull;
-import static javaslang.API.$;
-import static javaslang.API.Case;
-import static javaslang.API.Match;
-
-import java.io.File;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Properties;
-
+import com.google.common.base.CaseFormat;
+import com.google.common.collect.Lists;
+import com.google.inject.Binder;
+import com.google.inject.multibindings.Multibinder;
+import com.google.inject.name.Names;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
+import javaslang.control.Try;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.FluentProducerTemplate;
@@ -231,15 +227,17 @@ import org.jooby.internal.camel.CamelFinalizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.CaseFormat;
-import com.google.common.collect.Lists;
-import com.google.inject.Binder;
-import com.google.inject.multibindings.Multibinder;
-import com.google.inject.name.Names;
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
+import java.io.File;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Properties;
 
-import javaslang.control.Try;
+import static java.util.Objects.requireNonNull;
+import static javaslang.API.$;
+import static javaslang.API.Case;
+import static javaslang.API.Match;
 
 /**
  * Camel for Jooby. Exposes a {@link CamelContext}, {@link ProducerTemplate} and
@@ -607,7 +605,7 @@ public class Camel implements Jooby.Module {
     return ConfigFactory.parseResources(getClass(), "camel.conf");
   }
 
-  @SuppressWarnings({"rawtypes", "unchecked" })
+  @SuppressWarnings({"rawtypes", "unchecked"})
   private <T> T configure(final T source, final Config config) {
     List<Method> methods = Lists.newArrayList(source.getClass().getMethods());
     config.entrySet().forEach(o -> {

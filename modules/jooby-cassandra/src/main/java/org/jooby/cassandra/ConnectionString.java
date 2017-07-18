@@ -203,16 +203,15 @@
  */
 package org.jooby.cassandra;
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.datastax.driver.core.ProtocolOptions;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
-
 import javaslang.Tuple;
 import javaslang.Tuple2;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 class ConnectionString {
 

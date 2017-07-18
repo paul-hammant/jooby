@@ -203,11 +203,6 @@
  */
 package org.jooby.couchbase;
 
-import java.util.List;
-
-import org.jooby.couchbase.AsyncDatastore.AsyncCommand;
-import org.jooby.couchbase.AsyncDatastore.AsyncRemoveCommand;
-
 import com.couchbase.client.core.message.kv.MutationToken;
 import com.couchbase.client.java.Bucket;
 import com.couchbase.client.java.PersistTo;
@@ -222,8 +217,11 @@ import com.couchbase.client.java.query.Statement;
 import com.couchbase.client.java.repository.Repository;
 import com.couchbase.client.java.repository.annotation.Id;
 import com.couchbase.client.java.view.ViewQuery;
-
+import org.jooby.couchbase.AsyncDatastore.AsyncCommand;
+import org.jooby.couchbase.AsyncDatastore.AsyncRemoveCommand;
 import rx.Observable;
+
+import java.util.List;
 
 /**
  * <h1>datastore</h1>
@@ -541,7 +539,7 @@ public interface Datastore {
    */
   default <T> T get(final Class<T> entityClass, final Object id)
       throws DocumentDoesNotExistException {
-    return async().<T> get(entityClass, id)
+    return async().<T>get(entityClass, id)
         .switchIfEmpty(notFound(entityClass, id))
         .toBlocking().single();
   }
@@ -561,7 +559,7 @@ public interface Datastore {
    */
   default <T> T getFromReplica(final Class<T> entityClass, final Object id,
       final ReplicaMode mode) throws DocumentDoesNotExistException {
-    return async().<T> getFromReplica(entityClass, id, mode)
+    return async().<T>getFromReplica(entityClass, id, mode)
         .switchIfEmpty(notFound(entityClass, id))
         .toBlocking().single();
   }
@@ -589,7 +587,7 @@ public interface Datastore {
    */
   default <T> T getAndLock(final Class<T> entityClass, final Object id, final int lockTime)
       throws DocumentDoesNotExistException {
-    return async().<T> getAndLock(entityClass, id, lockTime)
+    return async().<T>getAndLock(entityClass, id, lockTime)
         .switchIfEmpty(notFound(entityClass, id))
         .toBlocking().single();
   }
@@ -611,7 +609,7 @@ public interface Datastore {
    */
   default <T> T getAndTouch(final Class<T> entityClass, final Object id, final int expiry)
       throws DocumentDoesNotExistException {
-    return async().<T> getAndTouch(entityClass, id, expiry)
+    return async().<T>getAndTouch(entityClass, id, expiry)
         .switchIfEmpty(notFound(entityClass, id))
         .toBlocking().single();
   }
@@ -743,7 +741,7 @@ public interface Datastore {
    * @see N1Q#from(Class)
    */
   default <T> List<T> query(final N1qlQuery query) {
-    return async().<T> query(query).toBlocking().single();
+    return async().<T>query(query).toBlocking().single();
   }
 
   /**
@@ -755,7 +753,7 @@ public interface Datastore {
    * @see N1Q#from(Class)
    */
   default <T> List<T> query(final Statement statement) {
-    return async().<T> query(statement).toBlocking().single();
+    return async().<T>query(statement).toBlocking().single();
   }
 
   /**
@@ -766,7 +764,7 @@ public interface Datastore {
    * @return Results.
    */
   default <T> ViewQueryResult<T> query(final ViewQuery query) {
-    return async().<T> query(query)
+    return async().<T>query(query)
         .map(r -> new ViewQueryResult<>(r.getTotalRows(), r.getRows().toBlocking().single()))
         .toBlocking().single();
   }

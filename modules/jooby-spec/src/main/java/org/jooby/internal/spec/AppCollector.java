@@ -203,11 +203,6 @@
  */
 package org.jooby.internal.spec;
 
-import java.util.List;
-import java.util.Set;
-
-import org.jooby.Jooby;
-
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
@@ -217,6 +212,10 @@ import com.github.javaparser.ast.expr.ObjectCreationExpr;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
 import com.google.common.collect.ImmutableSet;
+import org.jooby.Jooby;
+
+import java.util.List;
+import java.util.Set;
 
 public class AppCollector extends GenericVisitorAdapter<Node, Context> {
 

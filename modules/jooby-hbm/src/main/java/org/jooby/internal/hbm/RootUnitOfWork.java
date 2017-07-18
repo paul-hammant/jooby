@@ -203,8 +203,8 @@
  */
 package org.jooby.internal.hbm;
 
-import java.sql.Connection;
-
+import javaslang.control.Try;
+import javaslang.control.Try.CheckedFunction;
 import org.hibernate.FlushMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -212,8 +212,7 @@ import org.hibernate.context.internal.ManagedSessionContext;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.jooby.hbm.UnitOfWork;
 
-import javaslang.control.Try;
-import javaslang.control.Try.CheckedFunction;
+import java.sql.Connection;
 
 public class RootUnitOfWork extends AbstractUnitOfWork {
 

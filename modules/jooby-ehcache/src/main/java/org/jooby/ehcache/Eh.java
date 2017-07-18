@@ -203,27 +203,25 @@
  */
 package org.jooby.ehcache;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.Map.Entry;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
-import org.jooby.Env;
-import org.jooby.Jooby;
-import org.jooby.internal.ehcache.CacheConfigurationBuilder;
-import org.jooby.internal.ehcache.ConfigurationBuilder;
-
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigObject;
 import com.typesafe.config.ConfigValue;
-
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.config.Configuration;
+import org.jooby.Env;
+import org.jooby.Jooby;
+import org.jooby.internal.ehcache.CacheConfigurationBuilder;
+import org.jooby.internal.ehcache.ConfigurationBuilder;
+
+import java.util.Map.Entry;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * <h1>ehcache module</h1>

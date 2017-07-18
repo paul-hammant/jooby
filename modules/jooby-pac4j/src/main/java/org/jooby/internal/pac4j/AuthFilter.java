@@ -204,7 +204,11 @@
 package org.jooby.internal.pac4j;
 
 import javaslang.CheckedFunction1;
-import org.jooby.*;
+import org.jooby.Err;
+import org.jooby.Request;
+import org.jooby.Response;
+import org.jooby.Route;
+import org.jooby.Status;
 import org.jooby.pac4j.Auth;
 import org.jooby.pac4j.AuthStore;
 import org.pac4j.core.client.Client;
@@ -224,7 +228,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static java.util.Objects.*;
+import static java.util.Objects.requireNonNull;
 
 public class AuthFilter implements Route.Handler {
 

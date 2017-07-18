@@ -203,12 +203,11 @@
  */
 package org.skife.jdbi.v2;
 
-import java.sql.Types;
-import java.util.Optional;
-
-import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.Argument;
 import org.skife.jdbi.v2.tweak.ArgumentFactory;
+
+import java.sql.Types;
+import java.util.Optional;
 
 public class OptionalArgumentFactory implements ArgumentFactory<Optional<?>> {
 

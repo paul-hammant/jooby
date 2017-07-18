@@ -203,9 +203,7 @@
  */
 package org.jooby.internal.raml;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.google.common.base.Splitter;
 import org.jooby.raml.Raml;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -217,7 +215,8 @@ import org.jsoup.select.NodeVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Splitter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Doc {
 

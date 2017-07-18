@@ -203,17 +203,15 @@
  */
 package org.jooby.internal.netty;
 
+import com.google.common.collect.ImmutableList;
+import io.netty.handler.codec.http.multipart.FileUpload;
+import org.jooby.spi.NativeUpload;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
-import org.jooby.spi.NativeUpload;
-
-import com.google.common.collect.ImmutableList;
-
-import io.netty.handler.codec.http.multipart.FileUpload;
 
 public class NettyUpload implements NativeUpload {
 
@@ -258,8 +256,8 @@ public class NettyUpload implements NativeUpload {
 
   @Override
   public List<String> headers(final String name) {
-    return header(name).<List<String>> map(ImmutableList::of)
-        .orElse(Collections.<String> emptyList());
+    return header(name).<List<String>>map(ImmutableList::of)
+        .orElse(Collections.<String>emptyList());
   }
 
   @Override

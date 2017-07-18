@@ -203,10 +203,11 @@
  */
 package org.jooby.crash;
 
-import static java.util.Arrays.asList;
-import static javaslang.Tuple.of;
-import static org.jooby.crash.CrashFSDriver.endsWith;
-import static org.jooby.crash.CrashFSDriver.noneOf;
+import javaslang.control.Try;
+import org.crsh.plugin.CRaSHPlugin;
+import org.crsh.plugin.PluginContext;
+import org.crsh.plugin.PluginLifeCycle;
+import org.crsh.vfs.FS;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -224,12 +225,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 
-import org.crsh.plugin.CRaSHPlugin;
-import org.crsh.plugin.PluginContext;
-import org.crsh.plugin.PluginLifeCycle;
-import org.crsh.vfs.FS;
-
-import javaslang.control.Try;
+import static java.util.Arrays.asList;
+import static javaslang.Tuple.of;
+import static org.jooby.crash.CrashFSDriver.endsWith;
+import static org.jooby.crash.CrashFSDriver.noneOf;
 
 class CrashBootstrap extends PluginLifeCycle {
 

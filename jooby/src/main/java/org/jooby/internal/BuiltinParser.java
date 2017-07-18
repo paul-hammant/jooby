@@ -203,6 +203,14 @@
  */
 package org.jooby.internal;
 
+import com.google.common.collect.ImmutableCollection;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSortedSet;
+import com.google.inject.TypeLiteral;
+import org.jooby.Parser;
+
 import java.lang.reflect.ParameterizedType;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -219,21 +227,12 @@ import java.util.SortedSet;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import org.jooby.Parser;
-
-import com.google.common.collect.ImmutableCollection;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.ImmutableSortedSet;
-import com.google.inject.TypeLiteral;
-
-@SuppressWarnings({"unchecked", "rawtypes" })
+@SuppressWarnings({"unchecked", "rawtypes"})
 public enum BuiltinParser implements Parser {
 
   Basic {
     private final Map<Class<?>, Function<String, Object>> parsers = ImmutableMap
-        .<Class<?>, Function<String, Object>> builder()
+        .<Class<?>, Function<String, Object>>builder()
         .put(BigDecimal.class, NOT_EMPTY.andThen(BigDecimal::new))
         .put(BigInteger.class, NOT_EMPTY.andThen(BigInteger::new))
         .put(Byte.class, NOT_EMPTY.andThen(Byte::valueOf))
@@ -300,7 +299,7 @@ public enum BuiltinParser implements Parser {
   },
 
   Collection {
-    private final Map<Class<?>, Supplier<ImmutableCollection.Builder<?>>> parsers = ImmutableMap.<Class<?>, Supplier<ImmutableCollection.Builder<?>>> builder()
+    private final Map<Class<?>, Supplier<ImmutableCollection.Builder<?>>> parsers = ImmutableMap.<Class<?>, Supplier<ImmutableCollection.Builder<?>>>builder()
         .put(List.class, ImmutableList.Builder::new)
         .put(Set.class, ImmutableSet.Builder::new)
         .put(SortedSet.class, ImmutableSortedSet::naturalOrder)

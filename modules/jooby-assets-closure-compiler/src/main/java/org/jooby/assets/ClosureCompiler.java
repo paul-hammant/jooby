@@ -203,18 +203,6 @@
  */
 package org.jooby.assets;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
-
-import org.jooby.MediaType;
-import org.slf4j.bridge.SLF4JBridgeHandler;
-
 import com.google.common.collect.ImmutableList;
 import com.google.javascript.jscomp.CheckLevel;
 import com.google.javascript.jscomp.ClosureCodingConvention;
@@ -226,6 +214,17 @@ import com.google.javascript.jscomp.DiagnosticGroups;
 import com.google.javascript.jscomp.Result;
 import com.google.javascript.jscomp.SourceFile;
 import com.typesafe.config.Config;
+import org.jooby.MediaType;
+import org.slf4j.bridge.SLF4JBridgeHandler;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 /**
  * <h1>closure-compiler</h1>

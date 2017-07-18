@@ -203,25 +203,22 @@
  */
 package org.jooby.jedis;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
+import com.typesafe.config.ConfigValueFactory;
+import org.jooby.Session;
+import org.jooby.Session.Builder;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
-import org.jooby.Session;
-import org.jooby.Session.Builder;
-
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
-import com.typesafe.config.ConfigValueFactory;
+import static java.util.Objects.requireNonNull;
 
 /**
  * A {@link Session.Store} powered by <a href="http://redis.io/">Redis</a>.

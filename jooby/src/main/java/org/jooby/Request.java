@@ -203,7 +203,12 @@
  */
 package org.jooby;
 
-import static java.util.Objects.requireNonNull;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.net.UrlEscapers;
+import com.google.inject.Key;
+import com.google.inject.TypeLiteral;
+import org.jooby.scope.RequestScoped;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -215,13 +220,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.BiFunction;
 
-import org.jooby.scope.RequestScoped;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.net.UrlEscapers;
-import com.google.inject.Key;
-import com.google.inject.TypeLiteral;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Give you access at the current HTTP request in order to read parameters, headers and body.
@@ -385,7 +384,9 @@ public interface Request extends Registry {
     @Override
     public boolean isSet(final String name) {
       return req.isSet(name);
-    };
+    }
+
+    ;
 
     @Override
     public Mutant params() {

@@ -203,10 +203,10 @@
  */
 package org.jooby.scope;
 
-import javax.inject.Provider;
-
 import com.google.inject.Key;
 import com.google.inject.OutOfScopeException;
+
+import javax.inject.Provider;
 
 public class Providers {
 

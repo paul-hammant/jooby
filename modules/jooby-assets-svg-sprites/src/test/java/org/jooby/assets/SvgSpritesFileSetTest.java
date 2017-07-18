@@ -1,17 +1,17 @@
 package org.jooby.assets;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 import java.nio.file.Paths;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class SvgSpritesFileSetTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void requireSpriteElementPath() throws Exception {
     new SvgSprites()
-        .set("spriteElementPath", "src/test/resources/svg-source")
+        .set("spriteElementPath", "src/test/resources/svg-get")
         .fileset();
   }
 

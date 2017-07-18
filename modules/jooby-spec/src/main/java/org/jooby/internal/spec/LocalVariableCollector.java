@@ -203,12 +203,6 @@
  */
 package org.jooby.internal.spec;
 
-import java.lang.reflect.Type;
-import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.Node;
@@ -297,12 +291,19 @@ import com.github.javaparser.ast.type.VoidType;
 import com.github.javaparser.ast.type.WildcardType;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.google.common.collect.Sets;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Type;
+import java.util.Set;
 
 public class LocalVariableCollector extends VoidVisitorAdapter<Context> {
 
   @SuppressWarnings("serial")
   private static class WorkDone extends RuntimeException {
-  };
+  }
+
+  ;
 
   /** The logging system. */
   private final Logger log = LoggerFactory.getLogger(getClass());

@@ -203,19 +203,17 @@
  */
 package org.jooby.internal.couchbase;
 
-import java.lang.reflect.Field;
-import java.util.function.Supplier;
-
-import org.jooby.couchbase.GeneratedValue;
-
 import com.couchbase.client.java.repository.annotation.Id;
 import com.google.common.base.Throwables;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.util.concurrent.UncheckedExecutionException;
-
 import javaslang.control.Try;
+import org.jooby.couchbase.GeneratedValue;
+
+import java.lang.reflect.Field;
+import java.util.function.Supplier;
 
 @SuppressWarnings("rawtypes")
 public final class IdGenerator {

@@ -25,7 +25,7 @@ Via `connection string` property:
 {
   use(new Jdbc("jdbc:mysql://localhost/db"));
 
-  // accessing to the data source
+  get
   get("/my-api", req -> {
     DataSource db = require(DataSource.class);
     // do something with datasource

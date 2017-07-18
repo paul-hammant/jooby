@@ -203,14 +203,6 @@
  */
 package org.jooby.internal.couchbase;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
-
-import org.jooby.couchbase.AsyncDatastore;
-import org.jooby.couchbase.N1Q;
-
 import com.couchbase.client.core.message.kv.MutationToken;
 import com.couchbase.client.java.AsyncBucket;
 import com.couchbase.client.java.PersistTo;
@@ -225,12 +217,18 @@ import com.couchbase.client.java.query.AsyncN1qlQueryRow;
 import com.couchbase.client.java.query.N1qlQuery;
 import com.couchbase.client.java.repository.AsyncRepository;
 import com.couchbase.client.java.view.ViewQuery;
-
 import javaslang.control.Try;
+import org.jooby.couchbase.AsyncDatastore;
+import org.jooby.couchbase.N1Q;
 import rx.Observable;
 import rx.functions.Func1;
 
-@SuppressWarnings({"rawtypes", "unchecked" })
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class AsyncDatastoreImpl implements AsyncDatastore {
 
   private static abstract class BaseCommandImpl implements AsyncCommand {

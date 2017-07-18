@@ -203,7 +203,14 @@
  */
 package org.jooby.internal.ehcache;
 
-import static java.util.Objects.requireNonNull;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigUtil;
+import com.typesafe.config.ConfigValue;
+import net.sf.ehcache.config.FactoryConfiguration;
+import net.sf.ehcache.config.SizeOfPolicyConfiguration;
+import org.jooby.ehcache.Eh;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.LinkedHashSet;
 import java.util.Map.Entry;
@@ -213,16 +220,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import net.sf.ehcache.config.FactoryConfiguration;
-import net.sf.ehcache.config.SizeOfPolicyConfiguration;
-
-import org.jooby.ehcache.Eh;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigUtil;
-import com.typesafe.config.ConfigValue;
+import static java.util.Objects.requireNonNull;
 
 class EhCacheBuilder {
 

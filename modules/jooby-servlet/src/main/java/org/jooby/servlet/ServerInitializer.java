@@ -203,20 +203,19 @@
  */
 package org.jooby.servlet;
 
-import static java.util.Objects.requireNonNull;
+import com.google.inject.Binder;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
+import com.typesafe.config.ConfigValueFactory;
+import org.jooby.Env;
+import org.jooby.Jooby;
+import org.jooby.spi.Server;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.jooby.Env;
-import org.jooby.Jooby;
-import org.jooby.spi.Server;
-
-import com.google.inject.Binder;
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
-import com.typesafe.config.ConfigValueFactory;
+import static java.util.Objects.requireNonNull;
 
 public class ServerInitializer implements ServletContextListener {
 
@@ -240,7 +239,8 @@ public class ServerInitializer implements ServletContextListener {
 
       app.use(ConfigFactory.empty()
           .withValue("application.path", ConfigValueFactory.fromAnyRef(ctx.getContextPath()))
-          .withValue("server.module", ConfigValueFactory.fromAnyRef(ServletModule.class.getName())));
+          .withValue("server.module",
+              ConfigValueFactory.fromAnyRef(ServletModule.class.getName())));
 
       app.start();
 

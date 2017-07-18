@@ -203,12 +203,11 @@
  */
 package org.jooby.csl;
 
-import org.jooby.Env;
-import org.jooby.Jooby.Module;
-
 import com.coverity.security.Escape;
 import com.google.inject.Binder;
 import com.typesafe.config.Config;
+import org.jooby.Env;
+import org.jooby.Jooby.Module;
 
 /**
  * <h1>xss</h1>

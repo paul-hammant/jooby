@@ -203,15 +203,15 @@
  */
 package org.jooby.thymeleaf;
 
-import java.io.FileNotFoundException;
-import java.util.Locale;
-import java.util.Map;
-
 import org.jooby.Env;
 import org.jooby.MediaType;
 import org.jooby.View;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.IContext;
+
+import java.io.FileNotFoundException;
+import java.util.Locale;
+import java.util.Map;
 
 class ThlEngine implements View.Engine {
 
@@ -224,7 +224,7 @@ class ThlEngine implements View.Engine {
     this.env = env;
   }
 
-  @SuppressWarnings({"rawtypes", "unchecked" })
+  @SuppressWarnings({"rawtypes", "unchecked"})
   @Override
   public void render(final View view, final Context ctx) throws FileNotFoundException, Exception {
     String vname = view.name();

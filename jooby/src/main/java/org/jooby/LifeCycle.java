@@ -203,24 +203,22 @@
  */
 package org.jooby;
 
-import static javaslang.API.$;
-import static javaslang.API.Case;
-import static javaslang.API.Match;
-import static javaslang.Predicates.instanceOf;
+import com.typesafe.config.Config;
+import javaslang.control.Try.CheckedConsumer;
+import javaslang.control.Try.CheckedRunnable;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Optional;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
-import com.typesafe.config.Config;
-
-import javaslang.control.Try.CheckedConsumer;
-import javaslang.control.Try.CheckedRunnable;
+import static javaslang.API.$;
+import static javaslang.API.Case;
+import static javaslang.API.Match;
+import static javaslang.Predicates.instanceOf;
 
 /**
  * <h2>life cycle</h2>
@@ -385,7 +383,9 @@ public interface LifeCycle {
       }
     }
     return Optional.empty();
-  };
+  }
+
+  ;
 
   /**
    * Add to lifecycle the given service. Any method annotated with {@link PostConstruct} or

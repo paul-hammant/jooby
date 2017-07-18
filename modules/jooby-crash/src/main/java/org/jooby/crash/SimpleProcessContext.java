@@ -203,20 +203,20 @@
  */
 package org.jooby.crash;
 
-import static javaslang.API.$;
-import static javaslang.API.Case;
-import static javaslang.API.Match;
-import static javaslang.Predicates.instanceOf;
-
-import java.io.IOException;
-import java.util.function.Consumer;
-
 import org.crsh.shell.ShellProcessContext;
 import org.crsh.shell.ShellResponse;
 import org.crsh.text.Screenable;
 import org.crsh.text.Style;
 import org.jooby.Result;
 import org.jooby.Results;
+
+import java.io.IOException;
+import java.util.function.Consumer;
+
+import static javaslang.API.$;
+import static javaslang.API.Case;
+import static javaslang.API.Match;
+import static javaslang.Predicates.instanceOf;
 
 class SimpleProcessContext implements ShellProcessContext {
 

@@ -203,21 +203,20 @@
  */
 package org.jooby;
 
-import static java.util.Objects.requireNonNull;
+import com.google.common.base.Preconditions;
+import com.google.inject.Key;
+import com.google.inject.TypeLiteral;
+import org.jooby.internal.RouteMatcher;
+import org.jooby.internal.RoutePattern;
+import org.jooby.internal.WebSocketImpl;
+import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import org.jooby.internal.RouteMatcher;
-import org.jooby.internal.RoutePattern;
-import org.jooby.internal.WebSocketImpl;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Preconditions;
-import com.google.inject.Key;
-import com.google.inject.TypeLiteral;
+import static java.util.Objects.requireNonNull;
 
 /**
  * <h1>WebSockets</h1>

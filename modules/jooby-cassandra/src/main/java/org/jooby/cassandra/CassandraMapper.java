@@ -203,23 +203,22 @@
  */
 package org.jooby.cassandra;
 
-import static javaslang.API.$;
-import static javaslang.API.Case;
-import static javaslang.API.Match;
-import static javaslang.Predicates.instanceOf;
-
-import org.jooby.Deferred;
-import org.jooby.Route.Mapper;
-
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.mapping.Result;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import org.jooby.Deferred;
+import org.jooby.Route.Mapper;
+
+import static javaslang.API.$;
+import static javaslang.API.Case;
+import static javaslang.API.Match;
+import static javaslang.Predicates.instanceOf;
 
 class CassandraMapper implements Mapper<Object> {
 
-  @SuppressWarnings({"unchecked", "rawtypes" })
+  @SuppressWarnings({"unchecked", "rawtypes"})
   private static class DeferredHandler implements Deferred.Initializer0 {
 
     private ListenableFuture future;

@@ -203,17 +203,13 @@
  */
 package org.jooby.test;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Consumer;
-
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+import com.google.common.reflect.Reflection;
+import com.google.inject.Injector;
+import com.google.inject.Key;
+import com.google.inject.name.Names;
+import javaslang.control.Try;
 import org.jooby.Deferred;
 import org.jooby.Err;
 import org.jooby.Jooby;
@@ -228,14 +224,16 @@ import org.jooby.Route.Definition;
 import org.jooby.Route.Filter;
 import org.jooby.Status;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import com.google.common.reflect.Reflection;
-import com.google.inject.Injector;
-import com.google.inject.Key;
-import com.google.inject.name.Names;
-
-import javaslang.control.Try;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 
 /**
  * <h1>tests</h1>
@@ -507,7 +505,7 @@ public class MockRouter {
     return set(null, dependency);
   }
 
-  @SuppressWarnings({"unchecked", "rawtypes" })
+  @SuppressWarnings({"unchecked", "rawtypes"})
   public MockRouter set(final String name, final Object object) {
     traverse(object.getClass(), type -> {
       Object key = Optional.ofNullable(name)
@@ -539,16 +537,23 @@ public class MockRouter {
   }
 
   public <T> T execute(final String method, final String path) throws Throwable {
-    return execute(method, path, MediaType.all, MediaType.all);
-  }
-
-  @SuppressWarnings("unchecked")
-  private <T> T execute(final String method, final String path, final MediaType contentType,
-      final MediaType... accept) throws Throwable {
-    List<Filter> filters = pipeline(method, path, contentType, Arrays.asList(accept));
+    List<Filter> filters = pipeline(method, path, MediaType.all, Arrays.asList(MediaType.all));
     if (filters.isEmpty()) {
       throw new Err(Status.NOT_FOUND, path);
     }
+    return execute(filters);
+  }
+
+  public <T> T execute(final Route.Definition route) throws Throwable {
+    return execute(Arrays.asList(route.filter()));
+  }
+
+  public List<Definition> routes() {
+    return routes;
+  }
+
+  @SuppressWarnings("unchecked")
+  private <T> T execute(final List<Filter> filters) throws Throwable {
     Iterator<Filter> pipeline = filters.iterator();
     AtomicReference<Object> ref = new AtomicReference<>();
     MockResponse rsp = new MockResponse(this.rsp, ref);

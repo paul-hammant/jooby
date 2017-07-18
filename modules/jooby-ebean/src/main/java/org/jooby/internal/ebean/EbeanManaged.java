@@ -203,16 +203,15 @@
  */
 package org.jooby.internal.ebean;
 
-import java.io.File;
-
-import javax.inject.Provider;
-
-import io.ebean.EbeanServer;
-import io.ebean.EbeanServerFactory;
-import io.ebean.config.ServerConfig;
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
 import com.typesafe.config.Config;
+import io.ebean.EbeanServer;
+import io.ebean.EbeanServerFactory;
+import io.ebean.config.ServerConfig;
+
+import javax.inject.Provider;
+import java.io.File;
 
 public class EbeanManaged implements Provider<EbeanServer> {
 

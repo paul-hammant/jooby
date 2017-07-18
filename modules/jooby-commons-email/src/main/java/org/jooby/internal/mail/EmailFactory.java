@@ -203,19 +203,17 @@
  */
 package org.jooby.internal.mail;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-
+import com.google.common.collect.ImmutableList;
+import com.typesafe.config.Config;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.HtmlEmail;
 
-import com.google.common.collect.ImmutableList;
-import com.typesafe.config.Config;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static java.util.Objects.requireNonNull;
 
 public class EmailFactory {
 
