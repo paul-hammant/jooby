@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.jooby</groupId>
+  <groupId>com.paulhammant.jooby</groupId>
   <artifactId>jooby-project</artifactId>
   <version>1.2.4-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -17,7 +17,7 @@
 
   <modules>
     <module>jooby</module>
-    <module>modules</module>
+    <module>paul</module>
   </modules>
 
   <licenses>

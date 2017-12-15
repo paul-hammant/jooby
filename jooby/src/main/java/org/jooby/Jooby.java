@@ -581,7 +581,7 @@ import java.util.stream.Collectors;
  * @see Jooby.Module
  * @since 0.1.0
  */
-public class Jooby implements Router, LifeCycle, Registry {
+public class Jooby implements Router, LifeCycle, Registry, Joobyable {
 
   /**
    * <pre>{@code
@@ -907,6 +907,14 @@ public class Jooby implements Router, LifeCycle, Registry {
     this.prefix = prefix;
     use(server);
     this.classname = classname(getClass().getName());
+  }
+
+  public void domain(Domain domain) {
+      domain.verify(this);
+  }
+
+  public void dir(Dir dir) {
+      dir.verify(this);
   }
 
   @Override
