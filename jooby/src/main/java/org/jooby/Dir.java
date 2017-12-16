@@ -203,993 +203,989 @@
  */
 package org.jooby;
 
-import com.google.inject.Injector;
-import com.google.inject.Key;
-import com.google.inject.Stage;
-import com.typesafe.config.Config;
 import org.jooby.Route.Definition;
 import org.jooby.Route.Mapper;
-import org.jooby.Session.Store;
-import org.jooby.funzy.Throwing;
 import org.jooby.handlers.AssetHandler;
 
-import java.io.File;
-import java.nio.charset.Charset;
+import javax.annotation.Nonnull;
 import java.nio.file.Path;
-import java.util.function.BiFunction;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 // public class Dir implements Router, LifeCycle, Registry {
-public class Dir implements Joobyable {
+public class Dir implements Router {
 
   private final String dirname;
-  private final Joobyable joobyable;
+  private final Router containingRouter;
 
   /**
    * @param dirname Directory name.
-   * @param joobyable The Directory is mounted inside that Jooby or Dir.
+   * @param parent The Directory is mounted inside that Jooby or Dir.
    */
-  public Dir(final String dirname, Joobyable joobyable) {
+  public Dir(final String dirname, Router parent) {
     this.dirname = dirname;
-    this.joobyable = joobyable;
+    this.containingRouter = parent;
   }
-  
+
+  /**
+   * @param dir Add sub directory.
+   */
+  @Nonnull
   public void dir(Dir dir) {
     dir.verify(this);
   }
 
+  @Nonnull
+  @Override
+  public Router use(Jooby app) {
+    return containingRouter.use(app);
+  }
 
+  @Nonnull
+  @Override
   public Route.Collection path(String path, Runnable action) {
-    return ((Jooby) joobyable).path(path, action);
+    return containingRouter.path(path, action);
   }
 
-  public Jooby onStart(final Throwing.Runnable callback) {
-    return ((Jooby) joobyable).onStart(callback);
+  @Nonnull
+  @Override
+  public Router use(String path, Jooby app) {
+    return containingRouter.use(path, app);
   }
 
-  public Jooby onStart(final Throwing.Consumer<Registry> callback) {
-    return ((Jooby) joobyable).onStart(callback);
+  @Nonnull
+  @Override
+  public Route.Group use(String pattern) {
+    return containingRouter.use(pattern);
   }
 
-  public Jooby onStarted(final Throwing.Runnable callback) {
-    return ((Jooby) joobyable).onStarted(callback);
-  }
-
-  public Jooby onStarted(final Throwing.Consumer<Registry> callback) {
-    return ((Jooby) joobyable).onStarted(callback);
-  }
-
-  public Jooby onStop(final Throwing.Runnable callback) {
-    return ((Jooby) joobyable).onStop(callback);
-  }
-
-  public Jooby onStop(final Throwing.Consumer<Registry> callback) {
-    return ((Jooby) joobyable).onStop(callback);
-  }
-
-  /**
-   * Run the given callback if and only if, application runs in the given environment.
-   *
-   * <pre>
-   * {
-   *   on("dev", () {@literal ->} {
-   *     use(new DevModule());
-   *   });
-   * }
-   * </pre>
-   *
-   * There is an else clause which is the opposite version of the env predicate:
-   *
-   * <pre>
-   * {
-   *   on("dev", () {@literal ->} {
-   *     use(new DevModule());
-   *   }).orElse(() {@literal ->} {
-   *     use(new RealModule());
-   *   });
-   * }
-   * </pre>
-   *
-   * @param env Environment where we want to run the callback.
-   * @param callback An env callback.
-   * @return This jooby instance.
-   */
-  public Jooby.EnvPredicate on(final String env, final Runnable callback) {
-    return ((Jooby) joobyable).on(env, callback);
-  }
-
-  /**
-   * Run the given callback if and only if, application runs in the given environment.
-   *
-   * <pre>
-   * {
-   *   on("dev", () {@literal ->} {
-   *     use(new DevModule());
-   *   });
-   * }
-   * </pre>
-   *
-   * There is an else clause which is the opposite version of the env predicate:
-   *
-   * <pre>
-   * {
-   *   on("dev", conf {@literal ->} {
-   *     use(new DevModule());
-   *   }).orElse(conf {@literal ->} {
-   *     use(new RealModule());
-   *   });
-   * }
-   * </pre>
-   *
-   * @param env Environment where we want to run the callback.
-   * @param callback An env callback.
-   * @return This jooby instance.
-   */
-  public Jooby.EnvPredicate on(final String env, final Consumer<Config> callback) {
-    return ((Jooby) joobyable).on(env, callback);
-  }
-
-  /**
-   * Run the given callback if and only if, application runs in the given envirobment.
-   *
-   * <pre>
-   * {
-   *   on("dev", "test", () {@literal ->} {
-   *     use(new DevModule());
-   *   });
-   * }
-   * </pre>
-   *
-   * There is an else clause which is the opposite version of the env predicate:
-   *
-   * <pre>
-   * {
-   *   on(env {@literal ->} env.equals("dev"), () {@literal ->} {
-   *     use(new DevModule());
-   *   }).orElse(() {@literal ->} {
-   *     use(new RealModule());
-   *   });
-   * }
-   * </pre>
-   *
-   * @param predicate Predicate to check the environment.
-   * @param callback An env callback.
-   * @return This jooby instance.
-   */
-  public Jooby.EnvPredicate on(final Predicate<String> predicate, final Runnable callback) {
-    return ((Jooby) joobyable).on(predicate, callback);
-  }
-
-  /**
-   * Run the given callback if and only if, application runs in the given environment.
-   *
-   * <pre>
-   * {
-   *   on(env {@literal ->} env.equals("dev"), conf {@literal ->} {
-   *     use(new DevModule());
-   *   });
-   * }
-   * </pre>
-   *
-   * @param predicate Predicate to check the environment.
-   * @param callback An env callback.
-   * @return This jooby instance.
-   */
-  public Jooby.EnvPredicate on(final Predicate<String> predicate, final Consumer<Config> callback) {
-    return ((Jooby) joobyable).on(predicate, callback);
-  }
-
-  /**
-   * Run the given callback if and only if, application runs in the given environment.
-   *
-   * <pre>
-   * {
-   *   on("dev", "test", "mock", () {@literal ->} {
-   *     use(new DevModule());
-   *   });
-   * }
-   * </pre>
-   *
-   * @param env1 Environment where we want to run the callback.
-   * @param env2 Environment where we want to run the callback.
-   * @param env3 Environment where we want to run the callback.
-   * @param callback An env callback.
-   * @return This jooby instance.
-   */
-  public Jooby on(final String env1, final String env2, final String env3,
-                final Runnable callback) {
-    return ((Jooby) joobyable).on(env1, env2, env3, callback);
-  }
-
-  public <T> T require(final Key<T> type) {
-    return ((Jooby) joobyable).require(type);
-  }
-
+  @Nonnull
+  @Override
   public Route.OneArgHandler promise(final Deferred.Initializer initializer) {
-    return ((Jooby) joobyable).promise(initializer);
+    return containingRouter.promise(initializer);
   }
 
+  @Nonnull
+  @Override
   public Route.OneArgHandler promise(final String executor,
       final Deferred.Initializer initializer) {
-    return ((Jooby) joobyable).promise(executor, initializer);
+    return containingRouter.promise(executor, initializer);
   }
 
+  @Nonnull
+  @Override
   public Route.OneArgHandler promise(final Deferred.Initializer0 initializer) {
-    return ((Jooby) joobyable).promise(initializer);
+    return containingRouter.promise(initializer);
   }
 
+  @Nonnull
+  @Override
   public Route.OneArgHandler promise(final String executor,
       final Deferred.Initializer0 initializer) {
-    return ((Jooby) joobyable).promise(executor, initializer);
+    return containingRouter.promise(executor, initializer);
   }
 
-  /**
-   * Setup a session store to use. Useful if you want/need to persist sessions between shutdowns,
-   * apply timeout policies, etc...
-   *
-   * Jooby comes with a dozen of {@link Store}, checkout the
-   * <a href="http://jooby.org/doc/session">session modules</a>.
-   *
-   * This method returns a {@link Session.Definition} objects that let you customize the session
-   * cookie.
-   *
-   * @param store A session store.
-   * @return A session store definition.
-   */
-  public Session.Definition session(final Class<? extends Store> store) {
-    return ((Jooby) joobyable).session(store);
+  @Nonnull
+  @Override
+  public Route.ZeroArgHandler deferred(String executor, Route.OneArgHandler handler) {
+    return containingRouter.deferred(executor, handler);
   }
 
-  /**
-   * Setup a session store that saves data in a the session cookie. It makes the application
-   * stateless, which help to scale easily. Keep in mind that a cookie has a limited size (up to
-   * 4kb) so you must pay attention to what you put in the session object (don't use as cache).
-   *
-   * Cookie session signed data using the <code>application.secret</code> property, so you must
-   * provide an <code>application.secret</code> value. On dev environment you can set it in your
-   * <code>.conf</code> file. In prod is probably better to provide as command line argument and/or
-   * environment variable. Just make sure to keep it private.
-   *
-   * Please note {@link Session#id()}, {@link Session#accessedAt()}, etc.. make no sense for cookie
-   * sessions, just the {@link Session#attributes()}.
-   *
-   * This method returns a {@link Session.Definition} objects that let you customize the session
-   * cookie.
-   *
-   * @return A session definition/configuration object.
-   */
-  public Session.Definition cookieSession() {
-    return ((Jooby) joobyable).cookieSession();
+  @Nonnull
+  @Override
+  public Route.ZeroArgHandler deferred(Route.OneArgHandler handler) {
+    return containingRouter.deferred(handler);
   }
 
-  /**
-   * Setup a session store to use. Useful if you want/need to persist sessions between shutdowns,
-   * apply timeout policies, etc...
-   *
-   * Jooby comes with a dozen of {@link Store}, checkout the
-   * <a href="http://jooby.org/doc/session">session modules</a>.
-   *
-   * This method returns a {@link Session.Definition} objects that let you customize the session
-   * cookie.
-   *
-   * @param store A session store.
-   * @return A session store definition.
-   */
-  public Session.Definition session(final Store store) {
-    return ((Jooby) joobyable).session(store);
+  @Nonnull
+  @Override
+  public Route.ZeroArgHandler deferred(String executor, Route.ZeroArgHandler handler) {
+    return containingRouter.deferred(executor, handler);
   }
 
-  /**
-   * Register a new param/body converter. See {@link Parser} for more details.
-   *
-   * @param parser A parser.
-   * @return This jooby instance.
-   */
-  public Jooby parser(final Parser parser) {
-    return ((Jooby) joobyable).parser(parser);
+  @Nonnull
+  @Override
+  public Route.ZeroArgHandler deferred(Route.ZeroArgHandler handler) {
+    return containingRouter.deferred(handler);
   }
 
-  /**
-   * Append a response {@link Renderer} for write HTTP messages.
-   *
-   * @param renderer A renderer renderer.
-   * @return This jooby instance.
-   */
-  public Jooby renderer(final Renderer renderer) {
-    return ((Jooby) joobyable).renderer(renderer);
-
-  }
-
+  @Nonnull
+  @Override
   public Definition before(final String method, final String pattern,
       final Route.Before handler) {
-    return ((Jooby) joobyable).before(method, pattern, handler);
+    return containingRouter.before(method, pattern, handler);
 
   }
 
+  @Nonnull
+  @Override
+  public Route.Collection before(String method, String pattern, Route.Before handler, Route.Before... next) {
+    return containingRouter.before(pattern, handler, next);
+  }
+
+  @Nonnull
+  @Override
+  public Definition after(Route.After handler) {
+    return containingRouter.after(handler);
+  }
+
+  @Nonnull
+  @Override
+  public Route.Collection after(Route.After handler, Route.After... next) {
+    return containingRouter.after(handler, next);
+  }
+
+  @Nonnull
+  @Override
+  public Definition after(String pattern, Route.After handler) {
+    return containingRouter.after(pattern, handler);
+  }
+
+  @Nonnull
+  @Override
+  public Route.Collection after(String pattern, Route.After handler, Route.After... next) {
+    return containingRouter.after(pattern, handler, next);
+  }
+
+  @Nonnull
+  @Override
   public Definition after(final String method, final String pattern,
       final Route.After handler) {
-    return ((Jooby) joobyable).after(method, pattern, handler);
+    return containingRouter.after(method, pattern, handler);
   }
 
+  @Nonnull
+  @Override
+  public Route.Collection after(String method, String pattern, Route.After handler, Route.After... next) {
+    return containingRouter.after(pattern, handler, next);
+  }
+
+  @Nonnull
+  @Override
+  public Definition complete(Route.Complete handler) {
+    return containingRouter.complete(handler);
+  }
+
+  @Nonnull
+  @Override
+  public Route.Collection complete(Route.Complete handler, Route.Complete... next) {
+    return containingRouter.complete(handler, next);
+  }
+
+  @Nonnull
+  @Override
+  public Definition complete(String pattern, Route.Complete handler) {
+    return containingRouter.complete(pattern, handler);
+  }
+
+  @Nonnull
+  @Override
+  public Route.Collection complete(String pattern, Route.Complete handler, Route.Complete... next) {
+    return containingRouter.complete(pattern, handler, next);
+  }
+
+  @Nonnull
+  @Override
   public Definition complete(final String method, final String pattern,
       final Route.Complete handler) {
-    return ((Jooby) joobyable).complete(method, pattern, handler);
+    return containingRouter.complete(method, pattern, handler);
   }
 
+  @Nonnull
+  @Override
+  public Route.Collection complete(String method, String pattern, Route.Complete handler, Route.Complete... next) {
+    return containingRouter.complete(pattern, handler, next);
+  }
+
+  @Nonnull
+  @Override
+  public WebSocket.Definition ws(String path, WebSocket.OnOpen1 handler) {
+    return containingRouter.ws(path, handler);
+  }
+
+  @Nonnull
+  @Override
   public Definition use(final String path, final Route.Filter filter) {
-    return ((Jooby) joobyable).use(path, filter);
+    return containingRouter.use(path, filter);
   }
 
+  @Nonnull
+  @Override
   public Definition use(final String verb, final String path, final Route.Filter filter) {
-    return ((Jooby) joobyable).use(verb, path, filter);
+    return containingRouter.use(verb, path, filter);
   }
 
+  @Nonnull
+  @Override
   public Definition use(final String verb, final String path, final Route.Handler handler) {
-    return ((Jooby) joobyable).use(verb, path, handler);
+    return containingRouter.use(verb, path, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition use(final String path, final Route.Handler handler) {
-    return ((Jooby) joobyable).use(path, handler);
+    return containingRouter.use(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition use(final String path, final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).use(path, handler);
+    return containingRouter.use(path, handler);
   }
 
+  @Nonnull
+  @Override
+  public Definition get(Route.Handler handler) {
+    return containingRouter.get(handler);
+  }
+
+  @Nonnull
+  @Override
   public Definition get(final String path, final Route.Handler handler) {
-    return ((Jooby) joobyable).get(path, handler);
+    return containingRouter.get(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection get(final String path1, final String path2, final Route.Handler handler) {
-    return ((Jooby) joobyable).get(path1, path2, handler);
+    return containingRouter.get(path1, path2, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection get(final String path1, final String path2, final String path3,
       final Route.Handler handler) {
-    return ((Jooby) joobyable).get(path1, path2, path3, handler);
+    return containingRouter.get(path1, path2, path3, handler);
   }
 
+  @Nonnull
+  @Override
+  public Definition get(Route.OneArgHandler handler) {
+    return containingRouter.get(handler);
+  }
+
+  @Nonnull
+  @Override
   public Definition get(final String path, final Route.OneArgHandler handler) {
     String path1 = ("/" + dirname + "/" + path).replace("//", "/")
             .replaceAll("/$", "");
-    if (joobyable instanceof Jooby) {
-      return ((Jooby) joobyable).get(path1, handler);
-    } else if (joobyable instanceof Dir) {
-      return ((Dir) joobyable).get(path1, handler);
-    } else {
-      return ((Domain) joobyable).get(path1, handler);
-    }
-
+      return containingRouter.get(path1, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection get(final String path1, final String path2,
       final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).get(path1, path2, handler);
+    return containingRouter.get(path1, path2, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection get(final String path1, final String path2,
       final String path3, final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).get(path1, path2, path3, handler);
+    return containingRouter.get(path1, path2, path3, handler);
   }
 
+  @Nonnull
+  @Override
+  public Definition get(Route.ZeroArgHandler handler) {
+    return containingRouter.get(handler);
+  }
+
+  @Nonnull
+  @Override
   public Definition get(final String path, final Route.ZeroArgHandler handler) {
     String path1 = ("/" + dirname + "/" + path).replace("//", "/")
             .replaceAll("/$", "");
-    if (joobyable instanceof Jooby) {
-      return ((Jooby) joobyable).get(path1, handler);
-    } else if (joobyable instanceof Dir) {
-      return ((Dir) joobyable).get(path1, handler);
-    } else {
-      return ((Domain) joobyable).get(path1, handler);
-    }
+    return containingRouter.get(path1, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection get(final String path1, final String path2,
       final Route.ZeroArgHandler handler) {
-    return ((Jooby) joobyable).get(path1, path2, handler);
+    return containingRouter.get(path1, path2, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection get(final String path1, final String path2,
       final String path3, final Route.ZeroArgHandler handler) {
-    return ((Jooby) joobyable).get(path1, path2, path3, handler);
+    return containingRouter.get(path1, path2, path3, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition get(final String path, final Route.Filter filter) {
-    return ((Jooby) joobyable).get(path, filter);
+    return containingRouter.get(path, filter);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection get(final String path1, final String path2, final Route.Filter filter) {
-    return ((Jooby) joobyable).get(path1, path2, filter);
+    return containingRouter.get(path1, path2, filter);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection get(final String path1, final String path2,
       final String path3, final Route.Filter filter) {
-    return ((Jooby) joobyable).get(path1, path2, path3, filter);
+    return containingRouter.get(path1, path2, path3, filter);
   }
 
+  @Nonnull
+  @Override
+  public Definition post(Route.Handler handler) {
+    return containingRouter.post(handler);
+  }
+
+  @Nonnull
+  @Override
   public Definition post(final String path, final Route.Handler handler) {
-    return ((Jooby) joobyable).post(path, handler);
+    return containingRouter.post(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection post(final String path1, final String path2,
       final Route.Handler handler) {
-    return ((Jooby) joobyable).post(path1, path2, handler);
+    return containingRouter.post(path1, path2, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection post(final String path1, final String path2,
       final String path3, final Route.Handler handler) {
-    return ((Jooby) joobyable).post(path1, path2, path3, handler);
+    return containingRouter.post(path1, path2, path3, handler);
   }
 
+  @Nonnull
+  @Override
+  public Definition post(Route.OneArgHandler handler) {
+    return containingRouter.post(handler);
+  }
+
+  @Nonnull
+  @Override
   public Definition post(final String path, final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).post(path, handler);
+    return containingRouter.post(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection post(final String path1, final String path2,
       final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).post(path1, path2, handler);
+    return containingRouter.post(path1, path2, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection post(final String path1, final String path2,
       final String path3, final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).post(path1, path2, path3, handler);
+    return containingRouter.post(path1, path2, path3, handler);
   }
 
+  @Nonnull
+  @Override
+  public Definition post(Route.ZeroArgHandler handler) {
+    return containingRouter.post(handler);
+  }
+
+  @Nonnull
+  @Override
   public Definition post(final String path, final Route.ZeroArgHandler handler) {
-    return ((Jooby) joobyable).post(path, handler);
+    return containingRouter.post(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection post(final String path1, final String path2,
       final Route.ZeroArgHandler handler) {
-    return ((Jooby) joobyable).post(path1, path2, handler);
+    return containingRouter.post(path1, path2, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection post(final String path1, final String path2,
       final String path3, final Route.ZeroArgHandler handler) {
-    return ((Jooby) joobyable).post(path1, path2, path3, handler);
+    return containingRouter.post(path1, path2, path3, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition post(final String path, final Route.Filter filter) {
-    return ((Jooby) joobyable).post(path, filter);
+    return containingRouter.post(path, filter);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection post(final String path1, final String path2,
       final Route.Filter filter) {
-    return ((Jooby) joobyable).post(path1, path2, filter);
+    return containingRouter.post(path1, path2, filter);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection post(final String path1, final String path2,
       final String path3, final Route.Filter filter) {
-    return ((Jooby) joobyable).post(path1, path2, path3, filter);
+    return containingRouter.post(path1, path2, path3, filter);
   }
 
+  @Nonnull
+  @Override
   public Definition head(final String path, final Route.Handler handler) {
-    return ((Jooby) joobyable).head(path, handler);
+    return containingRouter.head(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition head(final String path,
       final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).head(path, handler);
+    return containingRouter.head(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition head(final String path, final Route.ZeroArgHandler handler) {
-    return ((Jooby) joobyable).head(path, handler);
+    return containingRouter.head(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition head(final String path, final Route.Filter filter) {
-    return ((Jooby) joobyable).head(path, filter);
+    return containingRouter.head(path, filter);
   }
 
+  @Nonnull
+  @Override
   public Definition head() {
-    return ((Jooby) joobyable).head();
+    return containingRouter.head();
   }
 
+  @Nonnull
+  @Override
   public Definition options(final String path, final Route.Handler handler) {
-    return ((Jooby) joobyable).options(path, handler);
+    return containingRouter.options(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition options(final String path,
       final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).options(path, handler);
+    return containingRouter.options(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition options(final String path,
       final Route.ZeroArgHandler handler) {
-    return ((Jooby) joobyable).options(path, handler);
+    return containingRouter.options(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition options(final String path,
       final Route.Filter filter) {
-    return ((Jooby) joobyable).options(path, filter);
+    return containingRouter.options(path, filter);
   }
 
+  @Nonnull
+  @Override
   public Definition options() {
-    return ((Jooby) joobyable).options();
+    return containingRouter.options();
   }
 
+  @Nonnull
+  @Override
+  public Definition put(Route.Handler handler) {
+    return containingRouter.put(handler);
+  }
+
+  @Nonnull
+  @Override
   public Definition put(final String path,
       final Route.Handler handler) {
-    return ((Jooby) joobyable).put(path, handler);
+    return containingRouter.put(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection put(final String path1, final String path2,
       final Route.Handler handler) {
-    return ((Jooby) joobyable).put(path1, path2, handler);
+    return containingRouter.put(path1, path2, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection put(final String path1, final String path2,
       final String path3, final Route.Handler handler) {
-    return ((Jooby) joobyable).put(path1, path2, path3, handler);
+    return containingRouter.put(path1, path2, path3, handler);
   }
 
+  @Nonnull
+  @Override
+  public Definition put(Route.OneArgHandler handler) {
+    return containingRouter.put(handler);
+  }
+
+  @Nonnull
+  @Override
   public Definition put(final String path,
       final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).put(path, handler);
+    return containingRouter.put(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection put(final String path1, final String path2,
       final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).put(path1, path2, handler);
+    return containingRouter.put(path1, path2, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection put(final String path1, final String path2,
       final String path3, final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).put(path1, path2, path3, handler);
+    return containingRouter.put(path1, path2, path3, handler);
   }
 
+  @Nonnull
+  @Override
+  public Definition put(Route.ZeroArgHandler handler) {
+    return containingRouter.put(handler);
+  }
+
+  @Nonnull
+  @Override
   public Definition put(final String path,
       final Route.ZeroArgHandler handler) {
-    return ((Jooby) joobyable).put(path, handler);
+    return containingRouter.put(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection put(final String path1, final String path2,
       final Route.ZeroArgHandler handler) {
-    return ((Jooby) joobyable).put(path1, path2, handler);
+    return containingRouter.put(path1, path2, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection put(final String path1, final String path2,
       final String path3, final Route.ZeroArgHandler handler) {
-    return ((Jooby) joobyable).put(path1, path2, path3, handler);
+    return containingRouter.put(path1, path2, path3, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition put(final String path,
       final Route.Filter filter) {
-    return ((Jooby) joobyable).put(path, filter);
+    return containingRouter.put(path, filter);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection put(final String path1, final String path2,
       final Route.Filter filter) {
-    return ((Jooby) joobyable).put(path1, path2, filter);
+    return containingRouter.put(path1, path2, filter);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection put(final String path1, final String path2,
       final String path3, final Route.Filter filter) {
-    return ((Jooby) joobyable).put(path1, path2, path3, filter);
+    return containingRouter.put(path1, path2, path3, filter);
   }
 
+  @Nonnull
+  @Override
+  public Definition patch(Route.Handler handler) {
+    return containingRouter.patch(handler);
+  }
+
+  @Nonnull
+  @Override
   public Definition patch(final String path, final Route.Handler handler) {
-    return ((Jooby) joobyable).patch(path, handler);
+    return containingRouter.patch(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection patch(final String path1, final String path2,
       final Route.Handler handler) {
-    return ((Jooby) joobyable).patch(path1, path2, handler);
+    return containingRouter.patch(path1, path2, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection patch(final String path1, final String path2,
       final String path3, final Route.Handler handler) {
-    return ((Jooby) joobyable).patch(path1, path2, path3, handler);
+    return containingRouter.patch(path1, path2, path3, handler);
   }
 
+  @Nonnull
+  @Override
+  public Definition patch(Route.OneArgHandler handler) {
+    return containingRouter.patch(handler);
+  }
+
+  @Nonnull
+  @Override
   public Definition patch(final String path, final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).patch(path, handler);
+    return containingRouter.patch(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection patch(final String path1, final String path2,
       final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).patch(path1, path2, handler);
+    return containingRouter.patch(path1, path2, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection patch(final String path1, final String path2,
       final String path3, final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).patch(path1, path2, path3, handler);
+    return containingRouter.patch(path1, path2, path3, handler);
   }
 
+  @Nonnull
+  @Override
+  public Definition patch(Route.ZeroArgHandler handler) {
+    return containingRouter.patch(handler);
+  }
+
+  @Nonnull
+  @Override
   public Definition patch(final String path, final Route.ZeroArgHandler handler) {
-    return ((Jooby) joobyable).patch(path, handler);
+    return containingRouter.patch(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection patch(final String path1, final String path2,
       final Route.ZeroArgHandler handler) {
-    return ((Jooby) joobyable).patch(path1, path2, handler);
+    return containingRouter.patch(path1, path2, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection patch(final String path1, final String path2,
       final String path3, final Route.ZeroArgHandler handler) {
-    return ((Jooby) joobyable).patch(path1, path2, path3, handler);
+    return containingRouter.patch(path1, path2, path3, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition patch(final String path,
       final Route.Filter filter) {
-    return ((Jooby) joobyable).patch(path, filter);
+    return containingRouter.patch(path, filter);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection patch(final String path1, final String path2,
       final Route.Filter filter) {
-    return ((Jooby) joobyable).patch(path1, path2, filter);
+    return containingRouter.patch(path1, path2, filter);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection patch(final String path1, final String path2,
       final String path3, final Route.Filter filter) {
-    return ((Jooby) joobyable).patch(path1, path2, path3, filter);
+    return containingRouter.patch(path1, path2, path3, filter);
   }
 
+  @Nonnull
+  @Override
+  public Definition delete(Route.Handler handler) {
+    return containingRouter.delete(handler);
+  }
+
+  @Nonnull
+  @Override
   public Definition delete(final String path, final Route.Handler handler) {
-    return ((Jooby) joobyable).delete(path, handler);
+    return containingRouter.delete(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection delete(final String path1, final String path2,
       final Route.Handler handler) {
-    return ((Jooby) joobyable).delete(path1, path2, handler);
+    return containingRouter.delete(path1, path2, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection delete(final String path1, final String path2, final String path3,
       final Route.Handler handler) {
-    return ((Jooby) joobyable).delete(path1, path2, path3, handler);
+    return containingRouter.delete(path1, path2, path3, handler);
   }
 
+  @Nonnull
+  @Override
+  public Definition delete(Route.OneArgHandler handler) {
+    return containingRouter.delete(handler);
+  }
+
+  @Nonnull
+  @Override
   public Definition delete(final String path, final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).delete(path, handler);
+    return containingRouter.delete(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection delete(final String path1, final String path2,
       final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).delete(path1, path2, handler);
+    return containingRouter.delete(path1, path2, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection delete(final String path1, final String path2, final String path3,
       final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).delete(path1, path2, path3, handler);
+    return containingRouter.delete(path1, path2, path3, handler);
   }
 
+  @Nonnull
+  @Override
+  public Definition delete(Route.ZeroArgHandler handler) {
+    return containingRouter.delete(handler);
+  }
+
+  @Nonnull
+  @Override
   public Definition delete(final String path,
       final Route.ZeroArgHandler handler) {
-    return ((Jooby) joobyable).delete(path, handler);
+    return containingRouter.delete(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection delete(final String path1,
       final String path2, final Route.ZeroArgHandler handler) {
-    return ((Jooby) joobyable).delete(path1, path2, handler);
+    return containingRouter.delete(path1, path2, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection delete(final String path1, final String path2, final String path3,
       final Route.ZeroArgHandler handler) {
-    return ((Jooby) joobyable).delete(path1, path2, path3, handler);
+    return containingRouter.delete(path1, path2, path3, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition delete(final String path, final Route.Filter filter) {
-    return ((Jooby) joobyable).delete(path, filter);
+    return containingRouter.delete(path, filter);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection delete(final String path1, final String path2,
       final Route.Filter filter) {
-    return ((Jooby) joobyable).delete(path1, path2, filter);
+    return containingRouter.delete(path1, path2, filter);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection delete(final String path1, final String path2, final String path3,
       final Route.Filter filter) {
-    return ((Jooby) joobyable).delete(path1, path2, path3, filter);
+    return containingRouter.delete(path1, path2, path3, filter);
   }
 
+  @Nonnull
+  @Override
   public Definition trace(final String path, final Route.Handler handler) {
-    return ((Jooby) joobyable).trace(path, handler);
+    return containingRouter.trace(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition trace(final String path, final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).trace(path, handler);
+    return containingRouter.trace(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition trace(final String path, final Route.ZeroArgHandler handler) {
-    return ((Jooby) joobyable).trace(path, handler);
+    return containingRouter.trace(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition trace(final String path, final Route.Filter filter) {
-    return ((Jooby) joobyable).trace(path, filter);
+    return containingRouter.trace(path, filter);
   }
 
+  @Nonnull
+  @Override
   public Definition trace() {
-    return ((Jooby) joobyable).trace();
+    return containingRouter.trace();
   }
 
+  @Nonnull
+  @Override
   public Definition connect(final String path, final Route.Handler handler) {
-    return ((Jooby) joobyable).connect(path, handler);
+    return containingRouter.connect(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition connect(final String path, final Route.OneArgHandler handler) {
-    return ((Jooby) joobyable).connect(path, handler);
+    return containingRouter.connect(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition connect(final String path, final Route.ZeroArgHandler handler) {
-    return ((Jooby) joobyable).connect(path, handler);
+    return containingRouter.connect(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition connect(final String path, final Route.Filter filter) {
-    return ((Jooby) joobyable).connect(path, filter);
+    return containingRouter.connect(path, filter);
+  }
+
+  @Nonnull
+  @Override
+  public Definition assets(String path) {
+    return containingRouter.assets(path);
   }
 
 
-
+  @Nonnull
+  @Override
   public Definition assets(final String path, final Path basedir) {
-    return ((Jooby) joobyable).assets(path, basedir);
+    return containingRouter.assets(path, basedir);
   }
 
+  @Nonnull
+  @Override
   public Definition assets(final String path, final String location) {
-    return ((Jooby) joobyable).assets(path, location);
+    return containingRouter.assets(path, location);
   }
 
+  @Nonnull
+  @Override
   public Definition assets(final String path, final AssetHandler handler) {
-    return ((Jooby) joobyable).assets(path, handler);
+    return containingRouter.assets(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection use(final Class<?> routeClass) {
-    return ((Jooby) joobyable).use(routeClass);
+    return containingRouter.use(routeClass);
   }
 
+  @Nonnull
+  @Override
   public Route.Collection use(final String path, final Class<?> routeClass) {
-    return ((Jooby) joobyable).use(path, routeClass);
-  }
-  
-  /**
-   * Import an application {@link Jooby.Module}.
-   *
-   * @param module The module to import.
-   * @return This jooby instance.
-   * @see Jooby.Module
-   */
-  public Jooby use(final Jooby.Module module) {
-    return ((Jooby) joobyable).use(module);
+    return containingRouter.use(path, routeClass);
   }
 
-  /**
-   * Set/specify a custom .conf file, useful when you don't want a <code>application.conf</code>
-   * file.
-   *
-   * @param path Classpath location.
-   * @return This jooby instance.
-   */
-  public Jooby conf(final String path) {
-    return ((Jooby) joobyable).conf(path);
+  @Nonnull
+  @Override
+  public Definition before(Route.Before handler) {
+    return containingRouter.before(handler);
   }
 
-  /**
-   * Set/specify a custom .conf file, useful when you don't want a <code>application.conf</code>
-   * file.
-   *
-   * @param path File system location.
-   * @return This jooby instance.
-   */
-  public Jooby conf(final File path) {
-    return ((Jooby) joobyable).conf(path);
+  @Nonnull
+  @Override
+  public Route.Collection before(Route.Before handler, Route.Before... next) {
+    return containingRouter.before(handler, next);
   }
 
-  /**
-   * Set the application configuration object. You must call this method when the default file
-   * name: <code>application.conf</code> doesn't work for you or when you need/want to register two
-   * or more files.
-   *
-   * @param config The application configuration object.
-   * @return This jooby instance.
-   * @see Config
-   */
-  public Jooby use(final Config config) {
-    return ((Jooby) joobyable).use(config);
+  @Nonnull
+  @Override
+  public Definition before(String pattern, Route.Before handler) {
+    return containingRouter.before(pattern, handler);
   }
 
-  public Jooby err(final Err.Handler err) {
-    return ((Jooby) joobyable).err(err);
+  @Nonnull
+  @Override
+  public Route.Collection before(String pattern, Route.Before handler, Route.Before... next) {
+    return containingRouter.before(pattern, handler, next);
   }
 
+
+  @Nonnull
+  @Override
+  public Router err(Class<? extends Throwable> type, Err.Handler handler) {
+    return containingRouter.err(type, handler);
+  }
+
+  @Nonnull
+  @Override
+  public Router err(int statusCode, Err.Handler handler) {
+    return containingRouter.err(statusCode, handler);
+  }
+
+  @Nonnull
+  @Override
+  public Router err(Status code, Err.Handler handler) {
+    return containingRouter.err(code, handler);
+  }
+
+  @Nonnull
+  @Override
+  public Router err(Predicate<Status> predicate, Err.Handler handler) {
+    return containingRouter.err(predicate, handler);
+  }
+
+  @Nonnull
+  @Override
   public WebSocket.Definition ws(final String path, final WebSocket.OnOpen handler) {
-    return ((Jooby) joobyable).ws(path, handler);
+    return containingRouter.ws(path, handler);
   }
 
+  @Nonnull
+  @Override
+  public <T> WebSocket.Definition ws(Class<? extends WebSocket.OnMessage<T>> handler) {
+    return containingRouter.ws(handler);
+  }
+
+  @Nonnull
+  @Override
   public <T> WebSocket.Definition ws(final String path,
       final Class<? extends WebSocket.OnMessage<T>> handler) {
-    return ((Jooby) joobyable).ws(path, handler);
+    return containingRouter.ws(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition sse(final String path, final Sse.Handler handler) {
-    return ((Jooby) joobyable).sse(path, handler);
+    return containingRouter.sse(path, handler);
   }
 
+  @Nonnull
+  @Override
   public Definition sse(final String path, final Sse.Handler1 handler) {
-    return ((Jooby) joobyable).sse(path, handler);
+    return containingRouter.sse(path, handler);
   }
 
   @SuppressWarnings("rawtypes")
   public Route.Collection with(final Runnable callback) {
-    return ((Jooby) joobyable).with(callback);
+    return containingRouter.with(callback);
   }
 
-  
-
-  @SuppressWarnings("unchecked")
-  public Jooby map(final Mapper<?> mapper) {
-    return ((Jooby) joobyable).map(mapper);
+  @Nonnull
+  @Override
+  public Router map(Mapper<?> mapper) {
+    return containingRouter.map(mapper);
   }
 
-  /**
-   * Use the injection provider to create the Guice injector
-   *
-   * @param injectorFactory the injection provider
-   * @return this instance.
-   */
-
-  public Jooby injector(
-      final BiFunction<Stage, com.google.inject.Module, Injector> injectorFactory) {
-    return ((Jooby) joobyable).injector(injectorFactory);
+  @Nonnull
+  @Override
+  public Router err(Err.Handler err) {
+    return containingRouter.err(err);
   }
 
-  /**
-   * Bind the provided abstract type to the given implementation:
-   *
-   * <pre>
-   * {
-   *   bind(MyInterface.class, MyImplementation.class);
-   * }
-   * </pre>
-   *
-   * @param type Service interface.
-   * @param implementation Service implementation.
-   * @param <T> Service type.
-   * @return This instance.
-   */
-  public <T> Jooby bind(final Class<T> type, final Class<? extends T> implementation) {
-    return ((Jooby) joobyable).bind(type, implementation);
-  }
 
-  /**
-   * Bind the provided abstract type to the given implementation:
-   *
-   * <pre>
-   * {
-   *   bind(MyInterface.class, MyImplementation::new);
-   * }
-   * </pre>
-   *
-   * @param type Service interface.
-   * @param implementation Service implementation.
-   * @param <T> Service type.
-   * @return This instance.
-   */
-  public <T> Jooby bind(final Class<T> type, final Supplier<T> implementation) {
-    return ((Jooby) joobyable).bind(type, implementation);
-  }
-
-  /**
-   * Bind the provided type:
-   *
-   * <pre>
-   * {
-   *   bind(MyInterface.class);
-   * }
-   * </pre>
-   *
-   * @param type Service interface.
-   * @param <T> Service type.
-   * @return This instance.
-   */
-  public <T> Jooby bind(final Class<T> type) {
-    return ((Jooby) joobyable).bind(type);
-  }
-
-  /**
-   * Bind the provided type:
-   *
-   * <pre>
-   * {
-   *   bind(new MyService());
-   * }
-   * </pre>
-   *
-   * @param service Service.
-   * @return This instance.
-   */
-  @SuppressWarnings({"rawtypes", "unchecked"})
-  public Jooby bind(final Object service) {
-    return ((Jooby) joobyable).bind(service);
-  }
-
-  /**
-   * Bind the provided type and object that requires some type of configuration:
-   *
-   * <pre>{@code
-   * {
-   *   bind(MyService.class, conf -> new MyService(conf.getString("service.url")));
-   * }
-   * }</pre>
-   *
-   * @param type Service type.
-   * @param provider Service provider.
-   * @param <T> Service type.
-   * @return This instance.
-   */
-  public <T> Jooby bind(final Class<T> type, final Function<Config, ? extends T> provider) {
-    return ((Jooby) joobyable).bind(type, provider);
-  }
-
-  /**
-   * Bind the provided type and object that requires some type of configuration:
-   *
-   * <pre>{@code
-   * {
-   *   bind(conf -> new MyService(conf.getString("service.url")));
-   * }
-   * }</pre>
-   *
-   * @param provider Service provider.
-   * @param <T> Service type.
-   * @return This instance.
-   */
-  @SuppressWarnings({"unchecked", "rawtypes"})
-  public <T> Jooby bind(final Function<Config, T> provider) {
-    return ((Jooby) joobyable).bind(provider);
-  }
-
-  /**
-   * Set application date format.
-   *
-   * @param dateFormat A date format.
-   * @return This instance.
-   */
-  public Jooby dateFormat(final String dateFormat) {
-    return ((Jooby) joobyable).dateFormat(dateFormat);
-  }
-
-  /**
-   * Set application number format.
-   *
-   * @param numberFormat A number format.
-   * @return This instance.
-   */
-  public Jooby numberFormat(final String numberFormat) {
-    return ((Jooby) joobyable).numberFormat(numberFormat);
-  }
-
-  /**
-   * Set application/default charset.
-   *
-   * @param charset A charset.
-   * @return This instance.
-   */
-  public Jooby charset(final Charset charset) {
-    return ((Jooby) joobyable).charset(charset);
-  }
-
-  /**
-   * Set application locale (first listed are higher priority).
-   *
-   * @param languages List of locale using the language tag format.
-   * @return This instance.
-   */
-  public Jooby lang(final String... languages) {
-    return ((Jooby) joobyable).lang(languages);
-  }
-
-  /**
-   * Test if the application is up and running.
-   *
-   * @return True if the application is up and running.
-   */
-  public boolean isStarted() {
-    return ((Jooby) joobyable).isStarted();
-  }
-
-  public void verify(Joobyable joobyable) {
-    if (joobyable != this.joobyable) {
+  @Nonnull
+  public void verify(Router router) {
+    if (router != this.containingRouter) {
       throw new UnsupportedOperationException("Jooby or Dir passed into Dir() not the same as the one it was registered with via Jooby.dir(Dir) or Dir.dir(Dir)");
     }
   }

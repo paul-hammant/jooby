@@ -3,10 +3,9 @@ package com.paulhammant.joobymodularity;
 import org.jooby.Dir;
 import org.jooby.Domain;
 import org.jooby.Jooby;
-import org.jooby.Joobyable;
+import org.jooby.Router;
 
 import java.time.Duration;
-import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +51,9 @@ public class App extends Jooby {
         put("ringo", new Beatle("ringo", new Date(1940, 6, 7), null, "drummer, singer, songwriter and actor"));
       }};
 
-      get("/", () -> "John, Paul, George, Ringo");
+      get("/", () -> {
+        return "John, Paul, George, Ringo";
+      });
       get(":id", req -> beatles.get(req.param("id").value()).blurb);
       // Directory nesting:
       dir(new Dir("stats", this) {{
@@ -67,8 +68,8 @@ public class App extends Jooby {
       });
     }
 
-    public BeatlesMembers(String dirName, Joobyable joobyable) {
-      super(dirName, joobyable);
+    public BeatlesMembers(String dirName, Router parent) {
+      super(dirName, parent);
     }
 
   }
