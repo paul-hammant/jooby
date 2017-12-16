@@ -243,13 +243,13 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public Route.Collection path(String path, Runnable action) {
-    return containingRouter.path(path, action);
+    return containingRouter.path(normalizePath(path), action);
   }
 
   @Nonnull
   @Override
   public Router use(String path, Jooby app) {
-    return containingRouter.use(path, app);
+    return containingRouter.use(normalizePath(path), app);
   }
 
   @Nonnull
@@ -399,13 +399,13 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public WebSocket.Definition ws(String path, WebSocket.OnOpen1 handler) {
-    return containingRouter.ws(path, handler);
+    return containingRouter.ws(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Definition use(final String path, final Route.Filter filter) {
-    return containingRouter.use(path, filter);
+    return containingRouter.use(normalizePath(path), filter);
   }
 
   @Nonnull
@@ -423,13 +423,13 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public Definition use(final String path, final Route.Handler handler) {
-    return containingRouter.use(path, handler);
+    return containingRouter.use(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Definition use(final String path, final Route.OneArgHandler handler) {
-    return containingRouter.use(path, handler);
+    return containingRouter.use(normalizePath(path), handler);
   }
 
   @Nonnull
@@ -441,20 +441,20 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public Definition get(final String path, final Route.Handler handler) {
-    return containingRouter.get(path, handler);
+    return containingRouter.get(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection get(final String path1, final String path2, final Route.Handler handler) {
-    return containingRouter.get(path1, path2, handler);
+    return containingRouter.get(normalizePath(path1), normalizePath(path2), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection get(final String path1, final String path2, final String path3,
                               final Route.Handler handler) {
-    return containingRouter.get(path1, path2, path3, handler);
+    return containingRouter.get(normalizePath(path1), normalizePath(path2), normalizePath(path3), handler);
   }
 
   @Nonnull
@@ -466,23 +466,26 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public Definition get(final String path, final Route.OneArgHandler handler) {
-    String path1 = ("/" + path).replace("//", "/")
+    return containingRouter.get(normalizePath(path), handler).name(representativeName);
+  }
+
+  private String normalizePath(String path) {
+    return ("/" + path).replace("//", "/")
             .replaceAll("/$", "");
-    return containingRouter.get(path1, handler).name(representativeName);
   }
 
   @Nonnull
   @Override
   public Route.Collection get(final String path1, final String path2,
                               final Route.OneArgHandler handler) {
-    return containingRouter.get(path1, path2, handler);
+    return containingRouter.get(normalizePath(path1), normalizePath(path2), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection get(final String path1, final String path2,
                               final String path3, final Route.OneArgHandler handler) {
-    return containingRouter.get(path1, path2, path3, handler);
+    return containingRouter.get(normalizePath(path1), normalizePath(path2), normalizePath(path3), handler);
   }
 
   @Nonnull
@@ -494,42 +497,40 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public Definition get(final String path, final Route.ZeroArgHandler handler) {
-    String path1 = ("/" + path).replace("//", "/")
-            .replaceAll("/$", "");
-    return containingRouter.get(path1, handler).name(representativeName);
+    return containingRouter.get(normalizePath(path), handler).name(representativeName);
   }
 
   @Nonnull
   @Override
   public Route.Collection get(final String path1, final String path2,
                               final Route.ZeroArgHandler handler) {
-    return containingRouter.get(path1, path2, handler);
+    return containingRouter.get(normalizePath(path1), normalizePath(path1), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection get(final String path1, final String path2,
                               final String path3, final Route.ZeroArgHandler handler) {
-    return containingRouter.get(path1, path2, path3, handler);
+    return containingRouter.get(normalizePath(path1), normalizePath(path2), normalizePath(path3), handler);
   }
 
   @Nonnull
   @Override
   public Definition get(final String path, final Route.Filter filter) {
-    return containingRouter.get(path, filter);
+    return containingRouter.get(normalizePath(path), filter);
   }
 
   @Nonnull
   @Override
   public Route.Collection get(final String path1, final String path2, final Route.Filter filter) {
-    return containingRouter.get(path1, path2, filter);
+    return containingRouter.get(normalizePath(path1), normalizePath(path2), filter);
   }
 
   @Nonnull
   @Override
   public Route.Collection get(final String path1, final String path2,
                               final String path3, final Route.Filter filter) {
-    return containingRouter.get(path1, path2, path3, filter);
+    return containingRouter.get(normalizePath(path1), normalizePath(path2), normalizePath(path3), filter);
   }
 
   @Nonnull
@@ -541,21 +542,21 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public Definition post(final String path, final Route.Handler handler) {
-    return containingRouter.post(path, handler);
+    return containingRouter.post(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection post(final String path1, final String path2,
                                final Route.Handler handler) {
-    return containingRouter.post(path1, path2, handler);
+    return containingRouter.post(normalizePath(path1), normalizePath(path2), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection post(final String path1, final String path2,
                                final String path3, final Route.Handler handler) {
-    return containingRouter.post(path1, path2, path3, handler);
+    return containingRouter.post(normalizePath(path1), normalizePath(path2), normalizePath(path3), handler);
   }
 
   @Nonnull
@@ -567,21 +568,21 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public Definition post(final String path, final Route.OneArgHandler handler) {
-    return containingRouter.post(path, handler);
+    return containingRouter.post(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection post(final String path1, final String path2,
                                final Route.OneArgHandler handler) {
-    return containingRouter.post(path1, path2, handler);
+    return containingRouter.post(normalizePath(path1), normalizePath(path2), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection post(final String path1, final String path2,
                                final String path3, final Route.OneArgHandler handler) {
-    return containingRouter.post(path1, path2, path3, handler);
+    return containingRouter.post(normalizePath(path1), normalizePath(path2), normalizePath(path3), handler);
   }
 
   @Nonnull
@@ -593,66 +594,66 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public Definition post(final String path, final Route.ZeroArgHandler handler) {
-    return containingRouter.post(path, handler);
+    return containingRouter.post(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection post(final String path1, final String path2,
                                final Route.ZeroArgHandler handler) {
-    return containingRouter.post(path1, path2, handler);
+    return containingRouter.post(normalizePath(path1), normalizePath(path2), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection post(final String path1, final String path2,
                                final String path3, final Route.ZeroArgHandler handler) {
-    return containingRouter.post(path1, path2, path3, handler);
+    return containingRouter.post(normalizePath(path1), normalizePath(path2), normalizePath(path3), handler);
   }
 
   @Nonnull
   @Override
   public Definition post(final String path, final Route.Filter filter) {
-    return containingRouter.post(path, filter);
+    return containingRouter.post(normalizePath(path), filter);
   }
 
   @Nonnull
   @Override
   public Route.Collection post(final String path1, final String path2,
                                final Route.Filter filter) {
-    return containingRouter.post(path1, path2, filter);
+    return containingRouter.post(normalizePath(path1), normalizePath(path2), filter);
   }
 
   @Nonnull
   @Override
   public Route.Collection post(final String path1, final String path2,
                                final String path3, final Route.Filter filter) {
-    return containingRouter.post(path1, path2, path3, filter);
+    return containingRouter.post(normalizePath(path1), normalizePath(path2), normalizePath(path3), filter);
   }
 
   @Nonnull
   @Override
   public Definition head(final String path, final Route.Handler handler) {
-    return containingRouter.head(path, handler);
+    return containingRouter.head(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Definition head(final String path,
                          final Route.OneArgHandler handler) {
-    return containingRouter.head(path, handler);
+    return containingRouter.head(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Definition head(final String path, final Route.ZeroArgHandler handler) {
-    return containingRouter.head(path, handler);
+    return containingRouter.head(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Definition head(final String path, final Route.Filter filter) {
-    return containingRouter.head(path, filter);
+    return containingRouter.head(normalizePath(path), filter);
   }
 
   @Nonnull
@@ -664,28 +665,28 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public Definition options(final String path, final Route.Handler handler) {
-    return containingRouter.options(path, handler);
+    return containingRouter.options(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Definition options(final String path,
                             final Route.OneArgHandler handler) {
-    return containingRouter.options(path, handler);
+    return containingRouter.options(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Definition options(final String path,
                             final Route.ZeroArgHandler handler) {
-    return containingRouter.options(path, handler);
+    return containingRouter.options(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Definition options(final String path,
                             final Route.Filter filter) {
-    return containingRouter.options(path, filter);
+    return containingRouter.options(normalizePath(path), filter);
   }
 
   @Nonnull
@@ -704,21 +705,21 @@ public class Domain implements Router {
   @Override
   public Definition put(final String path,
                         final Route.Handler handler) {
-    return containingRouter.put(path, handler);
+    return containingRouter.put(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection put(final String path1, final String path2,
                               final Route.Handler handler) {
-    return containingRouter.put(path1, path2, handler);
+    return containingRouter.put(normalizePath(path1), normalizePath(path2), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection put(final String path1, final String path2,
                               final String path3, final Route.Handler handler) {
-    return containingRouter.put(path1, path2, path3, handler);
+    return containingRouter.put(normalizePath(path1), normalizePath(path2), normalizePath(path3), handler);
   }
 
   @Nonnull
@@ -731,21 +732,21 @@ public class Domain implements Router {
   @Override
   public Definition put(final String path,
                         final Route.OneArgHandler handler) {
-    return containingRouter.put(path, handler);
+    return containingRouter.put(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection put(final String path1, final String path2,
                               final Route.OneArgHandler handler) {
-    return containingRouter.put(path1, path2, handler);
+    return containingRouter.put(normalizePath(path1), normalizePath(path2), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection put(final String path1, final String path2,
                               final String path3, final Route.OneArgHandler handler) {
-    return containingRouter.put(path1, path2, path3, handler);
+    return containingRouter.put(normalizePath(path1), normalizePath(path2), normalizePath(path3), handler);
   }
 
   @Nonnull
@@ -758,42 +759,42 @@ public class Domain implements Router {
   @Override
   public Definition put(final String path,
                         final Route.ZeroArgHandler handler) {
-    return containingRouter.put(path, handler);
+    return containingRouter.put(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection put(final String path1, final String path2,
                               final Route.ZeroArgHandler handler) {
-    return containingRouter.put(path1, path2, handler);
+    return containingRouter.put(normalizePath(path1), normalizePath(path2), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection put(final String path1, final String path2,
                               final String path3, final Route.ZeroArgHandler handler) {
-    return containingRouter.put(path1, path2, path3, handler);
+    return containingRouter.put(normalizePath(path1), normalizePath(path2), normalizePath(path3), handler);
   }
 
   @Nonnull
   @Override
   public Definition put(final String path,
                         final Route.Filter filter) {
-    return containingRouter.put(path, filter);
+    return containingRouter.put(normalizePath(path), filter);
   }
 
   @Nonnull
   @Override
   public Route.Collection put(final String path1, final String path2,
                               final Route.Filter filter) {
-    return containingRouter.put(path1, path2, filter);
+    return containingRouter.put(normalizePath(path1), normalizePath(path2), filter);
   }
 
   @Nonnull
   @Override
   public Route.Collection put(final String path1, final String path2,
                               final String path3, final Route.Filter filter) {
-    return containingRouter.put(path1, path2, path3, filter);
+    return containingRouter.put(normalizePath(path1), normalizePath(path2), normalizePath(path3), filter);
   }
 
   @Nonnull
@@ -805,21 +806,21 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public Definition patch(final String path, final Route.Handler handler) {
-    return containingRouter.patch(path, handler);
+    return containingRouter.patch(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection patch(final String path1, final String path2,
                                 final Route.Handler handler) {
-    return containingRouter.patch(path1, path2, handler);
+    return containingRouter.patch(normalizePath(path1), normalizePath(path2), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection patch(final String path1, final String path2,
                                 final String path3, final Route.Handler handler) {
-    return containingRouter.patch(path1, path2, path3, handler);
+    return containingRouter.patch(normalizePath(path1), normalizePath(path2), normalizePath(path3), handler);
   }
 
   @Nonnull
@@ -831,21 +832,21 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public Definition patch(final String path, final Route.OneArgHandler handler) {
-    return containingRouter.patch(path, handler);
+    return containingRouter.patch(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection patch(final String path1, final String path2,
                                 final Route.OneArgHandler handler) {
-    return containingRouter.patch(path1, path2, handler);
+    return containingRouter.patch(normalizePath(path1), normalizePath(path2), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection patch(final String path1, final String path2,
                                 final String path3, final Route.OneArgHandler handler) {
-    return containingRouter.patch(path1, path2, path3, handler);
+    return containingRouter.patch(normalizePath(path1), normalizePath(path2), normalizePath(path3), handler);
   }
 
   @Nonnull
@@ -857,42 +858,42 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public Definition patch(final String path, final Route.ZeroArgHandler handler) {
-    return containingRouter.patch(path, handler);
+    return containingRouter.patch(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection patch(final String path1, final String path2,
                                 final Route.ZeroArgHandler handler) {
-    return containingRouter.patch(path1, path2, handler);
+    return containingRouter.patch(normalizePath(path1), normalizePath(path2), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection patch(final String path1, final String path2,
                                 final String path3, final Route.ZeroArgHandler handler) {
-    return containingRouter.patch(path1, path2, path3, handler);
+    return containingRouter.patch(normalizePath(path1), normalizePath(path2), normalizePath(path3), handler);
   }
 
   @Nonnull
   @Override
   public Definition patch(final String path,
                           final Route.Filter filter) {
-    return containingRouter.patch(path, filter);
+    return containingRouter.patch(normalizePath(path), filter);
   }
 
   @Nonnull
   @Override
   public Route.Collection patch(final String path1, final String path2,
                                 final Route.Filter filter) {
-    return containingRouter.patch(path1, path2, filter);
+    return containingRouter.patch(normalizePath(path1), normalizePath(path2), filter);
   }
 
   @Nonnull
   @Override
   public Route.Collection patch(final String path1, final String path2,
                                 final String path3, final Route.Filter filter) {
-    return containingRouter.patch(path1, path2, path3, filter);
+    return containingRouter.patch(normalizePath(path1), normalizePath(path2), normalizePath(path3), filter);
   }
 
   @Nonnull
@@ -904,21 +905,21 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public Definition delete(final String path, final Route.Handler handler) {
-    return containingRouter.delete(path, handler);
+    return containingRouter.delete(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection delete(final String path1, final String path2,
                                  final Route.Handler handler) {
-    return containingRouter.delete(path1, path2, handler);
+    return containingRouter.delete(normalizePath(path1), normalizePath(path2), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection delete(final String path1, final String path2, final String path3,
                                  final Route.Handler handler) {
-    return containingRouter.delete(path1, path2, path3, handler);
+    return containingRouter.delete(normalizePath(path1), normalizePath(path2), normalizePath(path3), handler);
   }
 
   @Nonnull
@@ -930,21 +931,21 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public Definition delete(final String path, final Route.OneArgHandler handler) {
-    return containingRouter.delete(path, handler);
+    return containingRouter.delete(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection delete(final String path1, final String path2,
                                  final Route.OneArgHandler handler) {
-    return containingRouter.delete(path1, path2, handler);
+    return containingRouter.delete(normalizePath(path1), normalizePath(path2), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection delete(final String path1, final String path2, final String path3,
                                  final Route.OneArgHandler handler) {
-    return containingRouter.delete(path1, path2, path3, handler);
+    return containingRouter.delete(normalizePath(path1), normalizePath(path2), normalizePath(path3), handler);
   }
 
   @Nonnull
@@ -957,65 +958,65 @@ public class Domain implements Router {
   @Override
   public Definition delete(final String path,
                            final Route.ZeroArgHandler handler) {
-    return containingRouter.delete(path, handler);
+    return containingRouter.delete(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection delete(final String path1,
                                  final String path2, final Route.ZeroArgHandler handler) {
-    return containingRouter.delete(path1, path2, handler);
+    return containingRouter.delete(normalizePath(path1), normalizePath(path2), handler);
   }
 
   @Nonnull
   @Override
   public Route.Collection delete(final String path1, final String path2, final String path3,
                                  final Route.ZeroArgHandler handler) {
-    return containingRouter.delete(path1, path2, path3, handler);
+    return containingRouter.delete(normalizePath(path1), normalizePath(path2), normalizePath(path3), handler);
   }
 
   @Nonnull
   @Override
   public Definition delete(final String path, final Route.Filter filter) {
-    return containingRouter.delete(path, filter);
+    return containingRouter.delete(normalizePath(path), filter);
   }
 
   @Nonnull
   @Override
   public Route.Collection delete(final String path1, final String path2,
                                  final Route.Filter filter) {
-    return containingRouter.delete(path1, path2, filter);
+    return containingRouter.delete(normalizePath(path1), normalizePath(path2), filter);
   }
 
   @Nonnull
   @Override
   public Route.Collection delete(final String path1, final String path2, final String path3,
                                  final Route.Filter filter) {
-    return containingRouter.delete(path1, path2, path3, filter);
+    return containingRouter.delete(normalizePath(path1), normalizePath(path2), normalizePath(path3), filter);
   }
 
   @Nonnull
   @Override
   public Definition trace(final String path, final Route.Handler handler) {
-    return containingRouter.trace(path, handler);
+    return containingRouter.trace(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Definition trace(final String path, final Route.OneArgHandler handler) {
-    return containingRouter.trace(path, handler);
+    return containingRouter.trace(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Definition trace(final String path, final Route.ZeroArgHandler handler) {
-    return containingRouter.trace(path, handler);
+    return containingRouter.trace(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Definition trace(final String path, final Route.Filter filter) {
-    return containingRouter.trace(path, filter);
+    return containingRouter.trace(normalizePath(path), filter);
   }
 
   @Nonnull
@@ -1027,25 +1028,25 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public Definition connect(final String path, final Route.Handler handler) {
-    return containingRouter.connect(path, handler);
+    return containingRouter.connect(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Definition connect(final String path, final Route.OneArgHandler handler) {
-    return containingRouter.connect(path, handler);
+    return containingRouter.connect(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Definition connect(final String path, final Route.ZeroArgHandler handler) {
-    return containingRouter.connect(path, handler);
+    return containingRouter.connect(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Definition connect(final String path, final Route.Filter filter) {
-    return containingRouter.connect(path, filter);
+    return containingRouter.connect(normalizePath(path), filter);
   }
 
   @Nonnull
@@ -1058,19 +1059,19 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public Definition assets(final String path, final Path basedir) {
-    return containingRouter.assets(path, basedir);
+    return containingRouter.assets(normalizePath(path), basedir);
   }
 
   @Nonnull
   @Override
   public Definition assets(final String path, final String location) {
-    return containingRouter.assets(path, location);
+    return containingRouter.assets(normalizePath(path), location);
   }
 
   @Nonnull
   @Override
   public Definition assets(final String path, final AssetHandler handler) {
-    return containingRouter.assets(path, handler);
+    return containingRouter.assets(normalizePath(path), handler);
   }
 
   @Nonnull
@@ -1082,7 +1083,7 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public Route.Collection use(final String path, final Class<?> routeClass) {
-    return containingRouter.use(path, routeClass);
+    return containingRouter.use(normalizePath(path), routeClass);
   }
 
   @Nonnull
@@ -1137,7 +1138,7 @@ public class Domain implements Router {
   @Nonnull
   @Override
   public WebSocket.Definition ws(final String path, final WebSocket.OnOpen handler) {
-    return containingRouter.ws(path, handler);
+    return containingRouter.ws(normalizePath(path), handler);
   }
 
   @Nonnull
@@ -1150,19 +1151,19 @@ public class Domain implements Router {
   @Override
   public <T> WebSocket.Definition ws(final String path,
                                      final Class<? extends WebSocket.OnMessage<T>> handler) {
-    return containingRouter.ws(path, handler);
+    return containingRouter.ws(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Definition sse(final String path, final Sse.Handler handler) {
-    return containingRouter.sse(path, handler);
+    return containingRouter.sse(normalizePath(path), handler);
   }
 
   @Nonnull
   @Override
   public Definition sse(final String path, final Sse.Handler1 handler) {
-    return containingRouter.sse(path, handler);
+    return containingRouter.sse(normalizePath(path), handler);
   }
 
   @SuppressWarnings("rawtypes")
