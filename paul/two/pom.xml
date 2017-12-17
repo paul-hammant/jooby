@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.jooby</groupId>
+    <artifactId>modules</artifactId>
+    <version>1.2.3</version>
+  </parent>
+
+  <artifactId>phjooby-demo-dir</artifactId>
+  <groupId>com.paulhammant.phooby</groupId>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>phjooby demo directory</name>
+
+  <properties>
+    <jooby.version>1.2.3</jooby.version>
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>com.paulhammant.phooby</groupId>
+      <artifactId>phooby</artifactId>
+      <version>1.2.3</version>
+    </dependency>
+
+
+    <!-- logging -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Just say no to seven page license inclusion in source files -->
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <version>${license-maven-plugin.version}</version>
+        <configuration>
+          <header>LICENSE</header>
+          <strictCheck>true</strictCheck>
+          <aggregate>true</aggregate>
+          <skipExistingHeaders>false</skipExistingHeaders>
+          <includes>
+            <include>src/main/java/**/*.java</include>
+            <include>src/main/kotlin/**/*.kt</include>
+          </includes>
+        </configuration>
+        <executions>
+          <execution>
+            <!-- phase none disables this plugin that's otherwise default in the grandparent pom -->
+            <phase>none</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

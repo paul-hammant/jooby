@@ -30,6 +30,7 @@ public class AppTest {
     get("http://music.localhost:8432/beatles/members/stats/still-with-us").then().assertThat().body(equalTo("2 of 4"));
 
     get("http://books.localhost:8432/dune").then().assertThat().body(equalTo("What a great novel, thanks Frank Herbert, RIP"));
+    get("http://books.localhost:8432/").then().assertThat().statusCode(404);
 
   }
 
