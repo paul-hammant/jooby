@@ -5,22 +5,22 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.jooby</groupId>
-    <artifactId>modules</artifactId>
-    <version>1.2.3</version>
+    <groupId>com.paulhammant.jooby</groupId>
+    <artifactId>phooby-project</artifactId>
+    <version>1.2.4-SNAPSHOT</version>
   </parent>
 
-  <artifactId>phjooby-demo-parent</artifactId>
-  <groupId>com.paulhammant.joobymodularity</groupId>
+  <artifactId>phooby-demo-parent</artifactId>
+  <groupId>com.paulhammant.phooby</groupId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>phjooby demo app</name>
+  <name>phooby demo</name>
 
   <modules>
-    <module>one</module>
-    <module>two</module>
-    <module>three</module>
+    <module>phooby-demo-domain</module>
+    <module>phooby-demo-dir</module>
+    <module>phooby-demo-app</module>
   </modules>
 
 </project>
